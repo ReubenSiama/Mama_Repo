@@ -80,7 +80,7 @@ class HomeController extends Controller
     {
         date_default_timezone_set("Asia/Kolkata");
         $loginTime = mktime(07,15,00);
-        $logoutTime = mktime(16,45,00);
+        $logoutTime = mktime(20,45,00);
         $outtime = date('H:i:sA',$logoutTime);
         $ldate = date('H:i:sA');
         $lodate = date('H:i:sA',$loginTime);
