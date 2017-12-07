@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        MamaHome
+                        <img style="height: 25px; width: 170px;" src="{{ URL::to('/') }}/logo.png">
                     </a>
                 </div>
 

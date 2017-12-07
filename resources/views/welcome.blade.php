@@ -78,8 +78,9 @@
             @endif
 
             <div class="content">
+                <img src="{{ URL::to('/') }}/logo.png">
                 <div class="title m-b-md">
-                    MamaHome<br> Management Technology 
+                    MamaHome<br> Micro Technology 
                 </div>
 
                 <!-- <div class="links">
