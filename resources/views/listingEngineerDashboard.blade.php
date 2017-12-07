@@ -19,11 +19,9 @@
            You have listed <strong>{{ $numbercount }}</strong> projects so far.
          </label><br>
        </div>
-    <!--
         <div class="pull-right col-lg-8">
           <img class="img-thumbnail" src="{{ URL::to('/') }}/subWardImages/{{ $subwards->sub_ward_image }}">
         </div>
-    -->
        @else
        No wards assigned to you yet
        @endif
