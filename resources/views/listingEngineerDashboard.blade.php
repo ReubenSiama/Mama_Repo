@@ -40,7 +40,7 @@
     var created = new Array();
     var updated = new Array();
     @foreach($projects as $project)
-      locations.push(["{{ $project->project_name }}",{{ $project->siteaddress->latitude}}, {{ $project->siteaddress->longitude }}]);
+      locations.push(["<a href=\"https://maps.google.com/?q={{ $project->siteaddress->address }}\">{{ $project->siteaddress->address }}</a>",{{ $project->siteaddress->latitude}}, {{ $project->siteaddress->longitude }}]);
       created.push("{{ $project->created_at}}");
       updated.push("{{ $project->updated_at}}");
     @endforeach
