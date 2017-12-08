@@ -93,7 +93,7 @@
                                <tr>
                                    <td>Project Size</td>
                                    <td>:</td>
-                                   <td><input id="pSize" required placeholder="Project Size in Sq." type="number" class="form-control input-sm" name="pSize"></td>
+                                   <td><input id="pSize" required placeholder="Project Size in Sq. Ft." type="number" class="form-control input-sm" name="pSize"></td>
                                </tr>
                                <tr>
                                    <td>Budget</td>
