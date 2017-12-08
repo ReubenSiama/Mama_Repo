@@ -213,7 +213,7 @@
                                     @foreach($subwards as $ward)
                                     <tr>
                                         <td>{{ $ward->sub_ward_name }}</td>
-                                        <td><a data-toggle="modal" data-target="#myModal" href="#">Click Here to view image</a></td>
+                                        <td><a href="{{ URL::to('/')}}/subwardImages/{{ $ward->sub_ward_image}}">Click Here to view image</a></td>
                                         <th><button class="btn btn-danger input-sm">Delete</button></th>
                                     </tr>
                                     @endforeach
@@ -224,25 +224,4 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" style="font-size: 60px;">&times;</button>
-      </div>
-      <div class="modal-body">
-        <center>
-            <img width="600" class="thumbnail" src="https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg">
-        </center>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
 @endsection
