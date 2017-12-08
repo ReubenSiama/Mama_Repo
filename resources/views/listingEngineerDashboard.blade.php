@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div id="test"></div>
+<br><br>
 
 <div class="col-md-8 col-md-offset-2" style="border-style: ridge;">
 <div id="map" style="width:100%;height:400px"></div>
