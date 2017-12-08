@@ -366,7 +366,6 @@
                 </div>
             </div>
         </div>
-<a href="/leDashboard" class="btn btn-primary">Back</a>
     </div>
 </div>
 <script>

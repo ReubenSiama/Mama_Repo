@@ -237,7 +237,11 @@ class mamaController extends Controller
         $procurementDetails = New ProcurementDetails;
         $procurementDetails->project_id = $projectdetails->id;
         $procurementDetails->procurement_name = $request->pName;
+        if($request->pEmail){
         $procurementDetails->procurement_email = $request->pEmail;
+        }else{
+            $procurementDetails->procurement_email = 'N/A';
+        }
         $procurementDetails->procurement_contact_no = $request->pContact;
         $procurementDetails->save();
         return back();

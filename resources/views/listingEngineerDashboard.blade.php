@@ -41,8 +41,8 @@
     var updated = new Array();
     @foreach($projects as $project)
       locations.push(["{{ $project->project_name }}",{{ $project->siteaddress->latitude}}, {{ $project->siteaddress->longitude }}]);
-      created.push("{{ $project->created_at->diffForHumans()}}");
-      updated.push("{{ $project->updated_at->diffForHumans()}}");
+      created.push("{{ $project->created_at}}");
+      updated.push("{{ $project->updated_at}}");
     @endforeach
 
     var map = new google.maps.Map(document.getElementById('map'), {

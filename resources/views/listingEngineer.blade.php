@@ -54,6 +54,7 @@
                                    <td>
                                        <select id="status" required name="status" class="form-control input-sm">
                                            <option value="">--Select--</option>
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -197,7 +198,7 @@
                                <tr>
                                    <td>Procurement Email</td>
                                    <td>:</td>
-                                   <td><input id="pEmail" required placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
+                                   <td><input placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Contact No.</td>
@@ -296,8 +297,6 @@ function sum(){
         }else if(current == 'sixth'){
           if(document.getElementById("prName").value == ""){
             window.alert("Please Enter Procurement Name");
-          }else if(document.getElementById("pEmail").value == ""){
-            window.alert("Please Enter Procurement Email");
           }else if(document.getElementById("prPhone") == ""){
             window.alert("Please enter phone number");
           }else{ 
