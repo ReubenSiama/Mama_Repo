@@ -39,6 +39,11 @@
                                    <td><input id="road" required type="text" placeholder="Road Name" class="form-control input-sm" name="rName"></td>
                                </tr>
                                <tr>
+                                   <td>Address</td>
+                                   <td>:</td>
+                                   <td><input id="address" required type="text" placeholder="Address" class="form-control input-sm" name="address"></td>
+                               </tr>
+                               <tr>
                                    <td>Municipal Approval</td>
                                    <td>:</td>
                                    <td><input type="file" accept="image/*" class="form-control input-sm" name="mApprove"></td>
@@ -221,20 +226,77 @@
         </div>
     </div>
 </div>
-<script>
-var x = document.getElementById("demo");
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        document.getElementById("getBtn").className = "hidden";
-    } else {
-        document.getElementById("x").innerHTML = "Please try it later.";
+
+
+<!-- get location -->
+<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" charset="utf-8">
+   function getLocation(){
+      console.log("Entering getLocation()");
+      if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+      displayCurrentLocation,
+      displayError,
+      { 
+        maximumAge: 3000, 
+        timeout: 5000, 
+        enableHighAccuracy: true 
+      });
+    }else{
+      console.log("Oops, no geolocation support");
+    } 
+      console.log("Exiting getLocation()");
+    };
+    function displayCurrentLocation(position){
+      console.log("Entering displayCurrentLocation");
+      var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    document.getElementById("longitude").value = longitude;
+    document.getElementById("latitude").value = latitude;
+    console.log("Latitude " + latitude +" Longitude " + longitude);
+    getAddressFromLatLang(latitude,longitude);
+      console.log("Exiting displayCurrentLocation");
     }
-}
-function showPosition(position) { 
-    document.getElementById("longitude").value = position.coords.longitude;
-    document.getElementById("latitude").value = position.coords.latitude;
-}
+   function  displayError(error){
+    console.log("Entering ConsultantLocator.displayError()");
+    var errorType = {
+      0: "Unknown error",
+      1: "Permission denied by user",
+      2: "Position is not available",
+      3: "Request time out"
+    };
+    var errorMessage = errorType[error.code];
+    if(error.code == 0  || error.code == 2){
+      errorMessage = errorMessage + "  " + error.message;
+    }
+    alert("Error Message " + errorMessage);
+    console.log("Exiting ConsultantLocator.displayError()");
+  }
+    function getAddressFromLatLang(lat,lng){
+      console.log("Entering getAddressFromLatLang()");
+      var geocoder = new google.maps.Geocoder();
+        var latLng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode( { 'latLng': latLng}, function(results, status) {
+        console.log("After getting address");
+        console.log(results);
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            console.log(results[1]);
+            document.getElementById("address").value = results[1].formatted_address;
+          }
+        }else{
+          alert("Geocode was not successful for the following reason: " + status);
+        }
+        });
+      console.log("Entering getAddressFromLatLang()");
+    }
+    </script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGSf_6gjXK-5ipH2C2-XFI7eUxbHg1QTU"></script>
+
+
+<script>
 var basement;
 var ground;
 function sum(){

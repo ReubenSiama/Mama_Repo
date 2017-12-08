@@ -204,6 +204,7 @@ class mamaController extends Controller
         $siteaddress->project_id = $projectdetails->id;
         $siteaddress->latitude = $request->latitude;
         $siteaddress->longitude = $request->longitude;
+        $siteaddress->address = $request->address;
         $siteaddress->save();
 
         $ownerDetails = New OwnerDetails;
