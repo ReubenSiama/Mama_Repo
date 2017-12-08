@@ -12,11 +12,11 @@
       @if($subwards)
       <div class="col-md-3"> 
          You are in {{$subwards->sub_ward_name}}<br><br>
-         <a href="{{ URL::to('/')}}/listingEngineer">Add New Project</a><br>
-         <a href="{{ URL::to('/')}}/roads">Update Project</a><br>
+         <a class="btn btn-primary" href="{{ URL::to('/')}}/listingEngineer">Add New Project</a><br><br>
+         <a class="btn btn-primary" href="{{ URL::to('/')}}/roads">Update Project</a><br><br>
          <label>
            You have listed <strong>{{ $numbercount }}</strong> projects so far.
-         </label><br>
+         </label><br><br>
        </div>
         <div class="pull-right col-lg-8">
           <img class="img-thumbnail" src="{{ URL::to('/') }}/subWardImages/{{ $subwards->sub_ward_image }}">
