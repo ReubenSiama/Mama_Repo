@@ -46,3 +46,4 @@ Route::get('/{id}/viewDetails','HomeController@viewDetails');
 Route::get('/roads','HomeController@getRoads');
 Route::get('/{road}/projectlist','HomeController@viewProjectList');
 Route::get('/reports','HomeController@getMyReports');
+Route::get('/completed','HomeController@updateAssignment');

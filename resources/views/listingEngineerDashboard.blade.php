@@ -14,7 +14,7 @@
          You are in {{$subwards->sub_ward_name}}<br><br>
          <a href="{{ URL::to('/')}}/listingEngineer">Add New Project</a><br>
          <a href="{{ URL::to('/')}}/roads">Update Project</a><br>
-         <a href="{{ URL::to('/')}}/reports">My Reports</a>
+         <a href="{{ URL::to('/')}}/completed" class="btn btn-primary">Completed</a>
          <label>
            You have listed <strong>{{ $numbercount }}</strong> projects so far.
          </label><br>

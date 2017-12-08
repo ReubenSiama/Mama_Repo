@@ -129,4 +129,8 @@ class HomeController extends Controller
         $loginTimes = loginTime::where('user_id',Auth::user()->id)->where('logindate',$today)->first();
         return view('reports',['loginTimes'=>$loginTimes]);
     }
+    public function updateAssignment(){
+        WardAssignment::where('user_id',Auth::user()->id)->delete();
+        return back();
+    }
 }
