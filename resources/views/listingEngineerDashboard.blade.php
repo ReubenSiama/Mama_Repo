@@ -30,7 +30,9 @@
 
 <div id="test"></div>
 
-<div class="col-lg-8" id="map" style="width:100%;height:500px"></div>
+<div class="col-md-8 col-md-offset-2" style="border-style: ridge;">
+<div id="map" style="width:100%;height:400px"></div>
+</div>
 
 <script type="text/javascript" scr="http://maps.google.com/maps/api/js?sensor=false"></script>
 
