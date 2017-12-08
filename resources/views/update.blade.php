@@ -345,7 +345,7 @@
                                <tr>
                                    <td>Procurement Email</td>
                                    <td>:</td>
-                                   <td><input id="pEmail" value="{{ $projectdetails->procurementdetails->procurement_email }}" required placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
+                                   <td><input id="pEmail" value="{{ $projectdetails->procurementdetails->procurement_email }}" placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Contact No.</td>
@@ -442,8 +442,6 @@ function sum(){
         }else if(current == 'sixth'){
           if(document.getElementById("prName").value == ""){
             window.alert("Please Enter Procurement Name");
-          }else if(document.getElementById("pEmail").value == ""){
-            window.alert("Please Enter Procurement Email");
           }else if(document.getElementById("prPhone") == ""){
             window.alert("Please enter phone number");
           }else{ 

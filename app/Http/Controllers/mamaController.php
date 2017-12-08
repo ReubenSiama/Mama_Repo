@@ -245,7 +245,7 @@ class mamaController extends Controller
         }
         $procurementDetails->procurement_contact_no = $request->pContact;
         $procurementDetails->save();
-        return back();
+        return back()->with('Success','Project added successfully');
     }
     public function updateProject($id, Request $request)
     {

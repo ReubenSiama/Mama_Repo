@@ -5,7 +5,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">You're Assigned Ward is  {{$subwards->sub_ward_name}}</div>
+                <div class="panel-heading">You're Assigned Ward is  {{$subwards->sub_ward_name}}
+                  @if(session('Success'))
+                    <div class="alert-success pull-right">{{ session('Success')}} </div>
+                  @endif
+                </div>
                 <div class="panel-body">
                     <center>
                     <label>Project Details</label>
