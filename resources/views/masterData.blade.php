@@ -213,7 +213,7 @@
                                     @foreach($subwards as $ward)
                                     <tr>
                                         <td>{{ $ward->sub_ward_name }}</td>
-                                        <td><a href="{{ URL::to('/')}}/subwardImages/{{ $ward->sub_ward_image}}">Click Here to view image</a></td>
+                                        <td><a href="{{ URL::to('/')}}/subWardImages/{{ $ward->sub_ward_image}}">Click Here to view image</a></td>
                                         <th><button class="btn btn-danger input-sm">Delete</button></th>
                                     </tr>
                                     @endforeach
