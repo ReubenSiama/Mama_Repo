@@ -20,8 +20,8 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            <div class="hidden">{{ $true = 0 }}</div>
                             @foreach($users as $user)
+                            <div class="hidden">{{ $true = 0 }}</div>
                             <tr>
                                 <td>{{ $user->employeeId }}</td>
                                 <td>{{ $user->name }}</td>
