@@ -15,7 +15,7 @@
                     <center>
                     <label>Project Details</label>
                     <br>
-                   <form method="POST" action="/{{ $projectdetails->project_id }}/updateProject" enctype="multipart/form-data">
+                   <form method="POST" action="{{ URL::to('/') }}/{{ $projectdetails->project_id }}/updateProject" enctype="multipart/form-data">
                     <div id="first">
                     {{ csrf_field() }}
                            <table class="table">
@@ -250,7 +250,12 @@
                                <tr>
                                    <td>Project Image</td>
                                    <td>:</td>
-                                   <td><input id="img" value="{{ $projectdetails->image }}" type="file" accept="image/*" class="form-control input-sm" name="pImage"></td>
+                                   <td>
+                                    <input id="img" type="file" accept="image/*" class="form-control input-sm" name="pImage"><br>
+                                    <div id="imagediv">
+                                      <img height="250" width="250" id="project_img" src="{{ URL::to('/') }}/projectImages/{{ $projectdetails->image }}" class="img img-thumbnail">
+                                    </div>
+                                   </td>
                                </tr>
                            </table>
                        </div>
@@ -368,6 +373,32 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+  $('#img').change(function(){
+    var input = this;
+    var url = $(this).val();
+    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+    if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) 
+     {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+           $('#project_img').attr('src', e.target.result);
+        }
+       reader.readAsDataURL(input.files[0]);
+    }
+    else
+    {
+      $('#project_img').attr('src', '/assets/no_preview.png');
+    }
+  });
+
+});
+</script>
+
 <script>
 var x = document.getElementById("demo");
 function getLocation() {

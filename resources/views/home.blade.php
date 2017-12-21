@@ -37,12 +37,12 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <form method="POST" action="/deleteEmployee">
+                                    <form method="POST" action="{{ URL::to('/') }}/deleteEmployee">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="id" value="{{ $user->id }}">
                                     <div class="btn-group">                                  
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                        <a href="/{{ $user->employeeId }}/view" class="btn btn-sm btn-success">View</a>
+                                        <a href="{{ URL::to('/') }}/{{ $user->employeeId }}/view" class="btn btn-sm btn-success">View</a>
                                     </div>
                                     </form>
                                 </td>
@@ -64,7 +64,7 @@
                     @endif
                 </div>
                 <div class="panel-body">
-                    <form method="POST" action="/addDepartment">
+                    <form method="POST" action="{{ URL::to('/') }}/addDepartment">
                         {{ csrf_field() }}
                         <table class="col-md-12">
                             <tr>
@@ -89,7 +89,7 @@
                                 <td>{{ $department->id }}</td>
                                 <td>{{ $department->dept_name }}</td>
                                 <td>
-                                    <form method="POST" action="/deleteDepartment">
+                                    <form method="POST" action="{{ URL::to('/') }}/deleteDepartment">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="id" value="{{ $department->id }}">
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -108,7 +108,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Designations</div>
                 <div class="panel-body">
-                    <form method="POST" action="/addDesignation">
+                    <form method="POST" action="{{ URL::to('/') }}/addDesignation">
                         {{ csrf_field() }}
                         <table class="col-md-12">
                             <tr>
@@ -133,7 +133,7 @@
                                 <td>{{ $department->id }}</td>
                                 <td>{{ $department->group_name }}</td>
                                 <td>
-                                    <form method="POST" action="/deleteDesignation">
+                                    <form method="POST" action="{{ URL::to('/') }}/deleteDesignation">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="id" value="{{ $department->id }}">
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -150,7 +150,7 @@
 </div>
 
 <!-- Modal -->
-<form method="POST" action="/addEmployee">
+<form method="POST" action="{{ URL::to('/') }}/addEmployee">
 {{ csrf_field() }}    
     <div id="addEmployee" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -197,7 +197,7 @@
 
 @foreach($users as $user)
 <!-- Modal -->
-<form method="POST" action="/{{ $user->id }}/assignDesignation">
+<form method="POST" action="{{ URL::to('/') }}/{{ $user->id }}/assignDesignation">
 {{ csrf_field() }}    
     <div id="assignDesignation{{ $user->id }}" class="modal fade" role="dialog">
       <div class="modal-dialog">

@@ -31,7 +31,7 @@
                     </table>
                 </div>
             </div>
-            <a href="/home" class="btn btn-default form-control">Back</a>
+            <a href="{{ URL::to('/') }}/home" class="btn btn-default form-control">Back</a>
         </div>
     </div>
 </div>

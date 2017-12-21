@@ -20,6 +20,8 @@ use App\SiteAddress;
 use App\SiteEngineerDetails;
 use App\State;
 use App\Zone;
+use App\loginTime;
+use App\Requirement;
 use Auth;
 
 class mamaController extends Controller
@@ -239,12 +241,52 @@ class mamaController extends Controller
         $procurementDetails->project_id = $projectdetails->id;
         $procurementDetails->procurement_name = $request->pName;
         if($request->pEmail){
-        $procurementDetails->procurement_email = $request->pEmail;
+            $procurementDetails->procurement_email = $request->pEmail;
         }else{
             $procurementDetails->procurement_email = 'N/A';
         }
         $procurementDetails->procurement_contact_no = $request->pContact;
         $procurementDetails->save();
+        date_default_timezone_set("Asia/Kolkata");
+        $first = loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
+        $assigned = subWard::where('id',$ward)->pluck('sub_ward_name')->first();
+        if($first->firstListingTime == NULL){
+            loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                'firstListingTime' => date('H:i A'),
+                'allocatedWard' => $assigned,
+            ]);
+        }
+        $check = mktime(12,00,00);
+        $checktime = date('H:i:sA',$check);
+        $morningcheck=loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
+        if(date('H:i:sA') <= $checktime){
+            if($morningcheck->noOfProjectsListedInMorning == NULL){
+                loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'noOfProjectsListedInMorning' => 1
+                ]);                
+            }else{
+                $number=loginTime::where('user_id',Auth::user()->id)
+                    ->where('logindate',date('Y-m-d'))
+                    ->pluck('noOfProjectsListedInMorning')
+                    ->first();
+                loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'noOfProjectsListedInMorning' => $number + 1
+                ]); 
+            }
+        }
+        if($morningcheck->TotalProjectsListed == NULL){
+             loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'TotalProjectsListed' => 1
+                ]);
+        }else{
+            $number=loginTime::where('user_id',Auth::user()->id)
+                    ->where('logindate',date('Y-m-d'))
+                    ->pluck('TotalProjectsListed')
+                    ->first();
+                loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'TotalProjectsListed' => $number + 1
+                ]);
+        }
         return back()->with('Success','Project added successfully');
     }
     public function updateProject($id, Request $request)
@@ -314,5 +356,130 @@ class mamaController extends Controller
             'procurement_contact_no' => $request->pContact
         ]);
         return back()->with('Success','Updated Successfully');
+    }
+    public function addMorningMeter(Request $request)
+    {
+        $imageName1 = time().'.'.request()->morningMeter->getClientOriginalExtension();
+        $request->morningMeter->move(public_path('meters'),$imageName1);
+        date_default_timezone_set("Asia/Kolkata");
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'morningMeter' => $imageName1,
+            'noOfProjectsListedInMorning' => $request->morningCount
+        ]);
+        return back();
+    }
+    public function addMorningData(Request $request)
+    {
+        $imageName1 = time().'.'.request()->morningData->getClientOriginalExtension().Auth::user()->id;
+        $request->morningData->move(public_path('data'),$imageName1);
+        date_default_timezone_set("Asia/Kolkata");
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'morningData' => $imageName1
+        ]);
+        return back();
+    }
+    public function afternoonMeter(Request $request)
+    {
+        $imageName1 = time().'.'.request()->afternoonmMeterImage->getClientOriginalExtension().Auth::user()->id;
+        $request->afternoonmMeterImage->move(public_path('meters'),$imageName1);
+        date_default_timezone_set("Asia/Kolkata");
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'afternoonMeter' => $imageName1
+        ]);
+        return back();
+    }
+    public function afternoonData(Request $request)
+    {
+        $imageName1 = time().'.'.request()->afternoonDataImage->getClientOriginalExtension().Auth::user()->id;
+        $request->afternoonDataImage->move(public_path('data'),$imageName1);
+        date_default_timezone_set("Asia/Kolkata");
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'afternoonData' => $imageName1
+        ]);
+        return back();
+    }
+    public function eveningMeter(Request $request)
+    {
+        $imageName1 = time().'.'.request()->eveningMeterImage->getClientOriginalExtension().Auth::user()->id;
+        $request->eveningMeterImage->move(public_path('meters'),$imageName1);
+        date_default_timezone_set("Asia/Kolkata");
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'eveningMeter' => $imageName1
+        ]);
+        return back();
+    }
+    public function eveningData(Request $request)
+    {
+        $imageName1 = time().'.'.request()->eveningDataImage->getClientOriginalExtension().Auth::user()->id;
+        $request->eveningDataImage->move(public_path('data'),$imageName1);
+        date_default_timezone_set("Asia/Kolkata");
+        $lastrecord = projectdetails::where('listing_engineer_id',Auth::user()->id)
+        ->where('created_at','like',date('Y-m-d').'%')
+        ->orderBy('created_at','desc')->first();
+        $takeTime = $lastrecord->created_at->format('H:i A');
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'eveningData' => $imageName1,
+            'lastListingTime' => $takeTime
+        ]);
+        return back();
+    }
+    public function morningRemark($id, Request $request)
+    {
+        loginTime::where('id',$id)->update([
+            'morningRemarks' => $request->mRemark
+        ]);
+        return back();
+    }
+    public function afternoonRemark($id, Request $request)
+    {
+        loginTime::where('id',$id)->update([
+            'afternoonRemarks' => $request->aRemark
+        ]);
+        return back();
+    }
+    public function eveningRemark($id, Request $request)
+    {
+        loginTime::where('id',$id)->update([
+            'eveningRemarks' => $request->eRemark
+        ]);
+        return back();
+    }
+    public function addRequirement(Request $request,$id)
+    {
+        $requirement = New Requirement;
+        $requirement->project_id = $id;
+        $requirement->main_category = $request->mCategory;
+        $requirement->sub_category = $request->sCategory;
+        $requirement->material_spec = $request->mSpec;
+        if($request->rfImage1){
+            $imageName1 = time().'.'.request()->rfImage1->getClientOriginalExtension();
+            $request->rfImage1->move(public_path('requirements'),$imageName1);
+            $requirement->referral_image1 = $imageName1;
+        }
+        if($request->rfImage2){
+            $imageName2 = time().'.'.request()->rfImage2->getClientOriginalExtension();
+            $request->rfImage2->move(public_path('requirements'),$imageName2);
+            $requirement->referral_image2 = $imageName;
+        }
+        $requirement->requirement_date = $request->rDate;
+        $requirement->measurement_unit = $request->mUnit;
+        $requirement->unit_price = $request->uPrice;
+        $requirement->quantity = $request->quantity;
+        $requirement->total = $request->total;
+        $requirement->notes = $request->notes;
+        $requirement->save();
+        return back();
+    }
+    public function placeOrder($id, Request $request)
+    {
+        $counting = count($request->requirement);
+        if($counting == 0){
+            return back()->with('Error','Please select requirements to place order');
+        }else{
+            for($i = 0;$i<$counting;$i++){
+                Requirement::where('project_id',$id)->where('id',$request->requirement[$i])->update(['status' => "Order Placed"]);
+            }
+        }
+        return back();
     }
 }

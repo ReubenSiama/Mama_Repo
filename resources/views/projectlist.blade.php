@@ -6,8 +6,8 @@
       List of projects under you:<br>
       <table class="table">
         <thead>
-          <th>Project Id</th>
           <th>Project Name</th>
+          <th>Address</th>
           <th>Status</th>
           <th>Procurement Name</th>
           <th>Procurement Contact No.</th>
@@ -16,12 +16,20 @@
         <tbody>
           @foreach($projectlist as $project)
             <tr>
-              <td>{{ $project->project_id }}</td>
               <td>{{ $project->project_name }}</td>
+              <td>
+                <a href="https://www.google.com/maps/place/{{ $project->siteaddress->address }}/@{{ $project->siteaddress->latitude }},{{ $project->siteaddress->longitude }}">{{ $project->siteaddress->address }}</a>
+              </td>
               <td>{{ $project->project_status }}</td>
               <td>{{ $project->procurementdetails->procurement_name }}</td>
               <td>{{ $project->procurementdetails->procurement_contact_no }}</td>
-              <td><a href="/{{ $project->project_id }}/edit" class="btn btn-default input-sm">Edit</a></td>
+              <td>
+              @if($pageName == "Update")
+                <a href="{{ URL::to('/') }}/{{ $project->project_id }}/edit" class="btn btn-default input-sm">Edit</a>
+              @else
+                <a href="{{ URL::to('/') }}/{{ $project->project_id }}/requirements" class="btn btn-default input-sm">View</a>
+              @endif
+              </td>
             </tr>
           @endforeach
         </tbody>

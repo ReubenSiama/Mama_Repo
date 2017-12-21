@@ -18,7 +18,7 @@ class CreateProcurementDetailsTable extends Migration
             $table->integer('project_id');
             $table->string('procurement_name');
             $table->string('procurement_contact_no');
-            $table->string('procurement_email');
+            $table->string('procurement_email')->nullable();
             $table->timestamps();
         });
     }

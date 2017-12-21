@@ -5,18 +5,24 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">You're Assigned Ward is  {{$subwards->sub_ward_name}}
+                <div class="panel-heading">
+                  @if(!$subwards)
+                  No Subward assigned
+                  @else
+                  You're Assigned Ward is  {{$subwards->sub_ward_name}}
+                  @endif
                   @if(session('Success'))
                     <div class="alert-success pull-right">{{ session('Success')}} </div>
                   @endif
                 </div>
+                @if($subwards)
                 <div class="panel-body">
                     <center>
                     <label>Project Details</label>
                     <br>
                         <button id="getBtn" class="btn btn-success btn-sm" onclick="getLocation()">Get Location</button>
                     </center><br>
-                   <form method="POST" action="/addProject" enctype="multipart/form-data">
+                   <form method="POST" action="{{ URL::to('/') }}/addProject" enctype="multipart/form-data">
                     <div id="first">
                     {{ csrf_field() }}
                            <table class="table">
@@ -100,12 +106,12 @@
                                     </td>
                                </tr>
                                <tr>
-                                   <td>Project Size</td>
+                                   <td>Project Size (Approx.)</td>
                                    <td>:</td>
                                    <td><input id="pSize" required placeholder="Project Size in Sq. Ft." type="number" class="form-control input-sm" name="pSize"></td>
                                </tr>
                                <tr>
-                                   <td>Budget</td>
+                                   <td>Budget (Approx.)</td>
                                    <td>:</td>
                                    <td><input id="budget" required placeholder="Budget in Crores" type="number" class="form-control input-sm" name="budget"></td>
                                </tr>
@@ -226,6 +232,7 @@
                         </ul>
                    </form>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -236,6 +243,7 @@
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" charset="utf-8">
    function getLocation(){
+      document.getElementById("getBtn").className = "hidden";
       console.log("Entering getLocation()");
       if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(

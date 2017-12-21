@@ -8,7 +8,7 @@
 		<div class="panel-body">
 			<ul class="list-group">
 				@foreach($roads as $road)
-				<li class="list-group-item"><a href="{{ URL::to('/') }}/{{ $road }}/projectlist">{{ $road }}</a></li>
+				<li class="list-group-item"><a href="{{ URL::to('/') }}/{{ $road }}/projectrequirement">{{ $road }}</a></li>
 				@endforeach
 			</ul>
 		</div>

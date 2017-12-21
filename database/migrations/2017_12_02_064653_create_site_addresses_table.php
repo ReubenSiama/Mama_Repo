@@ -18,6 +18,7 @@ class CreateSiteAddressesTable extends Migration
             $table->integer('project_id');
             $table->string('latitude');
             $table->string('longitude');
+            $table->string('address');
             $table->timestamps();
         });
     }

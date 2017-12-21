@@ -18,7 +18,6 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
                         <span class="sr-only">Toggle Navigation</span>
@@ -37,11 +36,6 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ URL::to('/') }}/home">Home</a></li>
-                        @if(Auth::check())
-                        @if(Auth::user()->group_id == 1)
-                        <li><a href="{{ URL::to('/') }}/masterData">Master Data</a></li>
-                        @endif
-                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -56,6 +50,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li><a href="{{ URL::to('/')}}/completed">Completed</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

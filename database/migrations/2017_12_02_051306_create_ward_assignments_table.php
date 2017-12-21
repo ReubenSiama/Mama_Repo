@@ -17,6 +17,7 @@ class CreateWardAssignmentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('subward_id');
+            $table->string('status')->default('Not Completed');
             $table->timestamps();
         });
     }

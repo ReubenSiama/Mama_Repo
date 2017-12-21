@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Countries</div>
                 <div class="panel-body">
-                    <form method="POST" action="/addCountry">
+                    <form method="POST" action="{{ URL::to('/') }}/addCountry">
                         {{ csrf_field() }}
                         <table class="table">
                             <tr>
@@ -40,7 +40,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">States</div>
                 <div class="panel-body">
-                    <form method="POST" action="/addState">
+                    <form method="POST" action="{{ URL::to('/') }}/addState">
                             {{ csrf_field() }}
                             <table class="table">
                                 <tr>
@@ -84,7 +84,7 @@
                     @endif 
                 </div>
                 <div class="panel-body">
-                    <form method="POST" action="/addZone">
+                    <form method="POST" action="{{ URL::to('/') }}/addZone">
                             {{ csrf_field() }}
                             <table class="table">
                                 <tr>
@@ -122,7 +122,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Wards</div>
                 <div class="panel-body">
-                    <form method="POST" action="/addWard" enctype="multipart/form-data">
+                    <form method="POST" action="{{ URL::to('/') }}/addWard" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <table class="table">
                             <tr>
@@ -184,7 +184,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Sub Wards</div>
                 <div class="panel-body">
-                    <form method="POST" action="/addSubWard" enctype="multipart/form-data">
+                    <form method="POST" action="{{ URL::to('/') }}/addSubWard" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <table class="table">
                             <tr>

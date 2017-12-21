@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.leheader')
 
 @section('content')
 
@@ -12,8 +12,10 @@
       @if($subwards)
       <div class="col-md-3"> 
          You are in {{$subwards->sub_ward_name}}<br><br>
-         <a class="btn btn-primary" href="{{ URL::to('/')}}/listingEngineer">Add New Project</a><br><br>
-         <a class="btn btn-primary" href="{{ URL::to('/')}}/roads">Update Project</a><br><br>
+         <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/listingEngineer">Add New Project</a><br><br>
+         <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/roads">Update Project</a><br><br>
+         <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/requirementsroads">Project Requirements</a><br><br>
+         <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/reports">My Report</a><br><br>
          <label>
            You have listed <strong>{{ $numbercount }}</strong> projects so far.
          </label><br><br>
@@ -21,7 +23,6 @@
         <div class="pull-right col-lg-8">
           <img class="img-thumbnail" src="{{ URL::to('/') }}/subWardImages/{{ $subwards->sub_ward_image }}">
         </div>
-         <a href="{{ URL::to('/')}}/completed" class="btn btn-primary">Completed</a>
        @else
        No wards assigned to you yet
        @endif
