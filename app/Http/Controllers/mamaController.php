@@ -480,6 +480,6 @@ class mamaController extends Controller
                 Requirement::where('project_id',$id)->where('id',$request->requirement[$i])->update(['status' => "Order Placed"]);
             }
         }
-        return back();
+        return back()->with('Success','Order has been placed successfully');
     }
 }
