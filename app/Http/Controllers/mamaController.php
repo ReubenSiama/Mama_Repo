@@ -23,6 +23,7 @@ use App\Zone;
 use App\loginTime;
 use App\Requirement;
 use Auth;
+use Validator;
 
 class mamaController extends Controller
 {
@@ -165,6 +166,20 @@ class mamaController extends Controller
     }
     public function addProject(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'address' => 'required',
+            'basement' => 'required',
+            'ground' => 'required',
+            'pName' => 'required',
+            'rName' => 'required',
+            'pContact' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->with('Error','Please check some of the fields again')
+                    ->withErrors($validator)
+                    ->withInput();
+        }
         $basement = $request->basement;
         $ground = $request->ground;
         $floor = $basement + $ground + 1;
@@ -239,21 +254,29 @@ class mamaController extends Controller
 
         $procurementDetails = New ProcurementDetails;
         $procurementDetails->project_id = $projectdetails->id;
-        $procurementDetails->procurement_name = $request->pName;
-        if($request->pEmail){
-            $procurementDetails->procurement_email = $request->pEmail;
-        }else{
-            $procurementDetails->procurement_email = 'N/A';
-        }
+        $procurementDetails->procurement_name = $request->prName;
+        $procurementDetails->procurement_email = $request->pEmail;
         $procurementDetails->procurement_contact_no = $request->pContact;
         $procurementDetails->save();
         date_default_timezone_set("Asia/Kolkata");
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'lastListingTime' => date('H:i A')
+        ]);
         $first = loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
         $assigned = subWard::where('id',$ward)->pluck('sub_ward_name')->first();
         if($first->firstListingTime == NULL){
             loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
-                'firstListingTime' => date('H:i A'),
+                'firstListingTime' => date('H:i A')
+            ]);
+        }
+        if($first->allocatedWard == NULL){
+            loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
                 'allocatedWard' => $assigned,
+            ]);
+        }else if($first->allocatedWard != $assigned){
+            $oldassignment = $first->allocatedWard.', '.$assigned;
+            loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                'allocatedWard' => $oldassignment,
             ]);
         }
         $check = mktime(12,00,00);
@@ -279,12 +302,12 @@ class mamaController extends Controller
                     'TotalProjectsListed' => 1
                 ]);
         }else{
-            $number=loginTime::where('user_id',Auth::user()->id)
+            $number2=loginTime::where('user_id',Auth::user()->id)
                     ->where('logindate',date('Y-m-d'))
                     ->pluck('TotalProjectsListed')
                     ->first();
                 loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
-                    'TotalProjectsListed' => $number + 1
+                    'TotalProjectsListed' => $number2 + 1
                 ]);
         }
         return back()->with('Success','Project added successfully');
@@ -355,6 +378,50 @@ class mamaController extends Controller
             'procurement_email' => $request->pEmail,
             'procurement_contact_no' => $request->pContact
         ]);
+        date_default_timezone_set("Asia/Kolkata");
+        loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+            'lastUpdateTime' => date('H:i A')
+        ]);
+        $ward = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $first = loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
+        $assigned = subWard::where('id',$ward)->pluck('sub_ward_name')->first();
+        if($first->firstUpdateTime == NULL){
+            loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                'firstUpdateTime' => date('H:i A'),
+                'allocatedWard' => $assigned,
+            ]);
+        }
+        $check = mktime(12,00,00);
+        $checktime = date('H:i:sA',$check);
+        $morningcheck=loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
+        if(date('H:i:sA') <= $checktime){
+            if($morningcheck->noOfProjectsUpdatedInMorning == NULL){
+                loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'noOfProjectsUpdatedInMorning' => 1
+                ]);                
+            }else{
+                $number=loginTime::where('user_id',Auth::user()->id)
+                    ->where('logindate',date('Y-m-d'))
+                    ->pluck('noOfProjectsUpdatedInMorning')
+                    ->first();
+                loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'noOfProjectsUpdatedInMorning' => $number + 1
+                ]); 
+            }
+        }
+        if($morningcheck->totalProjectsUpdated == NULL){
+             loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'totalProjectsUpdated' => 1
+                ]);
+        }else{
+            $number2=loginTime::where('user_id',Auth::user()->id)
+                    ->where('logindate',date('Y-m-d'))
+                    ->pluck('totalProjectsUpdated')
+                    ->first();
+                loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
+                    'totalProjectsUpdated' => $number2 + 1
+                ]);
+        }
         return back()->with('Success','Updated Successfully');
     }
     public function addMorningMeter(Request $request)
@@ -480,6 +547,77 @@ class mamaController extends Controller
                 Requirement::where('project_id',$id)->where('id',$request->requirement[$i])->update(['status' => "Order Placed"]);
             }
         }
-        return back()->with('Success','Order has been placed successfully');
+        $orders = Requirement::where('project_id',$id)->where('status','Order Placed')->get();
+        return view('confirm',['orders'=>$orders,'id'=>$id])->with('Success','Order has been placed successfully');
+    }
+    public function confirmOrder($id, Request $request)
+    {
+        $project = projectdetails::where('project_id',$id)->first();
+        Requirement::where('project_id',$id)->where('status','Order Placed')->update(['status' => "Order Confirmed"]);
+        $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
+        return redirect($id.'/confirmOrder')->with('Confirmed','Order has been confirmed');
+    }
+    public function postOrder(Request $request)
+    {
+        $secret_key = $request->secretkey;
+        return view('payment.posting',['secretkey'=>$secret_key]);
+    }
+    public function addTracing(Request $request,$id)
+    {
+        if($request->gTracing){
+            $imageName2 = time().'.'.request()->gTracing->getClientOriginalExtension();
+            $request->gTracing->move(public_path('uploads'),$imageName2);
+            loginTime::where('id',$id)->update([
+                'gtracing' => $imageName2
+            ]);
+        }else if($request->wTracingI){
+            $imageName2 = time().'.'.request()->wTracingI->getClientOriginalExtension();
+            $request->wTracingI->move(public_path('uploads'),$imageName2);
+            loginTime::where('id',$id)->update([
+                'ward_tracing_image' => $imageName2
+            ]);
+        }else if($request->ewTracingI){
+            $imageName2 = time().'.'.request()->ewTracingI->getClientOriginalExtension();
+            $request->ewTracingI->move(public_path('uploads'),$imageName2);
+            loginTime::where('id',$id)->update([
+                'evening_ward_tracing_image' => $imageName2
+            ]);
+        }else if ($request->TracingIWtH) {
+            $imageName2 = time().'.'.request()->TracingIWtH->getClientOriginalExtension();
+            $request->TracingIWtH->move(public_path('uploads'),$imageName2);
+            loginTime::where('id',$id)->update([
+                'tracing_image_w_to_h' => $imageName2
+            ]);
+        }else
+        return back();
+    }
+    public function addComments($id, Request $request)
+    {
+        if($request->googleKm){
+            loginTime::where('id',$id)->update([ 'kmfromhtw' => $request->googleKm ]);
+        }else if($request->kmfromts){
+            loginTime::where('id',$id)->update([ 'km_from_software' => $request->kmfromts]);
+        }else if($request->ekmfromts){
+            loginTime::where('id',$id)->update(['evening_km_from_tracking' => $request->ekmfromts]);
+        }else if($request->ekmwth){
+            loginTime::where('id',$id)->update(['km_from_w_to_h' => $request->ekmwth]);
+        }else if($request->loginTimeInWard){
+            $check = mktime(12,00);
+            $checktime = date('H:i',$check);
+            if($request->loginTimeInWard < $checktime){
+                $time = 'AM';
+            }else{
+                $time = 'PM';
+            }
+            loginTime::where('id',$id)->update([ 'login_time_in_ward' => $request->loginTimeInWard.' '.$time]);
+        }else if($request->totalKilometers){
+            loginTime::where('id',$id)->update([ 'total_kilometers' => $request->totalKilometers]);
+        }
+        return back();
+    }
+    public function giveGrade($userid, $reportid, Request $request)
+    {
+        loginTime::where('user_id',$userid)->where('id',$reportid)->update(['AmGrade'=>$request->grade]);
+        return back();
     }
 }

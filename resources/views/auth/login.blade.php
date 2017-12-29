@@ -6,7 +6,16 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
-
+                <center>Default time (UTC)<br>
+                <?php
+                $time = date('H:i A');
+                echo $time;?>
+                <br>Current Time(+5:30)<br>
+                <?php
+                $newtime = date('H:i A',strtotime('+5 hour +30 minutes',strtotime($time)));
+                echo $newtime;
+                ?>
+                </center>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}

@@ -25,9 +25,19 @@
 						<td>{{ $loginTimes->firstListingTime }}</td>
 					</tr>
 					<tr>
+						<td>First Update Time</td>
+						<td>:</td>
+						<td>{{ $loginTimes->firstUpdateTime }}</td>
+					</tr>
+					<tr>
 						<td>No. of projects listed <br> in the morning</td>
 						<td>:</td>
 						<td>{{ $loginTimes->noOfProjectsListedInMorning }}</td>
+					</tr>
+					<tr>
+						<td>No. of projects updated <br> in the morning</td>
+						<td>:</td>
+						<td>{{ $loginTimes->noOfProjectsUpdatedInMorning }}</td>
 					</tr>
 					@if($loginTimes->morningMeter != NULL)
 					<tr>
@@ -119,6 +129,26 @@
 			
 			<label>Evening</label>
 			<table class="table">
+				<tr>
+					<td>Last Listing Time</td>
+					<td>:</td>
+					<td>{{ $loginTimes->lastListingTime }}</td>
+				</tr>
+				<tr>
+					<td>Last Update Time</td>
+					<td>:</td>
+					<td>{{ $loginTimes->lastUpdateTime }}</td>
+				</tr>
+				<tr>
+					<td>Total Projects Listed</td>
+					<td>:</td>
+					<td>{{ $loginTimes->TotalProjectsListed }}</td>
+				</tr>
+				<tr>
+					<td>Total Projects Updated</td>
+					<td>:</td>
+					<td>{{ $loginTimes->totalProjectsUpdated }}</td>
+				</tr>
 				@if($loginTimes->eveningMeter != NULL)
 				<tr>
 					<td>Meter Image</td>

@@ -20,7 +20,7 @@ class firstuser extends Seeder
         	'name'	=>	'mhadmin',
         	'email'	=>	'mhadmin@mamahome.com',
             'group_id' => '1',
-        	'password'	=>	bcrypt('mhadmin123')
+        	'password'	=>	bcrypt('mama123home')
         ]);
     }
 }

@@ -14,6 +14,9 @@
                   @if(session('Success'))
                     <div class="alert-success pull-right">{{ session('Success')}} </div>
                   @endif
+                  @if(session('Error'))
+                    <div class="alert-danger pull-right">{{ session('Error')}} </div>
+                  @endif
                 </div>
                 @if($subwards)
                 <div class="panel-body">
@@ -29,29 +32,29 @@
                                <tr>
                                    <td>Project Name</td>
                                    <td>:</td>
-                                   <td><input id="pName" required type="text" placeholder="Project Name" class="form-control input-sm" name="pName"></td>
+                                   <td><input id="pName" required type="text" placeholder="Project Name" class="form-control input-sm" name="pName" value="{{ old('pName') }}"></td>
                                </tr>
                                <tr>
                                    <td>Location</td>
                                    <td>:</td>
                                    <td id="x">
                                     <div class="col-sm-6">
-                                        <input placeholder="Longitude" class="form-control input-sm" required type="text" name="longitude" value="" id="longitude">
+                                        <input placeholder="Longitude" class="form-control input-sm" required type="text" name="longitude" value="{{ old('longitude') }}" id="longitude">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input placeholder="latitude" class="form-control input-sm" required type="text" name="latitude" value="" id="latitude">
+                                        <input placeholder="latitude" class="form-control input-sm" required type="text" name="latitude" value="{{ old('latitude') }}" id="latitude">
                                     </div>
                                    </td>
                                </tr>
                                <tr>
                                    <td>Road Name</td>
                                    <td>:</td>
-                                   <td><input id="road" required type="text" placeholder="Road Name" class="form-control input-sm" name="rName"></td>
+                                   <td><input id="road" required type="text" placeholder="Road Name" class="form-control input-sm" name="rName" value="{{ old('rName') }}"></td>
                                </tr>
-                               <tr>
+                               <tr class="{{ $errors->has('address') ? ' has-error' : '' }}">
                                    <td>Address</td>
                                    <td>:</td>
-                                   <td><input id="address" required type="text" placeholder="Address" class="form-control input-sm" name="address"></td>
+                                   <td><input id="address" required type="text" placeholder="Address" class="form-control input-sm" name="address" value="{{ old('address') }}"></td>
                                </tr>
                                <tr>
                                    <td>Municipal Approval</td>
@@ -91,13 +94,13 @@
                                    <td>
                                     <div class="row">
                                         <div class="col-md-3">
-                                          <input id="basement" name="basement" type="number" autocomplete="off" class="form-control input-sm" placeholder="Basement" id="email">
+                                          <input value="{{ old('basement') }}" id="basement" name="basement" type="number" autocomplete="off" class="form-control input-sm" placeholder="Basement" id="email">
                                         </div>
                                         <div class="col-md-2">
                                           <b style="font-size: 20px; text-align: center">+</b>
                                         </div>
                                       <div class="col-md-3">
-                                        <input oninput="sum()" autocomplete="off" name="ground" id="ground" type="number" class="form-control input-sm" placeholder="Ground">
+                                        <input value="{{ old('ground') }}" oninput="sum()" autocomplete="off" name="ground" id="ground" type="number" class="form-control input-sm" placeholder="Ground">
                                       </div>
                                       <div class="col-md-3">
                                         <p id="total"></p>
@@ -108,12 +111,12 @@
                                <tr>
                                    <td>Project Size (Approx.)</td>
                                    <td>:</td>
-                                   <td><input id="pSize" required placeholder="Project Size in Sq. Ft." type="number" class="form-control input-sm" name="pSize"></td>
+                                   <td><input value="{{ old('pSize') }}" id="pSize" required placeholder="Project Size in Sq. Ft." type="number" class="form-control input-sm" name="pSize"></td>
                                </tr>
                                <tr>
                                    <td>Budget (Approx.)</td>
                                    <td>:</td>
-                                   <td><input id="budget" required placeholder="Budget in Crores" type="number" class="form-control input-sm" name="budget"></td>
+                                   <td><input value="{{ old('budget') }}" id="budget" required placeholder="Budget in Crores" type="number" class="form-control input-sm" name="budget"></td>
                                </tr>
                                <tr>
                                    <td>Project Image</td>
@@ -128,17 +131,17 @@
                                <tr>
                                    <td>Owner Name</td>
                                    <td>:</td>
-                                   <td><input type="text" placeholder="Owner Name" class="form-control input-sm" name="oName"></td>
+                                   <td><input value="{{ old('oName') }}" type="text" placeholder="Owner Name" class="form-control input-sm" name="oName"></td>
                                </tr>
                                <tr>
                                    <td>Owner Email</td>
                                    <td>:</td>
-                                   <td><input placeholder="Owner Email" type="email" class="form-control input-sm" name="oEmail"></td>
+                                   <td><input value="{{ old('oEmail') }}" placeholder="Owner Email" type="email" class="form-control input-sm" name="oEmail"></td>
                                </tr>
                                <tr>
                                    <td>Owner Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input id="oPhone" onchange="checkPhone()" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact"></td>
+                                   <td><input value="{{ old('oContact') }}" id="oPhone" onchange="checkPhone()" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -148,17 +151,17 @@
                                <tr>
                                    <td>Contractor Name</td>
                                    <td>:</td>
-                                   <td><input type="text" placeholder="Contractor Name" class="form-control input-sm" name="cName"></td>
+                                   <td><input value="{{ old('cName') }}" type="text" placeholder="Contractor Name" class="form-control input-sm" name="cName"></td>
                                </tr>
                                <tr>
                                    <td>Contractor Email</td>
                                    <td>:</td>
-                                   <td><input placeholder="Contractor Email" type="email" class="form-control input-sm" name="cEmail"></td>
+                                   <td><input value="{{ old('cEmail') }}" placeholder="Contractor Email" type="email" class="form-control input-sm" name="cEmail"></td>
                                </tr>
                                <tr>
                                    <td>Contractor Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input id="cPhone" onchange="checkPhone1()" placeholder="Contractor Contact No." type="number" class="form-control input-sm" name="cContact"></td>
+                                   <td><input value="{{ old('cContact') }}" id="cPhone" onchange="checkPhone1()" placeholder="Contractor Contact No." type="number" class="form-control input-sm" name="cContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -168,17 +171,17 @@
                                <tr>
                                    <td>Consultant Name</td>
                                    <td>:</td>
-                                   <td><input type="text" placeholder="Consultant Name" class="form-control input-sm" name="coName"></td>
+                                   <td><input value="{{ old('coName') }}" type="text" placeholder="Consultant Name" class="form-control input-sm" name="coName"></td>
                                </tr>
                                <tr>
                                    <td>Consultant Email</td>
                                    <td>:</td>
-                                   <td><input placeholder="Consultant Email" type="email" class="form-control input-sm" name="coEmail"></td>
+                                   <td><input value="{{ old('coEmail') }}" placeholder="Consultant Email" type="email" class="form-control input-sm" name="coEmail"></td>
                                </tr>
                                <tr>
                                    <td>Consultant Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input  id="coPhone" onchange="checkPhone2()" placeholder="Consultant Contact No." type="number" class="form-control input-sm" name="coContact"></td>
+                                   <td><input value="{{ old('coContact') }}"  id="coPhone" onchange="checkPhone2()" placeholder="Consultant Contact No." type="number" class="form-control input-sm" name="coContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -188,17 +191,17 @@
                                <tr>
                                    <td>Site Engineer Name</td>
                                    <td>:</td>
-                                   <td><input type="text" placeholder="Site Engineer Name" class="form-control input-sm" name="eName"></td>
+                                   <td><input value="{{ old('eName') }}" type="text" placeholder="Site Engineer Name" class="form-control input-sm" name="eName"></td>
                                </tr>
                                <tr>
                                    <td>Site Engineer Email</td>
                                    <td>:</td>
-                                   <td><input placeholder="Site Engineer Email" type="email" class="form-control input-sm" name="eEmail"></td>
+                                   <td><input value="{{ old('eEmail') }}" placeholder="Site Engineer Email" type="email" class="form-control input-sm" name="eEmail"></td>
                                </tr>
                                <tr>
                                    <td>Site Engineer Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input  id="sePhone" onchange="checkPhone3()" placeholder="Site Engineer Contact No." type="number" class="form-control input-sm" name="eContact"></td>
+                                   <td><input value="{{ old('eContact') }}"  id="sePhone" onchange="checkPhone3()" placeholder="Site Engineer Contact No." type="number" class="form-control input-sm" name="eContact"></td>
                                </tr>
                            </table>
                        </div> 
@@ -208,17 +211,17 @@
                                <tr>
                                    <td>Procurement Name</td>
                                    <td>:</td>
-                                   <td><input id="prName" required type="text" placeholder="Procurement Name" class="form-control input-sm" name="pName"></td>
+                                   <td><input id="prName" required type="text" placeholder="Procurement Name" class="form-control input-sm" name="prName" value="{{ old('prName') }}"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Email</td>
                                    <td>:</td>
-                                   <td><input placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
+                                   <td><input value="{{ old('pEmail') }}" placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input id="prPhone" onchange="checkPhone4()" required placeholder="Procurement Contact No." type="number" class="form-control input-sm" name="pContact"></td>
+                                   <td><input value="{{ old('pContact') }}" id="prPhone" onchange="checkPhone4()" required placeholder="Procurement Contact No." type="number" class="form-control input-sm" name="pContact"></td>
                                </tr>
                            </table>
                        </div> 
@@ -371,7 +374,7 @@ function sum(){
         }else if(current == 'sixth'){
           if(document.getElementById("prName").value == ""){
             window.alert("Please Enter Procurement Name");
-          }else if(document.getElementById("prPhone") == ""){
+          }else if(document.getElementById("pContact") == ""){
             window.alert("Please enter phone number");
           }else{ 
             document.getElementById("sixth").className = "hidden";

@@ -68,6 +68,8 @@ class HomeController extends Controller
             return redirect('teamLead');
         }else if($group == "Listing Engineer" && $dept == "Operation"){
             return redirect('leDashboard');
+        }else if($group == "Team Lead" && $dept == "Sales"){
+            return redirect('salesTL');
         }
         return view('home',['departments'=>$departments,'users'=>$users,'groups'=>$groups]);
     }
@@ -281,5 +283,49 @@ class HomeController extends Controller
             'eveningData' => Null,
         ]);
         return back();
+    }
+    public function getConfirmOrder($id)
+    {
+        $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
+        $project = projectdetails::where('project_id',$id)->first();
+        return view('confirmed',['orders'=>$orders,'project'=>$project,'id'=>$id]);
+    }
+    public function getPayment(Request $request)
+    {
+        $total = $request->total;
+        return view('payment.payment',['total'=>$total]);
+    }
+    public function getPaymentResponse()
+    {
+        return view('payment.response');
+    }
+
+    // Sales
+    public function getSalesEngineer()
+    {
+        $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $projects = ProjectDetails::where('sub_ward_id',$assignment)->paginate(10);
+        return view('salesengineer',['projects'=>$projects]);
+    }
+    public function getSalesTL(){
+        $id = Department::where('dept_name',"Sales")->pluck('id')->first();
+        $users = User::where('department_id',$id)->get();
+        $subwardsAssignment = WardAssignment::all();
+        $subwards = SubWard::all();
+        $wards = Ward::all();
+        $projects = ProjectDetails::all();
+        return view('salestl',['users'=>$users,'subwards'=>$subwards,'subwardsAssignment'=>$subwardsAssignment,'wards'=>$wards,'projects'=>$projects]);
+    }
+    public function getAMReports()
+    {
+        $group = Group::where('group_name','Listing Engineer')->pluck('id')->first();
+        $users = User::where('group_id',$group)->paginate(10);
+        return view('reportsbyam',['users'=>$users]);
+    }
+    public function getViewReports($id)
+    {
+        $user = User::where('id',$id)->first();
+        $logintimes = loginTime::where('user_id',$id)->orderBy('created_at','DESC')->get();
+        return view('amreport',['logintimes'=>$logintimes,'user'=>$user]);
     }
 }

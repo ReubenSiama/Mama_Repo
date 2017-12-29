@@ -40,6 +40,7 @@
                         @if(Auth::check())
                         @if(Auth::user()->group_id == 1)
                         <li><a href="{{ URL::to('/') }}/masterData">Master Data</a></li>
+                        <li><a href="{{ URL::to('/amreports') }}">Reports</a></li>
                         @endif
                         @endif
                     </ul>

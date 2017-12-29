@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="col-md-6 col-md-offset-3">
 <div class="panel panel-default">
 	<div class="panel-heading">
-		Requirements
+		Enquiry
 		<button class="pull-right btn btn-sm btn-success" id="btn1" onclick="show()">Add</button>
 		<button class="hidden" id="btn2" onclick="hide()">Cancel</button>
 	</div>
@@ -110,6 +111,12 @@
 				This is your requirement
 			@else
 				These are your requirements
+			@endif
+			@if(session('Error'))
+			<div class="alert-danger pull-right">{{ session('Error')}}</div>
+			@endif
+			@if(session('Success'))
+			<div class="alert-success pull-right">{{ session('Success')}}</div>
 			@endif
 			<form method="POST" action="{{ URL::to('/') }}/{{ $id }}/placeOrder">
 				{{ csrf_field() }}

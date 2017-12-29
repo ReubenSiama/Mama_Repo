@@ -57,7 +57,22 @@
                                    <td>
                                        <select id="status" required name="status" class="form-control input-sm">
                                            <option value="">--Select--</option>
-                                           @if($projectdetails->project_status == "Digging")
+                                           @if($projectdetails->project_status == "Planning")
+                                          <option selected value="Planning">Planning</option>
+                                          <option value="Digging">Digging</option>
+                                           <option value="Foundation">Foundation</option>
+                                           <option value="Pillars">Pillars</option>
+                                           <option value="Walls">Walls</option>
+                                           <option value="Roofing">Roofing</option>
+                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Plastering">Plastering</option>
+                                           <option value="Flooring">Flooring</option>
+                                           <option value="Carpentry">Carpentry</option>
+                                           <option value="Paintings">Paintings</option>
+                                           <option value="Fixtures">Fixtures</option>
+                                           <option value="Completion">Completion</option>
+                                           @elseif($projectdetails->project_status == "Digging")
+                                           <option value="Planning">Planning</option>
                                            <option selected value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -71,6 +86,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Foundation")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option selected value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -84,6 +100,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Pillars")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option selected value="Pillars">Pillars</option>
@@ -97,6 +114,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Walls")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -110,6 +128,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Roofing")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -123,6 +142,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Electrical & Plumbing")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -149,6 +169,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Flooring")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -162,6 +183,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Carpentry")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -175,6 +197,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Painting")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -188,6 +211,7 @@
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Fixtures")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
@@ -201,6 +225,7 @@
                                            <option selected value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
                                            @elseif($projectdetails->project_status == "Completion")
+                                           <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
