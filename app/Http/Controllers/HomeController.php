@@ -40,11 +40,11 @@ class HomeController extends Controller
         date_default_timezone_set("Asia/Kolkata");
         $check = loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->get();
         if(count($check)==0){
-                $login = New loginTime;
-                $login->user_id = Auth::user()->id;
-                $login->logindate = date('Y-m-d');
-                $login->loginTime = date('H:i A');
-                $login->logoutTime = "N/A";
+                $login              = New loginTime;
+                $login->user_id     = Auth::user()->id;
+                $login->logindate   = date('Y-m-d');
+                $login->loginTime   = date('H:i A');
+                $login->logoutTime  = "N/A";
                 $login->save();
             }
         return redirect('/home');
@@ -60,10 +60,10 @@ class HomeController extends Controller
     public function index()
     {
         $group = Group::where('id',Auth::user()->group_id)->pluck('group_name')->first();
-        $dept = Department::where('id',Auth::user()->department_id)->pluck('dept_name')->first();
+        $dept  = Department::where('id',Auth::user()->department_id)->pluck('dept_name')->first();
         $users = User::where('department_id','!=',0)->get();
         $departments = Department::all();
-        $groups = Group::where('group_name','!=','Admin')->get();
+        $groups      = Group::where('group_name','!=','Admin')->get();
         if($group == "Team Lead" && $dept == "Operation"){
             return redirect('teamLead');
         }else if($group == "Listing Engineer" && $dept == "Operation"){
@@ -79,21 +79,31 @@ class HomeController extends Controller
         return view('viewEmployee',['user'=>$user]);
     }
     public function teamLeadHome(){
-        $group = Group::where('group_name','Listing Engineer')->pluck('id')->first();
-        $users = User::where('group_id',$group)->get();
+        $group    = Group::where('group_name','Listing Engineer')->pluck('id')->first();
+        $users    = User::where('group_id',$group)->get();
         $subwardsAssignment = WardAssignment::all();
         $subwards = SubWard::all();
-        $wards = Ward::all();
+        $wards    = Ward::all();
         $projects = ProjectDetails::all();
         return view('teamLeader',['users'=>$users,'subwards'=>$subwards,'subwardsAssignment'=>$subwardsAssignment,'wards'=>$wards,'projects'=>$projects]);
     }
     public function masterData()
     {
-        $wards = Ward::all();
-        $countries = Country::all();
-        $subwards = SubWard::all();
-        $states = State::all();
-        $zones = Zone::all();
+        $wards      = Ward::all();
+        $countries  = Country::all();
+        $subwards   = SubWard::all();
+        $states     = State::all();
+        $zones      = Zone::all();
+
+        /*$arr = array(
+                        'wards'     => $wards,
+                        'countries' => $countries,
+                        'subwards'  => $subwards,
+                        'states'    => $states,
+                        'zones'     => $zones
+                ); 
+        return view('masterData', $arr);
+        */
         return view('masterData',['wards'=>$wards,'countries'=>$countries,'subwards'=>$subwards,'states'=>$states,'zones'=>$zones]);
     }
     public function listingEngineer()
@@ -134,8 +144,8 @@ class HomeController extends Controller
     public function editProject($id)
     {
         $projectdetails = ProjectDetails::where('project_id',$id)->first();
-        $wardsAssigned = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
-        $subwards = SubWard::where('id',$wardsAssigned)->first();
+        $wardsAssigned  = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $subwards       = SubWard::where('id',$wardsAssigned)->first();
         return view('update',['subwards'=>$subwards,'projectdetails'=>$projectdetails]);
     }
     public function viewAll()
@@ -202,7 +212,7 @@ class HomeController extends Controller
     public function projectRequirement($road)
     {
         $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
-        $projectlist = ProjectDetails::where('road_name',$road)
+        $projectlist= ProjectDetails::where('road_name',$road)
             ->where('sub_ward_id',$assignment)
             ->get();
         return view('projectlist',['projectlist'=>$projectlist,'pageName'=>"Requirements"]);

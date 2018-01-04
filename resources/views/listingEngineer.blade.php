@@ -78,7 +78,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -94,13 +94,13 @@
                                    <td>
                                     <div class="row">
                                         <div class="col-md-3">
-                                          <input value="{{ old('basement') }}" id="basement" name="basement" type="number" autocomplete="off" class="form-control input-sm" placeholder="Basement" id="email">
+                                          <input value="{{ old('basement') }}" onkeyup="check('basement')" id="basement" name="basement" type="text" autocomplete="off" class="form-control input-sm" placeholder="Basement" id="email">
                                         </div>
                                         <div class="col-md-2">
                                           <b style="font-size: 20px; text-align: center">+</b>
                                         </div>
                                       <div class="col-md-3">
-                                        <input value="{{ old('ground') }}" oninput="sum()" autocomplete="off" name="ground" id="ground" type="number" class="form-control input-sm" placeholder="Ground">
+                                        <input value="{{ old('ground') }}" onkeyup="check('ground');" autocomplete="off" name="ground" id="ground" type="text" class="form-control" placeholder="Ground">
                                       </div>
                                       <div class="col-md-3">
                                         <p id="total"></p>
@@ -111,12 +111,12 @@
                                <tr>
                                    <td>Project Size (Approx.)</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('pSize') }}" id="pSize" required placeholder="Project Size in Sq. Ft." type="number" class="form-control input-sm" name="pSize"></td>
+                                   <td><input value="{{ old('pSize') }}" id="pSize" required placeholder="Project Size in Sq. Ft." type="text" class="form-control input-sm" name="pSize" onkeyup="check('pSize')"></td>
                                </tr>
                                <tr>
                                    <td>Budget (Approx.)</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('budget') }}" id="budget" required placeholder="Budget in Crores" type="number" class="form-control input-sm" name="budget"></td>
+                                   <td><input value="{{ old('budget') }}" id="budget" required placeholder="Budget in Crores" type="text" onkeyup="check('budget')" class="form-control input-sm" name="budget"></td>
                                </tr>
                                <tr>
                                    <td>Project Image</td>
@@ -240,39 +240,72 @@
         </div>
     </div>
 </div>
-
-
+<!--This line by Siddharth -->
+<script type="text/javascript">
+  function check(arg){
+    var input = document.getElementById(arg).value;
+    if(isNaN(input)){
+      while(isNaN(document.getElementById(arg).value)){
+      var str = document.getElementById(arg).value;
+      str     = str.substring(0, str.length - 1);
+      document.getElementById(arg).value = str;
+      }
+    }
+    else{
+      input = input.trim();
+      document.getElementById(arg).value = input;
+    }
+    if(arg == 'ground' || arg == 'basement'){
+      var basement = parseInt(document.getElementById("basement").value);
+      var ground   = parseInt(document.getElementById("ground").value);
+      if(!isNaN(basement) && !isNaN(ground)){
+        var floor    = 'B('+basement+')' + ' + G + ('+ground+') = ';
+        sum          = basement+ground+1;
+        floor       += sum;
+      
+        if(document.getElementById("total").innerHTML != null)
+          document.getElementById("total").innerHTML = floor;
+        else
+          document.getElementById("total").innerHTML = '';
+      }
+    }
+    return false;
+  }
+</script>
+<!--This line by Siddharth -->
 <!-- get location -->
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" charset="utf-8">
-   function getLocation(){
+<script type="text/javascript" charset="utf-8">
+  function getLocation(){
       document.getElementById("getBtn").className = "hidden";
       console.log("Entering getLocation()");
       if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(
-      displayCurrentLocation,
-      displayError,
-      { 
-        maximumAge: 3000, 
-        timeout: 5000, 
-        enableHighAccuracy: true 
-      });
+        navigator.geolocation.getCurrentPosition(
+        displayCurrentLocation,
+        displayError,
+        { 
+          maximumAge: 3000, 
+          timeout: 5000, 
+          enableHighAccuracy: true 
+        });
     }else{
-      console.log("Oops, no geolocation support");
+      alert("Oops.. No Geo-Location Support !");
     } 
-      console.log("Exiting getLocation()");
-    };
+      //console.log("Exiting getLocation()");
+  }
+    
     function displayCurrentLocation(position){
-      console.log("Entering displayCurrentLocation");
-      var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    document.getElementById("longitude").value = longitude;
-    document.getElementById("latitude").value = latitude;
-    console.log("Latitude " + latitude +" Longitude " + longitude);
-    getAddressFromLatLang(latitude,longitude);
-      console.log("Exiting displayCurrentLocation");
+      //console.log("Entering displayCurrentLocation");
+      var latitude  = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      document.getElementById("longitude").value = longitude;
+      document.getElementById("latitude").value  = latitude;
+      //console.log("Latitude " + latitude +" Longitude " + longitude);
+      getAddressFromLatLang(latitude,longitude);
+      //console.log("Exiting displayCurrentLocation");
     }
-   function  displayError(error){
+   
+  function  displayError(error){
     console.log("Entering ConsultantLocator.displayError()");
     var errorType = {
       0: "Unknown error",
@@ -287,44 +320,26 @@
     alert("Error Message " + errorMessage);
     console.log("Exiting ConsultantLocator.displayError()");
   }
-    function getAddressFromLatLang(lat,lng){
-      console.log("Entering getAddressFromLatLang()");
-      var geocoder = new google.maps.Geocoder();
-        var latLng = new google.maps.LatLng(lat, lng);
-        geocoder.geocode( { 'latLng': latLng}, function(results, status) {
-        console.log("After getting address");
-        console.log(results);
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
-            console.log(results[1]);
-            document.getElementById("address").value = results[1].formatted_address;
-          }
-        }else{
-          alert("Geocode was not successful for the following reason: " + status);
-        }
-        });
-      console.log("Entering getAddressFromLatLang()");
-    }
-    </script>
-
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGSf_6gjXK-5ipH2C2-XFI7eUxbHg1QTU"></script>
-
-
-<script>
-var basement;
-var ground;
-function sum(){
-    basement = parseInt(document.getElementById("basement").value);
-    ground = parseInt(document.getElementById("ground").value);
-    var floor = basement + ground + 1;
-    if(document.getElementById("basement").value != "" && document.getElementById("ground").value != "" && document.getElementById("basement").value != NaN && document.getElementById("ground").value != NaN){
-      document.getElementById("total").innerHTML = floor;
+  function getAddressFromLatLang(lat,lng){
+    //console.log("Entering getAddressFromLatLang()");
+    var geocoder = new google.maps.Geocoder();
+    var latLng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode( { 'latLng': latLng}, function(results, status) {
+        // console.log("After getting address");
+        // console.log(results);
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+        //console.log(results[1]);
+        document.getElementById("address").value = results[1].formatted_address;
+      }
     }else{
-      document.getElementById("total").innerHTML = "";
-    }
-}
+        alert("Geocode was not successful for the following reason: " + status);
+     }
+    });
+    //console.log("Entering getAddressFromLatLang()");
+  }
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGSf_6gjXK-5ipH2C2-XFI7eUxbHg1QTU"></script>
 
 <script type="text/javascript">
     var current = "first";

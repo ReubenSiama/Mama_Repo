@@ -6,14 +6,14 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
-                <center>Default time (UTC)<br>
+                <center>Default time (UTC): &nbsp;&nbsp; 
                 <?php
                 $time = date('H:i A');
-                echo $time;?>
-                <br>Current Time(+5:30)<br>
+                echo '<b>'.$time.'</b>';?>
+                <br>Current Time(+5:30): &nbsp;&nbsp;
                 <?php
                 $newtime = date('H:i A',strtotime('+5 hour +30 minutes',strtotime($time)));
-                echo $newtime;
+                echo '<b>'.$newtime."</b>";
                 ?>
                 </center>
                 <div class="panel-body">
@@ -38,7 +38,7 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" required />
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">

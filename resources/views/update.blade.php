@@ -64,7 +64,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -78,7 +78,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -92,7 +92,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -106,7 +106,7 @@
                                            <option selected value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -120,7 +120,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option selected value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -134,21 +134,21 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option selected value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
                                            <option value="Paintings">Paintings</option>
                                            <option value="Fixtures">Fixtures</option>
                                            <option value="Completion">Completion</option>
-                                           @elseif($projectdetails->project_status == "Electrical & Plumbing")
+                                           @elseif($projectdetails->project_status == "Electrical &amp; Plumbing")
                                            <option value="Planning">Planning</option>
                                            <option value="Digging">Digging</option>
                                            <option value="Foundation">Foundation</option>
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option selected value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option selected value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -161,7 +161,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option selected value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -175,7 +175,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option selected value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -189,7 +189,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option selected value="Carpentry">Carpentry</option>
@@ -203,7 +203,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -217,7 +217,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -231,7 +231,7 @@
                                            <option value="Pillars">Pillars</option>
                                            <option value="Walls">Walls</option>
                                            <option value="Roofing">Roofing</option>
-                                           <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                           <option value="Electrical & Plumbing">Electrical &amp; Plumbing</option>
                                            <option value="Plastering">Plastering</option>
                                            <option value="Flooring">Flooring</option>
                                            <option value="Carpentry">Carpentry</option>
@@ -248,13 +248,13 @@
                                    <td>
                                     <div class="row">
                                         <div class="col-md-3">
-                                          <input value="{{ $projectdetails->basement }}" id="basement" name="basement" type="number" autocomplete="off" class="form-control input-sm" placeholder="Basement">
+                                          <input value="{{ $projectdetails->basement }}" onkeyup="check('basement')" id="basement" name="basement" type="number" autocomplete="off" class="form-control input-sm" placeholder="Basement">
                                         </div>
                                         <div class="col-md-2">
                                           <b style="font-size: 20px; text-align: center">+</b>
                                         </div>
                                       <div class="col-md-3">
-                                        <input value="{{ $projectdetails->ground }}" oninput="sum()" autocomplete="off" name="ground" id="ground" type="number" class="form-control input-sm" placeholder="Ground">
+                                        <input value="{{ $projectdetails->ground }}" oninput="check('ground')" autocomplete="off" name="ground" id="ground" type="number" class="form-control input-sm" placeholder="Ground">
                                       </div>
                                       <div class="col-md-3">
                                         <p id="total"></p>
@@ -265,12 +265,12 @@
                                <tr>
                                    <td>Project Size</td>
                                    <td>:</td>
-                                   <td><input id="pSize" value="{{ $projectdetails->project_size }}" required placeholder="Project Size" type="text" class="form-control input-sm" name="pSize"></td>
+                                   <td><input id="pSize" value="{{ $projectdetails->project_size }}" required placeholder="Project Size" type="text" onkeyup="check('pSize')" class="form-control input-sm" name="pSize"></td>
                                </tr>
                                <tr>
                                    <td>Budget</td>
                                    <td>:</td>
-                                   <td><input id="budget" value="{{ $projectdetails->budget }}" required placeholder="Budget" type="text" class="form-control input-sm" name="budget"></td>
+                                   <td><input id="budget" value="{{ $projectdetails->budget }}" required placeholder="Budget" type="text" class="form-control input-sm" onkeyup="check('budget')" name="budget"></td>
                                </tr>
                                <tr>
                                    <td>Project Image</td>
@@ -295,12 +295,12 @@
                                <tr>
                                    <td>Owner Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->ownerdetails->owner_email }}" placeholder="Owner Email" type="email" class="form-control input-sm" name="oEmail"></td>
+                                   <td><input value="{{ $projectdetails->ownerdetails->owner_email }}" placeholder="Owner Email" type="email" class="form-control input-sm" onblur="checkmail('oEmail')" id="oEmail" name="oEmail"></td>
                                </tr>
                                <tr>
                                    <td>Owner Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->ownerdetails->owner_contact_no }}" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact"></td>
+                                   <td><input value="{{ $projectdetails->ownerdetails->owner_contact_no }}" onkeyup="check('oContact')" onblur="checklength('oContact')" placeholder="Owner Contact No." type="text" class="form-control input-sm" maxlength="10" minlength="10" name="oContact" id="oContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -315,12 +315,12 @@
                                <tr>
                                    <td>Contractor Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->contractordetails->contractor_contact_no }}" placeholder="Contractor Email" type="email" class="form-control input-sm" name="cEmail"></td>
+                                   <td><input value="{{ $projectdetails->contractordetails->contractor_contact_no }}" placeholder="Contractor Email" type="email" onblur="checkmail('cEmail')" class="form-control input-sm" name="cEmail" id="cEmail"></td>
                                </tr>
                                <tr>
                                    <td>Contractor Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->contractordetails->contractor_email }}" placeholder="Contractor Contact No." type="text" class="form-control input-sm" name="cContact"></td>
+                                   <td><input value="{{ $projectdetails->contractordetails->contractor_email }}" placeholder="Contractor Contact No." maxlength="10" minlength="10" type="text" class="form-control input-sm" name="cContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -340,7 +340,7 @@
                                <tr>
                                    <td>Consultant Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_contact_no }}" placeholder="Consultant Contact No." type="text" class="form-control input-sm" name="coContact"></td>
+                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_contact_no }}" placeholder="Consultant Contact No." maxlength="10" minlength="10" type="text" class="form-control input-sm" name="coContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -360,7 +360,7 @@
                                <tr>
                                    <td>Site Engineer Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_contact_no }}" placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact"></td>
+                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_contact_no }}" placeholder="Site Engineer Contact No." type="text" maxlength="10" minlength="10" class="form-control input-sm" name="eContact"></td>
                                </tr>
                            </table>
                        </div> 
@@ -380,7 +380,7 @@
                                <tr>
                                    <td>Procurement Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input id="prPhone" value="{{ $projectdetails->procurementdetails->procurement_contact_no }}" required placeholder="Procurement Contact No." type="text" class="form-control input-sm" name="pContact"></td>
+                                   <td><input id="prPhone" value="{{ $projectdetails->procurementdetails->procurement_contact_no }}" required placeholder="Procurement Contact No." maxlength="10" minlength="10" type="text" class="form-control input-sm" name="pContact"></td>
                                </tr>
                            </table>
                        </div> 
@@ -400,6 +400,63 @@
 </div>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<!--This line by Siddharth -->
+<script type="text/javascript">
+  function checklength(arg){
+    var a = document.getElementById(arg).value;
+    if(a.length !== 10){
+      alert("Please Enter 10 digits !!!!");
+    }
+    return false;
+  }
+
+  function checkmail(arg){
+    var mail = document.getElementById(arg);
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))  
+    {  
+      return true;  
+    }  
+    else{
+        alert("Invalid Email Address!");  
+        mail.value = '';
+        return false;
+    }
+  }
+
+  function check(arg){
+    var input = document.getElementById(arg).value;
+    if(isNaN(input)){
+      while(isNaN(document.getElementById(arg).value)){
+      var str = document.getElementById(arg).value;
+      str     = str.substring(0, str.length - 1);
+      document.getElementById(arg).value = str;
+      }
+    }
+    else{
+      input = input.trim();
+      document.getElementById(arg).value = input;
+    }
+    //For ground and basement generation
+    if(arg == 'ground' || arg == 'basement'){
+      var basement = parseInt(document.getElementById("basement").value);
+      var ground   = parseInt(document.getElementById("ground").value);
+      if(!isNaN(basement) && !isNaN(ground)){
+        var floor    = 'B('+basement+')' + ' + G + ('+ground+') = ';
+        sum          = basement+ground+1;
+        floor       += sum;
+      
+        if(document.getElementById("total").innerHTML != null)
+          document.getElementById("total").innerHTML = floor;
+        else
+          document.getElementById("total").innerHTML = '';
+      }
+    }
+
+    return false;
+  }
+</script>
+<!--This line by Siddharth -->
+
 <script type="text/javascript">
   $(function(){
   $('#img').change(function(){
@@ -455,10 +512,11 @@ function sum(){
 <script type="text/javascript">
     var current = "first";
     function pageNext(){
+      //alert(document.getElementById("pName").value);
         if(current == 'first'){
-          if(document.getElementById("pName").value == ""){
+          if(document.getElementById("pName").value === ""){
             window.alert("You have not entered Project Name");
-          }else if(document.getElementById("longitude").value == ""){
+          }else if(document.getElementById("longitude").value === ""){
             window.alert("Please click on Get Location button");
           }else if(document.getElementById("latitude").value == ""){
             window.alert("Kindly click on Get location button");

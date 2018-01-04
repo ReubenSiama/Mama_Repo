@@ -81,5 +81,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript">
+        
+    </script>
 </body>
 </html>
