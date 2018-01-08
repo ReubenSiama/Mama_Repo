@@ -315,8 +315,8 @@ class mamaController extends Controller
     public function updateProject($id, Request $request)
     {
         $basement = $request->basement;
-        $ground = $request->ground;
-        $floor = $basement + $ground + 1;
+        $ground   = $request->ground;
+        $floor    = $basement + $ground + 1;
         if($request->mApprove != NULL){
             $imageName1 = time().'.'.request()->mApprove->getClientOriginalExtension();
             $request->mApprove->move(public_path('projectImages'),$imageName1);
@@ -344,56 +344,56 @@ class mamaController extends Controller
             ]);
         }
         ProjectDetails::where('project_id',$id)->update([
-            'project_name' => $request->pName,
-            'road_name' => $request->rName,
+            'project_name'   => $request->pName,
+            'road_name'      => $request->rName,
             'project_status' => $request->status,
-            'basement' => $basement,
-            'ground' => $ground,
-            'project_type' => $floor,
-            'project_size' => $request->pSize,
-            'budget' => $request->budget
+            'basement'       => $basement,
+            'ground'         => $ground,
+            'project_type'   => $floor,
+            'project_size'   => $request->pSize,
+            'budget'         => $request->budget
         ]);
         OwnerDetails::where('project_id',$id)->update([
-            'owner_name' => $request->oName,
-            'owner_email' => $request->oEmail,
-            'owner_contact_no' => $request->oContact
+            'owner_name'        => $request->oName,
+            'owner_email'       => $request->oEmail,
+            'owner_contact_no'  => $request->oContact
         ]);
         ContractorDetails::where('project_id',$id)->update([
-            'contractor_name' => $request->cName,
-            'contractor_email' => $request->cEmail,
+            'contractor_name'       => $request->cName,
+            'contractor_email'      => $request->cEmail,
             'contractor_contact_no' => $request->cContact
         ]);
         ConsultantDetails::where('project_id',$id)->update([
-            'consultant_name' => $request->coName,
-            'consultant_email' => $request->coEmail,
+            'consultant_name'       => $request->coName,
+            'consultant_email'      => $request->coEmail,
             'consultant_contact_no' => $request->coContact
         ]);
         SiteEngineerDetails::where('project_id',$id)->update([
-            'site_engineer_name' => $request->eName,
-            'site_engineer_email' => $request->eEmail,
-            'site_engineer_contact_no' => $request->eContact
+            'site_engineer_name'        => $request->eName,
+            'site_engineer_email'       => $request->eEmail,
+            'site_engineer_contact_no'  => $request->eContact
         ]);
         ProcurementDetails::where('project_id',$id)->update([
-            'procurement_name' => $request->pName,
-            'procurement_email' => $request->pEmail,
+            'procurement_name'       => $request->pName,
+            'procurement_email'      => $request->pEmail,
             'procurement_contact_no' => $request->pContact
         ]);
         date_default_timezone_set("Asia/Kolkata");
         loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
             'lastUpdateTime' => date('H:i A')
         ]);
-        $ward = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
-        $first = loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
-        $assigned = subWard::where('id',$ward)->pluck('sub_ward_name')->first();
+        $ward       = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $first      = loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
+        $assigned   = subWard::where('id',$ward)->pluck('sub_ward_name')->first();
         if($first->firstUpdateTime == NULL){
             loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([
                 'firstUpdateTime' => date('H:i A'),
                 'allocatedWard' => $assigned,
             ]);
         }
-        $check = mktime(12,00,00);
-        $checktime = date('H:i:sA',$check);
-        $morningcheck=loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
+        $check        = mktime(12,00,00);
+        $checktime    = date('H:i:sA',$check);
+        $morningcheck = loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->first();
         if(date('H:i:sA') <= $checktime){
             if($morningcheck->noOfProjectsUpdatedInMorning == NULL){
                 loginTime::where('user_id',Auth::user()->id)->where('logindate',date('Y-m-d'))->update([

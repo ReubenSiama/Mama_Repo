@@ -290,7 +290,7 @@
                                <tr>
                                    <td>Owner Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->ownerdetails->owner_name }}" type="text" placeholder="Owner Name" class="form-control input-sm" name="oName"></td>
+                                   <td><input value="{{ $projectdetails->ownerdetails->owner_name }}" type="text" placeholder="Owner Name" class="form-control input-sm" id="oName" name="oName"></td>
                                </tr>
                                <tr>
                                    <td>Owner Email</td>
@@ -300,7 +300,7 @@
                                <tr>
                                    <td>Owner Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->ownerdetails->owner_contact_no }}" onkeyup="check('oContact')" onblur="checklength('oContact')" placeholder="Owner Contact No." type="text" class="form-control input-sm" maxlength="10" minlength="10" name="oContact" id="oContact"></td>
+                                   <td><input value="{{ $projectdetails->ownerdetails->owner_contact_no }}" onkeyup="check('oContact')" placeholder="Owner Contact No." type="text" class="form-control input-sm" maxlength="10" minlength="10" name="oContact" id="oContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -310,7 +310,7 @@
                                <tr>
                                    <td>Contractor Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->contractordetails->contractor_name }}" type="text" placeholder="Contractor Name" class="form-control input-sm" name="cName"></td>
+                                   <td><input value="{{ $projectdetails->contractordetails->contractor_name }}" id="cName" type="text" placeholder="Contractor Name" class="form-control input-sm" name="cName"></td>
                                </tr>
                                <tr>
                                    <td>Contractor Email</td>
@@ -320,7 +320,7 @@
                                <tr>
                                    <td>Contractor Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->contractordetails->contractor_email }}" placeholder="Contractor Contact No." maxlength="10" minlength="10" type="text" class="form-control input-sm" name="cContact"></td>
+                                   <td><input value="{{ $projectdetails->contractordetails->contractor_email }}" placeholder="Contractor Contact No." onkeyup="check('cContact')" maxlength="10" minlength="10" type="text" class="form-control input-sm" id="cContact" name="cContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -330,17 +330,17 @@
                                <tr>
                                    <td>Consultant Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_name }}" type="text" placeholder="Consultant Name" class="form-control input-sm" name="coName"></td>
+                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_name }}" type="text" placeholder="Consultant Name" class="form-control input-sm" id="coName" name="coName"></td>
                                </tr>
                                <tr>
                                    <td>Consultant Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_email }}" placeholder="Consultant Email" type="email" class="form-control input-sm" name="coEmail"></td>
+                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_email }}" placeholder="Consultant Email" onblur="checkmail('coEmail')" type="email" class="form-control input-sm" id="coEmail" name="coEmail"></td>
                                </tr>
                                <tr>
                                    <td>Consultant Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_contact_no }}" placeholder="Consultant Contact No." maxlength="10" minlength="10" type="text" class="form-control input-sm" name="coContact"></td>
+                                   <td><input value="{{ $projectdetails->consultantdetails->consultant_contact_no }}" placeholder="Consultant Contact No." maxlength="10" minlength="10" onkeyup="check('coContact')" type="text" class="form-control input-sm" id="coContact" name="coContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -350,17 +350,17 @@
                                <tr>
                                    <td>Site Engineer Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_name }}" type="text" placeholder="Site Engineer Name" class="form-control input-sm" name="eName"></td>
+                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_name }}" type="text" placeholder="Site Engineer Name" class="form-control input-sm" id="eName" name="eName"></td>
                                </tr>
                                <tr>
                                    <td>Site Engineer Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_email }}" placeholder="Site Engineer Email" type="email" class="form-control input-sm" name="eEmail"></td>
+                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_email }}" placeholder="Site Engineer Email" type="email" onblur="checkmail('eEmail')" class="form-control input-sm" id="eEmail" name="eEmail"></td>
                                </tr>
                                <tr>
                                    <td>Site Engineer Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_contact_no }}" placeholder="Site Engineer Contact No." type="text" maxlength="10" minlength="10" class="form-control input-sm" name="eContact"></td>
+                                   <td><input value="{{ $projectdetails->siteengineerdetails->site_engineer_contact_no }}" placeholder="Site Engineer Contact No." type="text" maxlength="10" onkeyup="check('eContact')" minlength="10" class="form-control input-sm" name="eContact" id="eContact"></td>
                                </tr>
                            </table>
                        </div> 
@@ -370,22 +370,22 @@
                                <tr>
                                    <td>Procurement Name</td>
                                    <td>:</td>
-                                   <td><input id="prName" value="{{ $projectdetails->procurementdetails->procurement_name }}" required type="text" placeholder="Procurement Name" class="form-control input-sm" name="pName"></td>
+                                   <td><input id="prName" value="{{ $projectdetails->procurementdetails->procurement_name }}" required type="text" placeholder="Procurement Name" class="form-control input-sm" id="pName" name="pName"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Email</td>
                                    <td>:</td>
-                                   <td><input id="pEmail" value="{{ $projectdetails->procurementdetails->procurement_email }}" placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
+                                   <td><input id="pEmail" value="{{ $projectdetails->procurementdetails->procurement_email }}" placeholder="Procurement Email" type="email" class="form-control input-sm" id="pEmail" name="pEmail"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input id="prPhone" value="{{ $projectdetails->procurementdetails->procurement_contact_no }}" required placeholder="Procurement Contact No." maxlength="10" minlength="10" type="text" class="form-control input-sm" name="pContact"></td>
+                                   <td><input id="prPhone" value="{{ $projectdetails->procurementdetails->procurement_contact_no }}" required placeholder="Procurement Contact No." maxlength="10" minlength="10" type="text" class="form-control input-sm" name="pContact" id="pContact"></td>
                                </tr>
                            </table>
                        </div> 
                        <div id="seventh" class="hidden">
-                            <textarea class="form-control" placeholder="Remarks" name="remarks"></textarea><br>
+                            <textarea class="form-control" placeholder="Remarks (Optional)" name="remarks"></textarea><br>
                             <button type="submit" class="form-control btn btn-primary">Submit Data</button>
                        </div>                        
                        <ul class="pager">
@@ -412,15 +412,18 @@
 
   function checkmail(arg){
     var mail = document.getElementById(arg);
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))  
-    {  
-      return true;  
-    }  
-    else{
+    
+    if(mail.value.length > 0 ){
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))  {  
+        return true;  
+      }  
+      else{
         alert("Invalid Email Address!");  
         mail.value = '';
-        return false;
+       
+      }
     }
+     return false;
   }
 
   function check(arg){
@@ -538,17 +541,49 @@ function sum(){
             current = "second"
           }
         }else if(current == 'second'){
+          if(document.getElementById("oName").value === ""){
+            window.alert("You have not entered Project Name");
+          }else if(document.getElementById("oEmail").value === ""){
+            window.alert("You have not entered Email");
+          }else if(document.getElementById("oContact").value === ""){
+            window.alert("You have not entered Contact");
+          }else if(document.getElementById("oContact").value.length !== 10){
+            window.alert("You have to enter 10 digits for contact");
+          }
+          else{
             document.getElementById("second").className = "hidden";
             document.getElementById("third").className = "";
             current = "third";
+          }
         }else if(current == 'third'){
+           if(document.getElementById("cName").value === ""){
+            window.alert("You have not entered Coontractor Name");
+          }else if(document.getElementById("cEmail").value === ""){
+            window.alert("You have not entered Email");
+          }else if(document.getElementById("cContact").value === ""){
+            window.alert("You have not entered Contact");
+          }else if(document.getElementById("cContact").value.length !== 10){
+            window.alert("You have to enter 10 digits for contact");
+          }
+          else{
             document.getElementById("third").className = "hidden";
             document.getElementById("fourth").className = "";
             current = "fourth";
+          }
         }else if(current == 'fourth'){
+          if(document.getElementById("coName").value === ""){
+            window.alert("You have not entered Coontractor Name");
+          }else if(document.getElementById("coEmail").value === ""){
+            window.alert("You have not entered Email");
+          }else if(document.getElementById("coContact").value === ""){
+            window.alert("You have not entered Contact");
+          }else if(document.getElementById("coContact").value.length !== 10){
+            window.alert("You have to enter 10 digits for contact");
+          }else{
             document.getElementById("fourth").className = "hidden";
             document.getElementById("fifth").className = "";
             current = "fifth";
+          }
         }else if(current == 'fifth'){
             document.getElementById("fifth").className = "hidden";
             document.getElementById("sixth").className = "";

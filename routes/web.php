@@ -68,6 +68,7 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::post('/{id}/updateProject','mamaController@updateProject');
 	Route::get('/leDashboard','HomeController@leDashboard');
 	Route::get('/projectlist','HomeController@projectList');
+	Route::get('/newreg','HomeController@newreg'); //This line by Sid
 	Route::get('/{id}/edit','HomeController@editProject');
 	Route::get('/allProjects','HomeController@viewAll');
 	Route::get('/{id}/viewDetails','HomeController@viewDetails');

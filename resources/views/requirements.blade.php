@@ -66,7 +66,7 @@
 						<td>Delivery Notes</td>
 						<td>:</td>
 						<td>
-							<input placeholder="Delivery Notes..." required type="textarea" name="Delivnote" class="form-control">
+							<textarea class="form-control" required placeholder="Notes" name="Dnotes" id="Dnotes"></textarea>
 						</td>
 					</tr>
 					<tr>
@@ -131,22 +131,22 @@
 				<!--These lines by Siddharth  copy the ids attribute here-->
 				<table class="table">
 					<thead>
-						<th id="rqno">Requirement No.</th>
-						<th>Main Category</th>
-						<th>Sub-Category</th>
-						<th>Qnty.</th>
-						<th id="statusth">Status</th>
-						<th></th>		
+						<th style="text-align:center" id="rqno">Requirement No.</th>
+						<th style="text-align:center">Main Category</th>
+						<th style="text-align:center">Sub-Category</th>
+						<th style="text-align:center">Qnty.</th>
+						<th style="text-align:center" id="statusth">Status</th>
+						<th style="text-align:center"></th>		
 					</thead>
 					<tbody>
 						@foreach($requirements as $requirement)
 							<tr id="tr{{ $requirement->id }}">
-								<td id='rq{{$requirement->id}}'>{{ $requirement->id }}</td>
-								<td>{{ $requirement->main_category }}</td>
-								<td>{{ $requirement->sub_category }}</td>
-								<td>{{ $requirement->quantity }} {{ $requirement->measurement_unit }}</td>
-								<td id="status{{ $requirement->id }}">{{ $requirement->status }}</td>
-								<td id="check{{ $requirement->id }}"><input type="checkbox" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}"></td>
+								<td style="text-align:center" id='rq{{$requirement->id}}'>{{ $requirement->id }}</td>
+								<td style="text-align:center">{{ $requirement->main_category }}</td>
+								<td style="text-align:center">{{ $requirement->sub_category }}</td>
+								<td style="text-align:center">{{ $requirement->quantity }} {{ $requirement->measurement_unit }}</td>
+								<td style="text-align:center" id="status{{ $requirement->id }}">{{ $requirement->status }}</td>
+								<td style="text-align:center" id="check{{ $requirement->id }}"><input type="checkbox" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}"></td>
 							</tr>
 						@endforeach
 					</tbody>

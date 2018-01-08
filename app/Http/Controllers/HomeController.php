@@ -78,6 +78,10 @@ class HomeController extends Controller
         $user = User::where('employeeId',$id)->first();
         return view('viewEmployee',['user'=>$user]);
     }
+    public function newreg()
+    {
+        return view('newreg');
+    }
     public function teamLeadHome(){
         $group    = Group::where('group_name','Listing Engineer')->pluck('id')->first();
         $users    = User::where('group_id',$group)->get();

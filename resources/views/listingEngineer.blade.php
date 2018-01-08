@@ -32,7 +32,7 @@
                                <tr>
                                    <td>Project Name</td>
                                    <td>:</td>
-                                   <td><input id="pName" required type="text" placeholder="Project Name" class="form-control input-sm" name="pName" value="{{ old('pName') }}"></td>
+                                   <td><input id="pName" required type="text" placeholder="Project Name" class="form-control input-sm" name="pName" value="{{ old('pName') }}" ></td>
                                </tr>
                                <tr>
                                    <td>Location</td>
@@ -131,17 +131,17 @@
                                <tr>
                                    <td>Owner Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('oName') }}" type="text" placeholder="Owner Name" class="form-control input-sm" name="oName"></td>
+                                   <td><input value="{{ old('oName') }}" type="text" placeholder="Owner Name" class="form-control input-sm" name="oName" id="oName"></td>
                                </tr>
                                <tr>
                                    <td>Owner Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('oEmail') }}" placeholder="Owner Email" type="email" class="form-control input-sm" name="oEmail"></td>
+                                   <td><input value="{{ old('oEmail') }}" onblur="checkmail('oEmail')" placeholder="Owner Email" type="email" class="form-control input-sm" name="oEmail" id="oEmail"></td>
                                </tr>
                                <tr>
                                    <td>Owner Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('oContact') }}" id="oPhone" onchange="checkPhone()" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact"></td>
+                                   <td><input value="{{ old('oContact') }}" id="oPhone" onkeyup="check('oContact')" maxlength="10"  minlength="10" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact" id="oContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -151,17 +151,17 @@
                                <tr>
                                    <td>Contractor Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('cName') }}" type="text" placeholder="Contractor Name" class="form-control input-sm" name="cName"></td>
+                                   <td><input value="{{ old('cName') }}" type="text" placeholder="Contractor Name" class="form-control input-sm" name="cName" id="cName"></td>
                                </tr>
                                <tr>
                                    <td>Contractor Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('cEmail') }}" placeholder="Contractor Email" type="email" class="form-control input-sm" name="cEmail"></td>
+                                   <td><input value="{{ old('cEmail') }}" placeholder="Contractor Email" type="email" class="form-control input-sm" name="cEmail" id="cEmail" onblur="checkmail('cEmail')" ></td>
                                </tr>
                                <tr>
                                    <td>Contractor Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('cContact') }}" id="cPhone" onchange="checkPhone1()" placeholder="Contractor Contact No." type="number" class="form-control input-sm" name="cContact"></td>
+                                   <td><input value="{{ old('cContact') }}" id="cPhone" onkeyup="check('cPhone')" placeholder="Contractor Contact No." type="text" class="form-control input-sm" name="cContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -176,12 +176,12 @@
                                <tr>
                                    <td>Consultant Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('coEmail') }}" placeholder="Consultant Email" type="email" class="form-control input-sm" name="coEmail"></td>
+                                   <td><input value="{{ old('coEmail') }}" placeholder="Consultant Email" type="email" class="form-control input-sm" name="coEmail" id="coEmail" onblur="checkmail('coEmail')"></td>
                                </tr>
                                <tr>
                                    <td>Consultant Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('coContact') }}"  id="coPhone" onchange="checkPhone2()" placeholder="Consultant Contact No." type="number" class="form-control input-sm" name="coContact"></td>
+                                   <td><input value="{{ old('coContact') }}" placeholder="Consultant Contact No." type="text" class="form-control input-sm" name="coContact" id="coContact" onkeyup="check('coContact')"></td>
                                </tr>
                            </table>
                        </div>
@@ -196,12 +196,12 @@
                                <tr>
                                    <td>Site Engineer Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('eEmail') }}" placeholder="Site Engineer Email" type="email" class="form-control input-sm" name="eEmail"></td>
+                                   <td><input value="{{ old('eEmail') }}" placeholder="Site Engineer Email" type="email" class="form-control input-sm" name="eEmail" id="eEmail" onblur="checkmail('eEmail')"></td>
                                </tr>
                                <tr>
                                    <td>Site Engineer Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('eContact') }}"  id="sePhone" onchange="checkPhone3()" placeholder="Site Engineer Contact No." type="number" class="form-control input-sm" name="eContact"></td>
+                                   <td><input value="{{ old('eContact') }}"  id="sePhone" placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact" id="eContact" onkeyup="check('eContact')"></td>
                                </tr>
                            </table>
                        </div> 
@@ -216,17 +216,17 @@
                                <tr>
                                    <td>Procurement Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('pEmail') }}" placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail"></td>
+                                   <td><input value="{{ old('pEmail') }}" placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail" id="pEmail" onblur="checkmail('pEmail')"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('pContact') }}" id="prPhone" onchange="checkPhone4()" required placeholder="Procurement Contact No." type="number" class="form-control input-sm" name="pContact"></td>
+                                   <td><input value="{{ old('pContact') }}"  required placeholder="Procurement Contact No." type="text" class="form-control input-sm" name="pContact" id="prPhone" onkeyup="check('prPhone')"></td>
                                </tr>
                            </table>
                        </div> 
                        <div id="seventh" class="hidden">
-                            <textarea required class="form-control" placeholder="Remarks" name="remarks"></textarea><br>
+                            <textarea class="form-control" placeholder="Remarks (Optional)" name="remarks"></textarea><br>
                             <button type="submit" class="form-control btn btn-primary">Submit Data</button>
                        </div>                        
                        <ul class="pager">
@@ -433,37 +433,51 @@
 </script>
 
 <script type="text/javascript">
-  function checkPhone(){
-  var phone = document.getElementById("oPhone").value;
-    if(isNaN(phone)){
-      window.alert("Phone Number contains only numbers");
-    }else if(phone.length != 10){
-      window.alert("Please provide a valid phone number");
+ function checkmail(arg){
+    var mail = document.getElementById(arg);
+    if(mail.value.length > 0 ){
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))  {  
+        return true;  
+      }  
+      else{
+        alert("Invalid Email Address!");  
+        mail.value = '';  
+      }
     }
+     return false;
   }
-  function checkPhone1(){
-  var phone = document.getElementById("cPhone").value;
-    if(phone.length != 10){
-      window.alert("Please provide a valid phone number");
+
+  function check(arg){
+    var input = document.getElementById(arg).value;
+    if(isNaN(input)){
+      while(isNaN(document.getElementById(arg).value)){
+      var str = document.getElementById(arg).value;
+      str     = str.substring(0, str.length - 1);
+      document.getElementById(arg).value = str;
+      }
     }
-  }
-  function checkPhone2(){
-  var phone = document.getElementById("coPhone").value;
-    if(phone.length != 10){
-      window.alert("Please provide a valid phone number");
+    else{
+      input = input.trim();
+      document.getElementById(arg).value = input;
     }
-  }
-  function checkPhone3(){
-  var phone = document.getElementById("sePhone").value;
-    if(phone.length != 10){
-      window.alert("Please provide a valid phone number");
+    //For ground and basement generation
+    if(arg == 'ground' || arg == 'basement'){
+      var basement = parseInt(document.getElementById("basement").value);
+      var ground   = parseInt(document.getElementById("ground").value);
+      if(!isNaN(basement) && !isNaN(ground)){
+        var floor    = 'B('+basement+')' + ' + G + ('+ground+') = ';
+        sum          = basement+ground+1;
+        floor       += sum;
+        
+        if(document.getElementById("total").innerHTML != null)
+          document.getElementById("total").innerHTML = floor;
+        else
+          document.getElementById("total").innerHTML = '';
+      }
     }
+
+    return false;
   }
-  function checkPhone4(){
-  var phone = document.getElementById("prPhone").value;
-    if(phone.length != 10){
-      window.alert("Please provide a valid phone number");
-    }
-  }
+
 </script>
 @endsection
