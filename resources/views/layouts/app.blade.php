@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img style="height: 25px; width: 170px;" src="{{ URL::to('/') }}/logo.png">
+                        <img alt="Logo Here" style="height: 100%; width: 55%;" src="{{ URL::to('/') }}/logo.png">
                     </a>
                 </div>
 

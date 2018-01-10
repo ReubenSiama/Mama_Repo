@@ -10,7 +10,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/newreg','HomeController@newreg'); //This line by Sid
+Route::get('/terms', function () {
+    return view('terms');
+}); //This line by Sid
+Route::get('/buyerend', function () {
+    return view('Buyer/buyer');
+}); //This line by Sid
+Route::get('/addprojbuyer', function () {
+    return view('Buyer/Addprojbuyer');
+}); //This line by Sid
+Route::get('/updprojbuyer', function () {
+    return view('Buyer/buyer');
+}); //This line by Sid
+Route::get('/enqprojbuyer', function () {
+    return view('Buyer/enqprojbuyer');
+}); //This line by Sid
+Route::get('/repprojbuyer', function () {
+    return view('Buyer/buyer');
+}); //This line by Sid
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,6 +37,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/authlogin','HomeController@authlogin');
+
 Route::post('/authlogout','HomeController@authlogout')->name('authlogout');
 
 // Admin
@@ -68,7 +87,7 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::post('/{id}/updateProject','mamaController@updateProject');
 	Route::get('/leDashboard','HomeController@leDashboard');
 	Route::get('/projectlist','HomeController@projectList');
-	Route::get('/newreg','HomeController@newreg'); //This line by Sid
+
 	Route::get('/{id}/edit','HomeController@editProject');
 	Route::get('/allProjects','HomeController@viewAll');
 	Route::get('/{id}/viewDetails','HomeController@viewDetails');
@@ -102,3 +121,6 @@ Route::group(['middleware' => ['salesTL']],function(){
 
 Route::get('/salesEngineer','HomeController@getSalesEngineer');
 Route::get('/{id}/viewReport','HomeController@viewLeReport');
+
+//Buyer End
+//Route::post('/buyerend','HomeController@buyerend');

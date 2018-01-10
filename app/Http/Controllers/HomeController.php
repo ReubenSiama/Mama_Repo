@@ -82,6 +82,9 @@ class HomeController extends Controller
     {
         return view('newreg');
     }
+    public function terms(){
+        return view('terms');
+    }
     public function teamLeadHome(){
         $group    = Group::where('group_name','Listing Engineer')->pluck('id')->first();
         $users    = User::where('group_id',$group)->get();
@@ -342,4 +345,5 @@ class HomeController extends Controller
         $logintimes = loginTime::where('user_id',$id)->orderBy('created_at','DESC')->get();
         return view('amreport',['logintimes'=>$logintimes,'user'=>$user]);
     }
+    
 }

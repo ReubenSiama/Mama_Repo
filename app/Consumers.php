@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+namespace App;
 
-class CreateUsersTable extends Migration
+use Illuminate\Database\Eloquent\Model;
+
+class consumers extends Model
 {
-    /**
+  /**
      * Run the migrations.
      *
      * @return void
@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('employeeId')->unique();
             $table->string('employeeId')->unique();
             $table->integer('department_id');
             $table->string('name');

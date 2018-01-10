@@ -4,8 +4,8 @@
 <div id="regpage" class="img-responsive" style="background-image:'http://vunature.com/wp-content/uploads/2016/10/leaves-autumn-twig-branch-up-leaf-bokeh-close-beautiful-nature-wallpaper-mobile-1920x1080.jpg'">
 <div class="col-md-6 col-md-offset-3" align="center" style="border-radius: 5px;">
 	<div class="panel panel-primary" >
-		<div class="panel-heading" style="padding:0.5% 1% 0.5% 1%;background-color:rgba(249, 142, 55, 0.78); ">
-		<h4 style="text-align:left;padding-left:2%"><b>Buyer Registration</b></h4>
+		<div class="panel-heading" style="padding:0.5% 1% 0.5% 1%;background-color:rgb(21, 137, 66); ">
+		<h4 style="text-align:left;padding-left:2%"><b>Contractor Registration</b></h4>
 		</div>
 		<div class="panel-body" style="background-color:white">
 			<form method="POST" onsubmit="return validateform()" action="{{ URL::to('/') }}/newreg"> 

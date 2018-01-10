@@ -3,16 +3,16 @@
 @section('content')
 
 <div class="col-md-8 col-md-offset-2">
-<div class="panel panel-info" style="overflow-x: scroll">
+<div class="panel panel-primary" style="overflow-x: scroll">
 	<div class="panel-heading">
-		Enquiry
+		<b>Enquiry</b>
 		<button class="pull-right btn btn-sm btn-success" id="btn1" style="color:white;" onclick="show()">Add</button>
 		<button class="hidden" id="btn2" onclick="hide()">Cancel</button>
 	</div>
 	<div class="panel-body">
 		<div id="add" class="hidden">
-			<form method="POST" action="{{ URL::to('/') }}/{{$id}}/addRequirement" enctype="multipart/form-data">
-				{{ csrf_field() }}
+			<form method="POST" action="#" enctype="multipart/form-data">
+				
 				<table class="table table-responsive">
 					<label>Requirement Sheet</label>
 					<tr>
@@ -113,21 +113,7 @@
 			</form>
 		</div>
 		<div id="req" class="col-md-12">
-			@if(count($requirements) == 0)
-				<p id="Heading">No enquiries found yet! Please add some. </p>
-			@elseif(count($requirements) == 1)
-				<p id="Heading">This is your enquiry</p>
-			@else
-				<p id="Heading">These are your enquiries</p>
-			@endif
-			@if(session('Error'))
-			<div class="alert-danger pull-right">{{ session('Error')}}</div>
-			@endif
-			@if(session('Success'))
-			<div class="alert-success pull-right">{{ session('Success')}}</div>
-			@endif
-			<form method="POST" action="{{ URL::to('/') }}/{{ $id }}/placeOrder">
-				{{ csrf_field() }}
+			<form method="POST" action="">
 				<!--These lines by Siddharth  copy the ids attribute here-->
 				<table class="table table-responsive table-striped">
 					<thead>
@@ -140,18 +126,18 @@
 						<th style="text-align:center" id='updateth'>Action</th>		
 					</thead>
 					<tbody>
-						@foreach($requirements as $requirement)
-							<tr id="tr{{ $requirement->id }}">
-								<td style="text-align:center" id='rq{{$requirement->id}}'>{{ $requirement->id }}</td>
-								<td style="text-align:center">{{ $requirement->main_category }}</td>
-								<td style="text-align:center">{{ $requirement->sub_category }}</td>
-								<td style="text-align:center">{{ $requirement->quantity }} {{ $requirement->measurement_unit }}</td>
-								<td style="text-align:center" id="status{{ $requirement->id }}">{{ $requirement->status }}</td>
-								<td style="text-align:center" id="check{{ $requirement->id }}"><input type="checkbox" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}"></td>
+						
+							<tr>
+								<td style="text-align:center">Sid</td>
+								<td style="text-align:center">123s</td>
+								<td style="text-align:center">sub category</td>
+								<td style="text-align:center">category</td>
+								<td style="text-align:center" id="status">status</td>
+								<td style="text-align:center" id="check"><input type="checkbox" name="requirement[]" id="requirement[]" value=""></td>
 								<td><a style="margin-top:6px;" href="#" class="btn btn-sm btn-primary text-center
-									" id="btnprint{{$requirement->id}}" onclick="return printthis('{{$requirement->id}}')">Print {{ $requirement->id }}</a></td>
+									"  onclick="return printthis('')">Print </a></td>
 							</tr>
-						@endforeach
+						
 					</tbody>
 				</table>
 				<input type="submit" class="btn btn-success" name="Submit" id="submitform" value="Place Order">
@@ -163,9 +149,7 @@
 </div>
 <div style="margin-top:9%; background-color:transparent;border:none;left:-3%" class="col-md-1 panel panel-primary" id="dontprint">
 	<div class="panel-body">
-		@foreach($requirements as $requirement)
-		<br>
-		@endforeach
+		
 	</div>
 </div>
 <!--This section by Siddharth -->
@@ -216,13 +200,12 @@
 		document.getElementById("btn1").className 			  = "hidden";
 		document.getElementById('dontprint').style.visibility = 'hidden';
 		var today 	     = new Date();
-		var day 	  	 = (today.getDate().length ==1 ? "0"+today.getDate() : "0"+today.getDate()); //This line by Siddharth
+		var day 	  	 = (today.getDate().length ==1?"0"+today.getDate():"0"+today.getDate()); //This line by Siddharth
 		var month 	  	 = parseInt(today.getMonth())+1;
 		month 	  	     = (today.getMonth().length == 1 ? "0"+month : "0"+month);  //This line by Siddharth
 		var year 	  	 = today.getFullYear();
 		var current_date = new String(year+'-'+month+'-'+day); 
 		document.getElementById("rDate").min = current_date;
-		//alert(current_date);
 	}
 	function hide(){
 		document.getElementById("add").className  			  = "hidden";
