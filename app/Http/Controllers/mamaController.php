@@ -533,9 +533,23 @@ class mamaController extends Controller
         $requirement->unit_price = $request->uPrice;
         $requirement->quantity = $request->quantity;
         $requirement->total = $request->total;
+        $requirement->delivery_note = $request->Dnotes;
         $requirement->notes = $request->notes;
         $requirement->save();
         return back();
+    }
+    public function cancelOrder($id, Request $request)
+    {
+        $counting = count($request->requirement);
+        if($counting == 0){
+            return back()->with('Error','Please select requirements to place order');
+        }else{
+            for($i = 0;$i<$counting;$i++){
+                Requirement::where('project_id',$id)->where('id',$request->requirement[$i])->update(['status' => "Order Cancelled"]);
+            }
+        }
+        $orders = Requirement::where('project_id',$id)->get();
+        return view('confirm',['orders'=>$orders,'id'=>$id])->with('Success','Order has been cancelled successfully');   
     }
     public function placeOrder($id, Request $request)
     {

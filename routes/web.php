@@ -21,7 +21,7 @@ Route::get('/addprojbuyer', function () {
     return view('Buyer/Addprojbuyer');
 }); //This line by Sid
 Route::get('/updprojbuyer', function () {
-    return view('Buyer/buyer');
+    return view('Buyer/updbuyer');
 }); //This line by Sid
 Route::get('/enqprojbuyer', function () {
     return view('Buyer/enqprojbuyer');
@@ -87,7 +87,6 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::post('/{id}/updateProject','mamaController@updateProject');
 	Route::get('/leDashboard','HomeController@leDashboard');
 	Route::get('/projectlist','HomeController@projectList');
-
 	Route::get('/{id}/edit','HomeController@editProject');
 	Route::get('/allProjects','HomeController@viewAll');
 	Route::get('/{id}/viewDetails','HomeController@viewDetails');
@@ -109,6 +108,7 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::post('/eveningData','mamaController@eveningData');
 	Route::post('/{id}/addRequirement','mamaController@addRequirement');
 	Route::post('/{id}/placeOrder','mamaController@placeOrder');
+	Route::post('/{id}/cancelOrder','mamaController@cancelOrder');
 	Route::post('/{id}/confirmOrder','mamaController@confirmOrder');
 	Route::post('/posting','mamaController@postOrder');
 });

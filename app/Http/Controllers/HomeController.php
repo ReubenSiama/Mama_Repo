@@ -344,6 +344,5 @@ class HomeController extends Controller
         $user = User::where('id',$id)->first();
         $logintimes = loginTime::where('user_id',$id)->orderBy('created_at','DESC')->get();
         return view('amreport',['logintimes'=>$logintimes,'user'=>$user]);
-    }
-    
+    }    
 }

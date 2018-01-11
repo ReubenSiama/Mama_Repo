@@ -94,7 +94,7 @@
 					<tr>
 						<td>Total Amount</td>
 						<td>:</td>
-						<td><input disabled placeholder="Total" id="total" type="text" class="form-control" name="total"></td>
+						<td><input  placeholder="Total" id="total" type="text" class="form-control" name="total"></td>
 					</tr>
 					<tr>
 						<td>Notes</td>
@@ -137,24 +137,36 @@
 						<th style="text-align:center">Qnty.</th>
 						<th style="text-align:center" id="statusth">Status</th>
 						<th style="text-align:center" id='noid'></th>
-						<th style="text-align:center" id='updateth'>Action</th>		
+						<th></th>
+						<th style="text-align:center" id='updateth'>Action</th>	
+						<th></th>	
 					</thead>
 					<tbody>
 						@foreach($requirements as $requirement)
-							<tr id="tr{{ $requirement->id }}">
+							<tr id="tr{{ $requirement->id }}" valign="center" align="center">
 								<td style="text-align:center" id='rq{{$requirement->id}}'>{{ $requirement->id }}</td>
 								<td style="text-align:center">{{ $requirement->main_category }}</td>
 								<td style="text-align:center">{{ $requirement->sub_category }}</td>
 								<td style="text-align:center">{{ $requirement->quantity }} {{ $requirement->measurement_unit }}</td>
 								<td style="text-align:center" id="status{{ $requirement->id }}">{{ $requirement->status }}</td>
 								<td style="text-align:center" id="check{{ $requirement->id }}"><input type="checkbox" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}"></td>
+								<td>
+									<a style="margin-top:6px;" href="#" class="btn btn-sm btn-info text-center
+									" id="btnprint{{$requirement->id}}" onclick="return printthis('{{$requirement->id}}')">Edit</a>
+								</td>
 								<td><a style="margin-top:6px;" href="#" class="btn btn-sm btn-primary text-center
 									" id="btnprint{{$requirement->id}}" onclick="return printthis('{{$requirement->id}}')">Print {{ $requirement->id }}</a></td>
+								<td>
+									@if($requirement->status == 'Order Confirmed')
+									<a href="{{ URL::to('/') }}/{{ $id }}/confirmOrder" class="btn btn-sm btn-success text-center" style="margin-top: 10%" id="status-{{$requirement->id}}">View</a>
+									@endif
+								</td>
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
 				<input type="submit" class="btn btn-success" name="Submit" id="submitform" value="Place Order">
+				<a href="{{ URL::to('/') }}/{{$id}}/cancelOrder" class="btn btn-danger" onclick="confirm('Are You Sure You Want To Cancel ?')">Cancel</a>
 			</form>
 		</div>
 	</div>

@@ -1,18 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="container" style="display: none" id="container">
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-primary" style="overflow-x: scroll">
 	<div class="panel-heading">
 		<b>Enquiry</b>
-		<button class="pull-right btn btn-sm btn-success" id="btn1" style="color:white;" onclick="show()">Add</button>
+		<button class="pull-right btn btn-sm btn-success" id="btn1" style="color:white;font-weight:bold;" onclick="show()">Add</button>
 		<button class="hidden" id="btn2" onclick="hide()">Cancel</button>
 	</div>
 	<div class="panel-body">
 		<div id="add" class="hidden">
-			<form method="POST" action="#" enctype="multipart/form-data">
-				
+			<form method="POST" action="#" enctype="multipart/form-data">	
 				<table class="table table-responsive">
 					<label>Requirement Sheet</label>
 					<tr>
@@ -59,7 +58,7 @@
 						<td>Requirement date</td>
 						<td>:</td>
 						<td>
-							<input required type="date" name="rDate" id="rDate" class="form-control" >
+							<input required type="date" name="rDate" id="rDate" onblur="checkdate()" class="form-control" >
 						</td>
 					</tr>
 					<tr><!-- This line by Siddharth -->
@@ -147,14 +146,56 @@
 </div>
 <!--This section by Siddharth -->
 </div>
+</div>
 <div style="margin-top:9%; background-color:transparent;border:none;left:-3%" class="col-md-1 panel panel-primary" id="dontprint">
 	<div class="panel-body">
 		
 	</div>
 </div>
 <!--This section by Siddharth -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
+  $( document ).ready(function() {
+    $('#container').fadeIn(1000);
+	});
 
+  function checkdate(){
+	var today 	     = new Date();
+	var day 	  	 = (today.getDate().length ==1?"0"+today.getDate():today.getDate()); //This line by Siddharth
+	var month 	  	 = parseInt(today.getMonth())+1;
+	month 	  	     = (today.getMonth().length == 1 ? "0"+month : "0"+month);
+	var e = parseInt(month);  //This line by Siddharth
+	var year 	  	 = today.getFullYear();
+	var current_date = new String(year+'-'+month+'-'+day);
+	//Extracting individual date month and year and converting them to integers
+	var val = document.getElementById('rDate').value;
+	var c 	= val.substring(0, val.length-6);
+	c 	  	= parseInt(c);
+	var d 	= val.substring(5, val.length-3);
+	d     	= parseInt(d);
+	var f   = val.substring(8, val.length);
+	f       = parseInt(f);
+	var select_date = new String(c+'-'+d+'-'+f);
+	if (c < year) {
+		alert('Previous dates not allowed');
+		document.getElementById('rDate').value = null; 
+		return false; 	
+	}
+	else if(c === year && d < e){
+		alert('Previous dates not allowed');
+		document.getElementById('rDate').value = null; 
+		return false;	
+	}
+	else if(c === year && d ===e && f < day){
+		alert('Previous dates not allowed');
+		document.getElementById('rDate').value = null; 
+		return false;	
+	}
+	else{
+		return false;
+	}
+	//document.getElementById('rDate').value = current_date;  	
+  }
   function check(arg){
     var input = document.getElementById(arg).value;
     if(isNaN(input)){
@@ -200,12 +241,13 @@
 		document.getElementById("btn1").className 			  = "hidden";
 		document.getElementById('dontprint').style.visibility = 'hidden';
 		var today 	     = new Date();
-		var day 	  	 = (today.getDate().length ==1?"0"+today.getDate():"0"+today.getDate()); //This line by Siddharth
+		var day 	  	 = (today.getDate().length ==1?"0"+today.getDate():today.getDate()); //This line by Siddharth
 		var month 	  	 = parseInt(today.getMonth())+1;
 		month 	  	     = (today.getMonth().length == 1 ? "0"+month : "0"+month);  //This line by Siddharth
 		var year 	  	 = today.getFullYear();
 		var current_date = new String(year+'-'+month+'-'+day); 
 		document.getElementById("rDate").min = current_date;
+		alert(document.getElementById("rDate").min);
 	}
 	function hide(){
 		document.getElementById("add").className  			  = "hidden";
