@@ -210,11 +210,26 @@ class HomeController extends Controller
             ->where('logindate',date('Y-m-d'))->first();
         return view('lereportbytl',['loginTimes'=>$loginTimes,'userId'=>$id]);
     }
+
+    public function logistics()
+    {
+        $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $roads = ProjectDetails::where('sub_ward_id',$assignment)->groupBy('road_name')->pluck('road_name');
+        return view('logisticsroads',['roads'=>$roads]);
+    }
     public function getRequirementRoads()
     {
         $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
         $roads = ProjectDetails::where('sub_ward_id',$assignment)->groupBy('road_name')->pluck('road_name');
         return view('requirementsroad',['roads'=>$roads]);
+    }
+    public function logisticsRequirement($road)
+    {
+        $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $projectlist= ProjectDetails::where('road_name',$road)
+            ->where('sub_ward_id',$assignment)
+            ->get();
+        return view('logisticslist',['projectlist'=>$projectlist,'pageName'=>"Requirements"]);
     }
     public function projectRequirement($road)
     {

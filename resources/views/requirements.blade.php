@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="col-md-8 col-md-offset-2">
-<div class="panel panel-info" style="overflow-x: scroll">
+<div class="col-md-10 col-md-offset-1">
+<div class="panel panel-primary">
 	<div class="panel-heading">
-		Enquiry
-		<button class="pull-right btn btn-sm btn-success" id="btn1" style="color:white;" onclick="show()">Add</button>
+		<b style="color:white">Enquiry</b>
+		<button class="pull-right btn btn-sm btn-success" id="btn1" style="color:white;" onclick="show()"><b>Add</b></button>
 		<button class="hidden" id="btn2" onclick="hide()">Cancel</button>
 	</div>
 	<div class="panel-body">
@@ -59,7 +59,7 @@
 						<td>Requirement date</td>
 						<td>:</td>
 						<td>
-							<input required type="date" name="rDate" id="rDate" class="form-control" >
+							<input required type="date" name="rDate" id="rDate" onblur="checkdate()" class="form-control" >
 						</td>
 					</tr>
 					<tr><!-- This line by Siddharth -->
@@ -139,6 +139,7 @@
 						<th style="text-align:center" id='noid'></th>
 						<th></th>
 						<th style="text-align:center" id='updateth'>Action</th>	
+						<th></th>
 						<th></th>	
 					</thead>
 					<tbody>
@@ -149,24 +150,37 @@
 								<td style="text-align:center">{{ $requirement->sub_category }}</td>
 								<td style="text-align:center">{{ $requirement->quantity }} {{ $requirement->measurement_unit }}</td>
 								<td style="text-align:center" id="status{{ $requirement->id }}">{{ $requirement->status }}</td>
-								<td style="text-align:center" id="check{{ $requirement->id }}"><input type="checkbox" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}"></td>
-								<td>
-									<a style="margin-top:6px;" href="#" class="btn btn-sm btn-info text-center
-									" id="btnprint{{$requirement->id}}" onclick="return printthis('{{$requirement->id}}')">Edit</a>
+								<td style="text-align:center" id="check{{ $requirement->id }}">
+									@if($requirement->status !== 'Order Cancelled' && $requirement->status !== 'Order Confirmed')
+									<input type="checkbox" style="margin-top:50%" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}">
+									@endif
 								</td>
-								<td><a style="margin-top:6px;" href="#" class="btn btn-sm btn-primary text-center
-									" id="btnprint{{$requirement->id}}" onclick="return printthis('{{$requirement->id}}')">Print {{ $requirement->id }}</a></td>
+								<td>
+									@if($requirement->status !== 'Order Cancelled')
+									<a style="margin-top:8%;" href="{{ URL::to('/') }}/{{ $id }}/{{$requirement->id}}/editOrder" class="btn btn-sm btn-info text-center
+									" id="btnprint{{$requirement->id}}">Edit</a>
+									@endif
+								</td>
 								<td>
 									@if($requirement->status == 'Order Confirmed')
-									<a href="{{ URL::to('/') }}/{{ $id }}/confirmOrder" class="btn btn-sm btn-success text-center" style="margin-top: 10%" id="status-{{$requirement->id}}">View</a>
+									<a href="{{ URL::to('/') }}/{{ $id }}/confirmOrder" class="btn btn-sm btn-success text-center" style="margin-top: 8%" id="status-{{$requirement->id}}">View</a>
 									@endif
+								</td>
+								<td>
+									@if($requirement->status !== 'Order Cancelled')
+									<a href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/cancelOrder" class="btn btn-sm btn-danger text-center" style="margin-top: 9%" id="status-{{$requirement->id}}">Cancel</a>
+									@endif
+								</td>
+								<td><a style="margin-top:12%;" href="#" class="btn btn-sm btn-primary text-center
+									" id="btnprint{{$requirement->id}}" onclick="return printthis('{{$requirement->id}}')">Print</a>
 								</td>
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
 				<input type="submit" class="btn btn-success" name="Submit" id="submitform" value="Place Order">
-				<a href="{{ URL::to('/') }}/{{$id}}/cancelOrder" class="btn btn-danger" onclick="confirm('Are You Sure You Want To Cancel ?')">Cancel</a>
+				<a href="{{ URL::to('/') }}/{{$id}}/orderConfirm" name="confirmOrder" class="btn btn-md btn-primary" id="confirmOrder" value="Confirm Order">Confirm Order</a>
+				
 			</form>
 		</div>
 	</div>
@@ -182,22 +196,63 @@
 </div>
 <!--This section by Siddharth -->
 <script type="text/javascript">
+  	function checkdate(){
+		var today 	     = new Date();
+		var day 	  	 = (today.getDate().length ==1?"0"+today.getDate():today.getDate()); //This line by Siddharth
+		var month 	  	 = parseInt(today.getMonth())+1;
+		month 	  	     = (today.getMonth().length == 1 ? "0"+month : "0"+month);
+		var e 			 = parseInt(month);  //This line by Siddharth
+		var year 	  	 = today.getFullYear();
+		var current_date = new String(year+'-'+month+'-'+day);
+	
+		//Extracting individual date month and year and converting them to integers
+		var val = document.getElementById('rDate').value;
+		var c 	= val.substring(0, val.length-6);
+		c 	  	= parseInt(c);
+		var d 	= val.substring(5, val.length-3);
+		d     	= parseInt(d);
+		var f   = val.substring(8, val.length);
+		f       = parseInt(f);
+		var select_date = new String(c+'-'+d+'-'+f);
+		if (c < year) {
+			alert('Previous dates not allowed');
+			document.getElementById('rDate').value = null; 
+			document.getElementById('rDate').focus();
+			return false; 	
+		}
+		else if(c === year && d < e){
+			alert('Previous dates not allowed');
+			document.getElementById('rDate').value = null;
+			document.getElementById('rDate').focus(); 
+			return false;	
+		}
+		else if(c === year && d === e && f < day){
+			alert('Previous dates not allowed');
+			document.getElementById('rDate').value = null;
+			document.getElementById('rDate').focus(); 
+			return false;	
+		}
+		else{
+			return false;
+		}
+		//document.getElementById('rDate').value = current_date;  	
+  	}
 
-  function check(arg){
-    var input = document.getElementById(arg).value;
-    if(isNaN(input)){
-      while(isNaN(document.getElementById(arg).value)){
-      var str = document.getElementById(arg).value;
-      str     = str.substring(0, str.length - 1);
-      document.getElementById(arg).value = str;
-      }
-    }
-    else{
-      input = input.trim();
-      document.getElementById(arg).value = input;
-    }
-    return false;
-  }
+	function check(arg){
+	    var input = document.getElementById(arg).value;
+	    if(isNaN(input)){
+	      	while(isNaN(document.getElementById(arg).value)){
+	      	var str = document.getElementById(arg).value;
+	      	str     = str.substring(0, str.length - 1);
+	      	document.getElementById(arg).value = str;
+	      	}
+	    }
+	    else{
+	      	input = input.trim();
+	      	document.getElementById(arg).value = input;
+	    }
+	    return false;
+	}
 
 	function calculate(){
 		var price = document.getElementById("uPrice").value;
@@ -221,6 +276,7 @@
       		}
 		}
 	}
+
 	function show(){
 		document.getElementById("req").className  			  = "hidden"
 		document.getElementById("add").className  			  = "";
@@ -236,6 +292,7 @@
 		document.getElementById("rDate").min = current_date;
 		//alert(current_date);
 	}
+
 	function hide(){
 		document.getElementById("add").className  			  = "hidden";
 	 	document.getElementById("req").className  			  = "";
@@ -243,22 +300,23 @@
 		document.getElementById("btn2").className 			  = "hidden";
 		document.getElementById('dontprint').style.visibility = 'visible';	//This line by Siddharth
 	}
+	
 	//This line by Siddharth start
 	function printthis(arg){
-        document.getElementById('submitform').style.display = 'none';
-        document.getElementById('Heading').style.display    = 'none';
-        document.getElementById('dontprint').style.display  = 'none';
-        document.getElementById('btn1').style.display       = 'none';
-        document.getElementById('rqno').style.display       = 'none';
-        document.getElementById('statusth').style.display   = 'none';
-        document.getElementById('check'+arg).style.display  = 'none';
+        document.getElementById('submitform').style.display 	= 'none';
+        document.getElementById('Heading').style.display    	= 'none';
+        document.getElementById('dontprint').style.display  	= 'none';
+        document.getElementById('btn1').style.display       	= 'none';
+        document.getElementById('rqno').style.display       	= 'none';
+        document.getElementById('statusth').style.display   	= 'none';
+        document.getElementById('check'+arg).style.display  	= 'none';
+        document.getElementById('confirmOrder').style.display  	= 'none';
         
         var i;
         for(i=1; i<100;i++){
         	if(document.getElementById('tr'+i)){
         		if(i != arg){
-        			document.getElementById('tr'+i).style.display='none';
-
+        			document.getElementById('tr'+i).style.display = 'none';
         		}
         	}
         }
@@ -271,7 +329,7 @@
         window.print();
         location.reload(true);
         return false;
-    //This line by Siddharth end    
+    	//This line by Siddharth end    
     }
 </script>
 @endsection

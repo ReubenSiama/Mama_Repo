@@ -67,7 +67,7 @@ Route::group(['middleware' => ['operationTL']],function(){
 	Route::get('/teamLead','HomeController@teamLeadHome');
 	Route::post('/{id}/assignWards','mamaController@assignWards');
 	Route::get('/{id}/viewReport','HomeController@viewLeReport');
-	Route::get('/{id}/deleteReportImage','HomeController@deleteReportImage');
+	Route::get('/{id}/deleteReportImage', 'HomeController@deleteReportImage');
 	Route::get('/{id}/deleteReportImage2','HomeController@deleteReportImage2');
 	Route::get('/{id}/deleteReportImage3','HomeController@deleteReportImage3');
 	Route::get('/{id}/deleteReportImage4','HomeController@deleteReportImage4');
@@ -83,6 +83,7 @@ Route::group(['middleware' => ['operationTL']],function(){
 // Listing Engineer
 Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/listingEngineer','HomeController@listingEngineer');
+	Route::get('/logistics','HomeController@logistics');
 	Route::post('/addProject','mamaController@addProject');
 	Route::post('/{id}/updateProject','mamaController@updateProject');
 	Route::get('/leDashboard','HomeController@leDashboard');
@@ -94,8 +95,10 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/{road}/projectlist','HomeController@viewProjectList');
 	Route::get('/reports','HomeController@getMyReports');
 	Route::get('/completed','HomeController@updateAssignment');
+	Route::get('/{id}/logisticdetails','HomeController@logisticdetails');
 	Route::get('/{id}/requirements','HomeController@getRequirements');
 	Route::get('/requirementsroads','HomeController@getRequirementRoads');
+	Route::get('/{road}/logisticsRequirement','HomeController@logisticsRequirement');
 	Route::get('/{road}/projectrequirement','HomeController@projectRequirement');
 	Route::get('/{id}/confirmOrder','HomeController@getConfirmOrder')->name('downloadInvoice');
 	Route::get('/{id}/payment','HomeController@getPayment');
@@ -108,7 +111,9 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::post('/eveningData','mamaController@eveningData');
 	Route::post('/{id}/addRequirement','mamaController@addRequirement');
 	Route::post('/{id}/placeOrder','mamaController@placeOrder');
-	Route::post('/{id}/cancelOrder','mamaController@cancelOrder');
+	Route::get('/{id}/{rqid}/cancelOrder','mamaController@cancelOrder');
+	Route::get('/{id}/{rqid}/editOrder','mamaController@editOrder');
+	Route::get('/{id}/orderConfirm','mamaController@orderConfirm');
 	Route::post('/{id}/confirmOrder','mamaController@confirmOrder');
 	Route::post('/posting','mamaController@postOrder');
 });

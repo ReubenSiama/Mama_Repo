@@ -528,28 +528,59 @@ class mamaController extends Controller
             $request->rfImage2->move(public_path('requirements'),$imageName2);
             $requirement->referral_image2 = $imageName;
         }
-        $requirement->requirement_date = $request->rDate;
-        $requirement->measurement_unit = $request->mUnit;
-        $requirement->unit_price = $request->uPrice;
-        $requirement->quantity = $request->quantity;
-        $requirement->total = $request->total;
-        $requirement->delivery_note = $request->Dnotes;
-        $requirement->notes = $request->notes;
+        $requirement->requirement_date  = $request->rDate;
+        $requirement->measurement_unit  = $request->mUnit;
+        $requirement->unit_price        = $request->uPrice;
+        $requirement->quantity          = $request->quantity;
+        $requirement->total             = $request->total;
+        $requirement->delivery_note     = $request->Dnotes;
+        $requirement->notes             = $request->notes;
         $requirement->save();
         return back();
     }
-    public function cancelOrder($id, Request $request)
-    {
+    //This function by Sid
+    // public function orderConfirm($id, Request $request){
+    //     $counting = count($request->requirement);
+    //     if($counting == 0){
+    //         return back()->with('Error','Please select requirements to place order');
+    //     }else{
+    //         for($i = 0; $i<$counting; $i++){
+    //             Requirement::where('project_id',$id)->where('id',$request->requirement[$i])->update(['status' => "Order Confrimed"]);
+    //         }
+
+    //     //$project = projectdetails::where('project_id',$id)->first();
+    //     //Requirement::where('project_id',$id)->where('status','Order Placed')->update(['status' => "Order Confirmed"]);
+    //     $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
+    //     return redirect($id.'/requirements')->with('Confirmed','Order has been confirmed');
+    //     }
+        
+    // }
+
+
+    public function orderConfirm($id, Request $request)
+   {
         $counting = count($request->requirement);
         if($counting == 0){
-            return back()->with('Error','Please select requirements to place order');
+            return back()->with('Error','Please select orders to be confirmed');
         }else{
-            for($i = 0;$i<$counting;$i++){
-                Requirement::where('project_id',$id)->where('id',$request->requirement[$i])->update(['status' => "Order Cancelled"]);
-            }
+        $project = projectdetails::where('project_id',$id)->first();
+        Requirement::where('project_id',$id)->where('status','Order Placed')->update(['status' => "Order Confirmed"]);
+        $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
+        return redirect($id.'/requirements')->with('Confirmed','Order has been confirmed');
         }
+    } 
+
+
+    //This function by Sid
+    public function editOrder($id, $rqid, Request $request){
+        $val = Requirement::where('project_id',$id)->where('id', $rqid)->first();
+        return view('editOrder', ['val' => $val, 'id'=> $id]); 
+    }
+    public function cancelOrder($id, $rqid, Request $request)
+    {  
+        Requirement::where('project_id',$id)->where('id', $rqid)->update(['status' => "Order Cancelled"]);
         $orders = Requirement::where('project_id',$id)->get();
-        return view('confirm',['orders'=>$orders,'id'=>$id])->with('Success','Order has been cancelled successfully');   
+        return redirect($id.'/requirements')->with('Confirmed','Order has been cancelled');
     }
     public function placeOrder($id, Request $request)
     {
@@ -565,12 +596,12 @@ class mamaController extends Controller
         return view('confirm',['orders'=>$orders,'id'=>$id])->with('Success','Order has been placed successfully');
     }
     public function confirmOrder($id, Request $request)
-    {
+   {
         $project = projectdetails::where('project_id',$id)->first();
         Requirement::where('project_id',$id)->where('status','Order Placed')->update(['status' => "Order Confirmed"]);
         $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
         return redirect($id.'/confirmOrder')->with('Confirmed','Order has been confirmed');
-    }
+    } 
     public function postOrder(Request $request)
     {
         $secret_key = $request->secretkey;

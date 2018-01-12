@@ -45,7 +45,14 @@
 		<div class="panel-footer">
 			<form method="GET" action="{{URL::to('/') }}/{{ $id }}/payment">
 				<input type="hidden" name="total" value="{{ $total }}">
-				<button type="submit" class="btn btn-primary btn-sm form-control">Proceed to pay</button>
+				<button type="submit" class="btn btn-danger btn-sm form-control">Generate D C</button>
+				<br>
+				<br>
+				<button type="submit" class="btn btn-primary btn-sm form-control">Online Payment</button>
+				<br>
+				<br>
+
+				<button type="submit" class="btn btn-info btn-sm form-control">Offline Payment</button>
 			</form>
 		</div>
 	</div>

@@ -25,7 +25,7 @@
                     <br>
                         <button id="getBtn" class="btn btn-success btn-sm" onclick="getLocation()">Get Location</button>
                     </center><br>
-                   <form method="POST" action="{{ URL::to('/') }}/addProject" enctype="multipart/form-data">
+                   <form method="POST" onsubmit="validateform()" action="{{ URL::to('/') }}/addProject" enctype="multipart/form-data">
                     <div id="first">
                     {{ csrf_field() }}
                            <table class="table">
@@ -141,7 +141,7 @@
                                <tr>
                                    <td>Owner Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('oContact') }}" id="oPhone" onkeyup="check('oContact')" maxlength="10"  minlength="10" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact" id="oContact"></td>
+                                   <td><input value="{{ old('oContact') }}" onkeyup="check('oContact')" maxlength="10"  minlength="10" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact" id="oContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -171,17 +171,17 @@
                                <tr>
                                    <td>Consultant Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('coName') }}" type="text" placeholder="Consultant Name" class="form-control input-sm" name="coName"></td>
+                                   <td><input value="{{ old('coName') }}"  type="text" placeholder="Consultant Name" class="form-control input-sm" name="coName"></td>
                                </tr>
                                <tr>
                                    <td>Consultant Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('coEmail') }}" placeholder="Consultant Email" type="email" class="form-control input-sm" name="coEmail" id="coEmail" onblur="checkmail('coEmail')"></td>
+                                   <td><input value="{{ old('coEmail') }}"  placeholder="Consultant Email" type="email" class="form-control input-sm" name="coEmail" id="coEmail" onblur="checkmail('coEmail')"></td>
                                </tr>
                                <tr>
                                    <td>Consultant Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('coContact') }}" placeholder="Consultant Contact No." type="text" class="form-control input-sm" name="coContact" id="coContact" onkeyup="check('coContact')"></td>
+                                   <td><input value="{{ old('coContact') }}"  placeholder="Consultant Contact No." type="text" class="form-control input-sm" name="coContact" id="coContact" onkeyup="check('coContact')"></td>
                                </tr>
                            </table>
                        </div>
@@ -191,17 +191,17 @@
                                <tr>
                                    <td>Site Engineer Name</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('eName') }}" type="text" placeholder="Site Engineer Name" class="form-control input-sm" name="eName"></td>
+                                   <td><input value="{{ old('eName') }}"  type="text" placeholder="Site Engineer Name" class="form-control input-sm" name="eName" id="eName"></td>
                                </tr>
                                <tr>
                                    <td>Site Engineer Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('eEmail') }}" placeholder="Site Engineer Email" type="email" class="form-control input-sm" name="eEmail" id="eEmail" onblur="checkmail('eEmail')"></td>
+                                   <td><input value="{{ old('eEmail') }}"  placeholder="Site Engineer Email" type="email" class="form-control input-sm" name="eEmail" id="eEmail" onblur="checkmail('eEmail')"></td>
                                </tr>
                                <tr>
                                    <td>Site Engineer Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('eContact') }}"  id="sePhone" placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact" id="eContact" onkeyup="check('eContact')"></td>
+                                   <td><input value="{{ old('eContact') }}"   placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact" id="eContact" onkeyup="check('eContact')"></td>
                                </tr>
                            </table>
                        </div> 
@@ -216,12 +216,12 @@
                                <tr>
                                    <td>Procurement Email</td>
                                    <td>:</td>
-                                   <td><input value="{{ old('pEmail') }}" placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail" id="pEmail" onblur="checkmail('pEmail')"></td>
+                                   <td><input value="{{ old('pEmail') }}" required placeholder="Procurement Email" type="email" class="form-control input-sm" name="pEmail" id="pEmail" onblur="checkmail('pEmail')"></td>
                                </tr>
                                <tr>
                                    <td>Procurement Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('pContact') }}"  required placeholder="Procurement Contact No." type="text" class="form-control input-sm" name="pContact" id="prPhone" onkeyup="check('prPhone')"></td>
+                                   <td><input value="{{ old('pContact') }}" required maxlength="10" minlength=10 onblur="checklength('prPhone');" required placeholder="Procurement Contact No." type="text" class="form-control input-sm" name="pContact" id="prPhone" onkeyup="check('prPhone')"></td>
                                </tr>
                            </table>
                        </div> 
@@ -242,8 +242,21 @@
 </div>
 <!--This line by Siddharth -->
 <script type="text/javascript">
+ 
+  function checklength(arg){
+    var x = document.getElementById(arg);
+    if(x){
+      if(x.value.length < 10){
+        alert('Please Enter 10 Digits in Phone Number');
+        x.value = '';
+        return false;
+      } 
+    }
+    return false;
+  }
   function check(arg){
     var input = document.getElementById(arg).value;
+    if(input){
     if(isNaN(input)){
       while(isNaN(document.getElementById(arg).value)){
       var str = document.getElementById(arg).value;
@@ -269,6 +282,7 @@
           document.getElementById("total").innerHTML = '';
       }
     }
+  }
     return false;
   }
 </script>
@@ -368,12 +382,15 @@
           }else{ 
             document.getElementById("first").className = "hidden";
             document.getElementById("second").className = "";
-            current = "second"
+            current = "second";
           }
         }else if(current == 'second'){
-            document.getElementById("second").className = "hidden";
-            document.getElementById("third").className = "";
-            current = "third";
+            
+             
+              document.getElementById("second").className = "hidden";
+              document.getElementById("third").className = "";
+              current = "third";
+            
         }else if(current == 'third'){
             document.getElementById("third").className = "hidden";
             document.getElementById("fourth").className = "";
@@ -387,7 +404,14 @@
             document.getElementById("sixth").className = "";
             current = "sixth";
         }else if(current == 'sixth'){
-          if(document.getElementById("prName").value == ""){
+          
+          if(document.getElementById('prName').value == ''){
+            alert('Please Enter a Name');
+            document.getElementById('prName').focus();
+          }else if(document.getElementById('prPhone').value== ''){
+            alert('Please Enter Phone Number');
+            document.getElementById('prPhone').focus();
+          }else if(document.getElementById("prName").value == ""){
             window.alert("Please Enter Procurement Name");
           }else if(document.getElementById("pContact") == ""){
             window.alert("Please enter phone number");
@@ -441,7 +465,8 @@
       }  
       else{
         alert("Invalid Email Address!");  
-        mail.value = '';  
+        mail.value = ''; 
+        mail.focus(); 
       }
     }
      return false;
