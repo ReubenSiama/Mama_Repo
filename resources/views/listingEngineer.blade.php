@@ -21,7 +21,7 @@
                 @if($subwards)
                 <div class="panel-body">
                     <center>
-                    <label>Project Details</label>
+                    <label id="headingPanel"></label>
                     <br>
                         <button id="getBtn" class="btn btn-success btn-sm" onclick="getLocation()">Get Location</button>
                     </center><br>
@@ -121,7 +121,7 @@
                                <tr>
                                    <td>Project Image</td>
                                    <td>:</td>
-                                   <td><input id="img" required type="file" accept="image/*" class="form-control input-sm" name="pImage"></td>
+                                   <td><input id="pImage" required type="file" accept="image/*" class="form-control input-sm" name="pImage" onchange="validateFileType()"><p id="errormsg"></p></td>
                                </tr>
                            </table>
                        </div>
@@ -141,7 +141,7 @@
                                <tr>
                                    <td>Owner Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('oContact') }}" onkeyup="check('oContact')" maxlength="10"  minlength="10" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact" id="oContact"></td>
+                                   <td><input value="{{ old('oContact') }}" onblur="checklength('oContact');" onkeyup="check('oContact')" maxlength="10"  minlength="10" placeholder="Owner Contact No." type="text" class="form-control input-sm" name="oContact" id="oContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -161,7 +161,7 @@
                                <tr>
                                    <td>Contractor Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('cContact') }}" id="cPhone" onkeyup="check('cPhone')" placeholder="Contractor Contact No." type="text" class="form-control input-sm" name="cContact"></td>
+                                   <td><input value="{{ old('cContact') }}" onblur="checklength('cPhone');" id="cPhone" onkeyup="check('cPhone')" placeholder="Contractor Contact No." type="text" class="form-control input-sm" name="cContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -181,7 +181,7 @@
                                <tr>
                                    <td>Consultant Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('coContact') }}"  placeholder="Consultant Contact No." type="text" class="form-control input-sm" name="coContact" id="coContact" onkeyup="check('coContact')"></td>
+                                   <td><input value="{{ old('coContact') }}" onblur="checklength('coContact');" placeholder="Consultant Contact No." type="text" class="form-control input-sm" name="coContact" id="coContact" onkeyup="check('coContact')"></td>
                                </tr>
                            </table>
                        </div>
@@ -201,7 +201,7 @@
                                <tr>
                                    <td>Site Engineer Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('eContact') }}"   placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact" id="eContact" onkeyup="check('eContact')"></td>
+                                   <td><input value="{{ old('eContact') }}" onblur="checklength('eContact');"  placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact" id="eContact" onkeyup="check('eContact')"></td>
                                </tr>
                            </table>
                        </div> 
@@ -243,12 +243,24 @@
 <!--This line by Siddharth -->
 <script type="text/javascript">
  
+  function validateFileType(){
+    var fileName = document.getElementById("pImage").value;
+    var idxDot = fileName.lastIndexOf(".") + 1;
+    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+    if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+          document.getElementById('errormsg').innerHTML = "";
+    }else{
+          document.getElementById('errormsg').innerHTML = "Only <b>'.JPG'</b> , <b>'.JPEG'</b> and <b>'.PNG'</b> files are allowed!";
+          document.getElementById("pImage").value = '';
+          return false;
+         }   
+  }
   function checklength(arg){
     var x = document.getElementById(arg);
-    if(x){
+    if(x.value){
       if(x.value.length < 10){
         alert('Please Enter 10 Digits in Phone Number');
-        x.value = '';
+        document.getElementById(arg).value = '';
         return false;
       } 
     }
@@ -357,8 +369,9 @@
 
 <script type="text/javascript">
     var current = "first";
+    document.getElementById('headingPanel').innerHTML = 'Project Details';
     function pageNext(){
-        if(current == 'first'){
+        if(current == 'first'){ 
           if(document.getElementById("pName").value == ""){
             window.alert("You have not entered Project Name");
           }else if(document.getElementById("longitude").value == ""){
@@ -370,41 +383,43 @@
           }else if(document.getElementById("status").value == ""){
             window.alert("Select Project Status");
           }else if(document.getElementById("basement").value == ""){
-            window.alert("You have not entered Project Name");
+            window.alert("You have not entered Basement value");
           }else if(document.getElementById("ground").value == ""){
-            window.alert("You have not entered Project Name");
+            window.alert("You have not entered Ground value");
           }else if(document.getElementById("pSize").value == ""){
             window.alert("You have not entered Project Size");
           }else if(document.getElementById("budget").value == ""){
             window.alert("You have not entered Budget");
-          }else if(document.getElementById("img").value == ""){
+          }else if(document.getElementById("pImage").value == ""){
             window.alert("You have not chosen a file to upload");
           }else{ 
             document.getElementById("first").className = "hidden";
             document.getElementById("second").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Owner Details';
             current = "second";
           }
-        }else if(current == 'second'){
-            
-             
+        }else if(current == 'second'){              
               document.getElementById("second").className = "hidden";
               document.getElementById("third").className = "";
-              current = "third";
-            
+              document.getElementById('headingPanel').innerHTML = 'Contractor Details';
+              current = "third";    
         }else if(current == 'third'){
             document.getElementById("third").className = "hidden";
             document.getElementById("fourth").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Consultant Details';
             current = "fourth";
         }else if(current == 'fourth'){
             document.getElementById("fourth").className = "hidden";
             document.getElementById("fifth").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Site Engineer Details';
             current = "fifth";
         }else if(current == 'fifth'){
+          
             document.getElementById("fifth").className = "hidden";
             document.getElementById("sixth").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Procurement Details';
             current = "sixth";
-        }else if(current == 'sixth'){
-          
+        }else if(current == 'sixth'){  
           if(document.getElementById('prName').value == ''){
             alert('Please Enter a Name');
             document.getElementById('prName').focus();
@@ -418,6 +433,7 @@
           }else{ 
             document.getElementById("sixth").className = "hidden";
             document.getElementById("seventh").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Submission';
             current = "seventh";
           }
         }
@@ -426,29 +442,35 @@
         if(current == 'seventh'){
             document.getElementById("seventh").className = "hidden";
             document.getElementById("sixth").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Procurement Details';
             current = "sixth"
         }else if(current == 'sixth'){
             document.getElementById("sixth").className = "hidden";
             document.getElementById("fifth").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Site Engineer Details';
             current = "fifth"
         }
         else if(current == 'fifth'){
             document.getElementById("fifth").className = "hidden";
             document.getElementById("fourth").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Consultant Details';
             current = "fourth"
         }
         else if(current == 'fourth'){
             document.getElementById("fourth").className = "hidden";
             document.getElementById("third").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Contractor Details';
             current = "third"
         }
         else if(current == 'third'){
             document.getElementById("third").className = "hidden";
             document.getElementById("second").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Owner Details';
             current = "second"
         }else if(current == 'second'){
             document.getElementById("second").className = "hidden";
             document.getElementById("first").className = "";
+            document.getElementById('headingPanel').innerHTML = 'Project Details';
             current = "first";
         }else{
             document.getElementById("next").className = "disabled";

@@ -10,16 +10,23 @@
 <div class="container">
     <div class="row">
       @if($subwards)
+      
       <div class="col-md-3"> 
-         You are in {{$subwards->sub_ward_name}}<br><br>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+         You are in {{$subwards->sub_ward_name}}</div>
+         <div class="panel-body">
          <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/listingEngineer">Add New Project</a><br><br>
          <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/roads">Update Project</a><br><br>
          <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/requirementsroads">Project Enquiry</a><br><br>
          <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/logistics">Logistics</a><br><br>
          <a class="btn btn-primary form-control" href="{{ URL::to('/')}}/reports">My Report</a><br><br>
+         </div>
+       </div>
+     </div>
          <label>
            You have listed <strong>{{ $numbercount }}</strong> projects so far.
-         </label><br><br>
+         </label>
        </div>
         <div class="pull-right col-lg-8">
           <img class="img-thumbnail" src="{{ URL::to('/') }}/subWardImages/{{ $subwards->sub_ward_image }}">

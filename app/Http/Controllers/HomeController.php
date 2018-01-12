@@ -239,6 +239,11 @@ class HomeController extends Controller
             ->get();
         return view('projectlist',['projectlist'=>$projectlist,'pageName'=>"Requirements"]);
     }
+    public function logisticdetails($id)
+    {
+        $requirements = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
+        return view('Logistics',['requirements'=>$requirements,'id'=>$id]);
+    }
     public function getRequirements($id)
     {
         $requirements = Requirement::where('project_id',$id)->get();
