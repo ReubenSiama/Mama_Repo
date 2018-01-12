@@ -161,7 +161,7 @@
                                <tr>
                                    <td>Contractor Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('cContact') }}" onblur="checklength('cPhone');" id="cPhone" onkeyup="check('cPhone')" placeholder="Contractor Contact No." type="text" class="form-control input-sm" name="cContact"></td>
+                                   <td><input value="{{ old('cContact') }}" onblur="checklength('cPhone');" id="cPhone" onkeyup="check('cPhone')" maxlength="10" placeholder="Contractor Contact No." type="text" class="form-control input-sm" name="cContact"></td>
                                </tr>
                            </table>
                        </div>
@@ -181,7 +181,7 @@
                                <tr>
                                    <td>Consultant Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('coContact') }}" onblur="checklength('coContact');" placeholder="Consultant Contact No." type="text" class="form-control input-sm" name="coContact" id="coContact" onkeyup="check('coContact')"></td>
+                                   <td><input value="{{ old('coContact') }}" onblur="checklength('coContact');" placeholder="Consultant Contact No." maxlength="10" type="text" class="form-control input-sm" name="coContact" id="coContact" onkeyup="check('coContact')"></td>
                                </tr>
                            </table>
                        </div>
@@ -201,7 +201,7 @@
                                <tr>
                                    <td>Site Engineer Contact No.</td>
                                    <td>: <p class="pull-right">+91</p></td>
-                                   <td><input value="{{ old('eContact') }}" onblur="checklength('eContact');"  placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact" id="eContact" onkeyup="check('eContact')"></td>
+                                   <td><input value="{{ old('eContact') }}" onblur="checklength('eContact');"  placeholder="Site Engineer Contact No." type="text" class="form-control input-sm" name="eContact" id="eContact" maxlength="10" onkeyup="check('eContact')"></td>
                                </tr>
                            </table>
                        </div> 
@@ -433,7 +433,7 @@
           }else{ 
             document.getElementById("sixth").className = "hidden";
             document.getElementById("seventh").className = "";
-            document.getElementById('headingPanel').innerHTML = 'Submission';
+            document.getElementById('headingPanel').innerHTML = 'Remarks';
             current = "seventh";
           }
         }

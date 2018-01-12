@@ -34,6 +34,7 @@
 						<th style="text-align:center" id="statusth">Status</th>
 						<th style="text-align:center" id='noid'></th>
 						<th style="text-align:center"> Payment Status</th>
+						<th style="text-align:center"> Delivery Status</th>
 						<th style="text-align:center" colspan=2>Action</th>
 						<!-- <th></th>
 						<th style="text-align:center" id='updateth'>Action</th>	
@@ -55,8 +56,9 @@
 									@endif
 								</td>
 								<td>Payment Received</td>
-								<td><button name="" class="btn btn-sm btn-primary">Dispatch</button></td>
-								<td><button name="" class="btn btn-sm btn-info">View</button></td>
+								<td>Delivered</td>
+								<td><a name="" href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/deliver" class="btn btn-sm btn-primary">Deliver</a></td>
+								<td><a name="" href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/viewrec" id="view-{{$requirement->id}}" class="btn btn-sm btn-info">View</a></td>
 								<!-- <td>
 									@if($requirement->status !== 'Order Cancelled')
 									<a style="margin-top:8%;" href="{{ URL::to('/') }}/{{ $id }}/{{$requirement->id}}/editOrder" class="btn btn-sm btn-info text-center

@@ -27,7 +27,7 @@
               @if($pageName == "Update")
                 <a href="{{ URL::to('/') }}/{{ $project->project_id }}/edit" class="btn btn-default input-sm">Edit</a>
               @else
-                <a href="{{ URL::to('/') }}/{{ $project->project_id }}/logisticdetails" class="btn btn-default input-sm">View</a>
+                <a href="{{ URL::to('/') }}/{{ $project->project_id }}/requirements" class="btn btn-default input-sm">View</a>
               @endif
               </td>
             </tr>

@@ -95,10 +95,15 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/{road}/projectlist','HomeController@viewProjectList');
 	Route::get('/reports','HomeController@getMyReports');
 	Route::get('/completed','HomeController@updateAssignment');
+	
 	Route::get('/{id}/logisticdetails','HomeController@logisticdetails');
+	Route::get('/{id}/{rqid}/viewrec','HomeController@viewrec');
+
 	Route::get('/{id}/requirements','HomeController@getRequirements');
 	Route::get('/requirementsroads','HomeController@getRequirementRoads');
+
 	Route::get('/{road}/logisticsRequirement','HomeController@logisticsRequirement');
+	
 	Route::get('/{road}/projectrequirement','HomeController@projectRequirement');
 	Route::get('/{id}/confirmOrder','HomeController@getConfirmOrder')->name('downloadInvoice');
 	Route::get('/{id}/payment','HomeController@getPayment');
