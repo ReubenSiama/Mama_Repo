@@ -58,6 +58,7 @@ Route::group(['middleware' => ['admin']],function(){
 	Route::post('/addState','mamaController@addState');
 	Route::post('/addZone','mamaController@addZone');
 	Route::get('/amreports','HomeController@getAMReports');
+	Route::get('/ampricing','HomeController@ampricing');
 	Route::get('/{id}/viewreports','HomeController@getViewReports');
 	Route::post('/{uid}/{rid}/giveGrade','mamaController@giveGrade');
 });
@@ -98,12 +99,14 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	
 	Route::get('/{id}/logisticdetails','HomeController@logisticdetails');
 	Route::get('/{id}/{rqid}/viewrec','HomeController@viewrec');
+	Route::get('/{id}/{rqid}/viewOrder','HomeController@viewOrder');
+	Route::get('/{road}/logisticsRequirement','HomeController@logisticsRequirement');
+	Route::get('/subcat','HomeController@subcat');
+
+
 
 	Route::get('/{id}/requirements','HomeController@getRequirements');
 	Route::get('/requirementsroads','HomeController@getRequirementRoads');
-
-	Route::get('/{road}/logisticsRequirement','HomeController@logisticsRequirement');
-	
 	Route::get('/{road}/projectrequirement','HomeController@projectRequirement');
 	Route::get('/{id}/confirmOrder','HomeController@getConfirmOrder')->name('downloadInvoice');
 	Route::get('/{id}/payment','HomeController@getPayment');

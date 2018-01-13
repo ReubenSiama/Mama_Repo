@@ -19,12 +19,12 @@
 						<td>Main Category</td>
 						<td>:</td>
 						<td>
-							<select name="mCategory" required class="form-control input-sm">
+							<select name="mCategory" id="category" required class="form-control input-sm" onchange="getPrice()">
 								<option value="">--Select--</option>
-								<optgroup label="Sand">
-									<option value="Sand">Sand</option>
-									<option value="Cement">Cement</option>
-								</optgroup>
+									@foreach($category as $key => $value)
+									<option value="{{$value->price}}">{{$value->category}}</option>
+									@endforeach
+								
 							</select>
 						</td>
 					</tr>
@@ -84,7 +84,7 @@
 					<tr>
 						<td>Unit Price</td>
 						<td>:</td>
-						<td><input placeholder="Unit Price" id="uPrice" type="text" onkeyup="check('uPrice')" class="form-control" name="uPrice"></td>
+						<td><input placeholder="Unit Price" id="uPrice" type="text" onfocus="document.getElementById('uPrice').disabled = true;" onblur="document.getElementById('uPrice').disabled = false;" style="border-style= hidden;" class="form-control" name="uPrice"></td>
 					</tr>
 					<tr>
 						<td>Total Quantity</td>
@@ -163,7 +163,7 @@
 								</td>
 								<td>
 									@if($requirement->status == 'Order Confirmed')
-									<a href="{{ URL::to('/') }}/{{ $id }}/confirmOrder" class="btn btn-sm btn-success text-center" style="margin-top: 8%" id="status-{{$requirement->id}}">View</a>
+									<a href="{{ URL::to('/') }}/{{ $id }}/{{ $requirement->id }}/viewOrder" class="btn btn-sm btn-success text-center" style="margin-top: 8%" id="status-{{$requirement->id}}">View</a>
 									@endif
 								</td>
 								<td>
@@ -196,6 +196,23 @@
 </div>
 <!--This section by Siddharth -->
 <script type="text/javascript">
+  	function getPrice(){
+  		var e = document.getElementById("category");
+		var strUser = e.options[e.selectedIndex].text;
+		$.ajax({
+			type: 'get',
+			url: '{{ URL::to('/') }}/subcat',
+			data: {strUser: strUser},
+			success: function(response){
+			}
+
+		});
+		return false;
+
+  	}
+
+  	9916169056
+
   	function checkdate(){
 		var today 	     = new Date();
 		var day 	  	 = (today.getDate().length ==1?"0"+today.getDate():today.getDate()); //This line by Siddharth

@@ -17,6 +17,7 @@ use App\Zone;
 use App\loginTime;
 use App\Requirement;
 use Auth;
+use DB;
 
 class HomeController extends Controller
 {
@@ -239,11 +240,20 @@ class HomeController extends Controller
             ->get();
         return view('projectlist',['projectlist'=>$projectlist,'pageName'=>"Requirements"]);
     }
+    public function subcat(Request $request){
+        $data=$request->only('strUser');
+        return response()->json($data);
+    }
+    public function viewOrder($id, $rqid, Request $request)
+    {
+        $project = Requirement::where('project_id',$id)->where('id',$rqid)->first();   
+        return view('ViewOrder',['project' => $project, 'id'=>$id]);
+    }
     public function viewrec($id, $rqid, Request $request)
     {
         $project = ProjectDetails::where('project_id',$id)->first();
-        $req = Requirement::where('project_id',$id)->where('id',$rqid)->get();
-        return view('ViewRecord',['project'=>$project, 'req'=>$req]);
+        $req = Requirement::where('project_id',$id)->where('id',$rqid)->first();
+        return view('ViewRecord',['project'=>$project, 'req'=>$req,'id'=>$id]);
     }
     public function logisticdetails($id)
     {
@@ -253,7 +263,8 @@ class HomeController extends Controller
     public function getRequirements($id)
     {
         $requirements = Requirement::where('project_id',$id)->get();
-        return view('requirements',['requirements'=>$requirements,'id'=>$id]);
+        $category = DB::table('category')->get();
+        return view('requirements',['requirements'=>$requirements,'id'=>$id,'category' => $category]);
     }
     public function deleteReportImage($id)
     {
