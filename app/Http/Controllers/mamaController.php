@@ -24,6 +24,7 @@ use App\loginTime;
 use App\Requirement;
 use Auth;
 use Validator;
+use DB;
 
 class mamaController extends Controller
 {
@@ -557,17 +558,11 @@ class mamaController extends Controller
     // }
 
 
-    public function orderConfirm($id, Request $request)
-   {
-        $counting = count($request->requirement);
-        if($counting == 0){
-            return back()->with('Error','Please select orders to be confirmed');
-        }else{
-        $project = projectdetails::where('project_id',$id)->first();
-        Requirement::where('project_id',$id)->where('status','Order Placed')->update(['status' => "Order Confirmed"]);
-        $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
-        return redirect($id.'/requirements')->with('Confirmed','Order has been confirmed');
-        }
+    public function orderConfirm(Request $request)
+    {
+        $val = $request->only('select');
+        Requirement::where('id', $val)->update(['status' => 'Order Confirmed']);
+        return response()->json($val);     
     }
     //This function by Sid
     public function editOrder($id, $rqid, Request $request){

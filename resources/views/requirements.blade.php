@@ -91,7 +91,7 @@
 					<tr>
 						<td>Total Amount</td>
 						<td>:</td>
-						<td><input  placeholder="Total" id="total" type="text" class="form-control" name="total"></td>
+						<td><input  placeholder="Total" id="total" type="text" class="form-control" name="total" onfocus="document.getElementById('total').disabled = true;" onblur="document.getElementById('total').disabled = false;"></td>
 					</tr>
 					<tr>
 						<td>Notes</td>
@@ -149,7 +149,7 @@
 								<td style="text-align:center" id="status{{ $requirement->id }}">{{ $requirement->status }}</td>
 								<td style="text-align:center" id="check{{ $requirement->id }}">
 									@if($requirement->status !== 'Order Cancelled' && $requirement->status !== 'Order Confirmed')
-									<input type="checkbox" style="margin-top:50%" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}">
+									<p id="p{{ $requirement->id }}"><input type="checkbox" style="margin-top:50%" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}"></p>
 									@endif
 								</td>
 								<td>
@@ -158,7 +158,7 @@
 									" id="btnprint{{$requirement->id}}">Edit</a>
 									@endif
 								</td>
-								<td>
+								<td id="view{{$requirement->id}}">
 									@if($requirement->status == 'Order Confirmed')
 									<a href="{{ URL::to('/') }}/{{ $id }}/{{ $requirement->id }}/viewOrder" class="btn btn-sm btn-success text-center" style="margin-top: 8%" id="status-{{$requirement->id}}">View</a>
 									@endif
@@ -220,12 +220,25 @@
 	
 	function printChecked(){
 		var items=document.getElementsByName('requirement[]');
-		var selectedItems="";
+		var selectedItems='';
+		//console.log(items.length);
 		for(var i=0; i<items.length; i++){
 			if(items[i].type=='checkbox' && items[i].checked==true)
-				selectedItems+=items[i].value+",";
+			{
+				selectedItems=items[i].value;
+				$.ajax({
+					type: 'GET',
+					url: "{{ URL::to('/') }}/orderConfirm",
+					data: {select: selectedItems},
+					async: false,
+					success: function(response){
+						document.getElementById('status'+response['select']).innerHTML = 'Order Confirmed';
+						document.getElementById('p'+response['select']).style.display='none';
+						document.getElementById('view'+response['select']).innerHTML="<a href=\"{{ URL::to('/') }}/{{ $id }}/{{ $requirement->id }}/viewOrder\" class=\"btn btn-sm btn-success text-center\" style=\"margin-top: 8%\" id=\"status-{{$requirement->id}}\">View</a>";
+					}	
+				});
+			}
 		}
-		$.ajax({});
 	}			
 
   	function checkdate(){

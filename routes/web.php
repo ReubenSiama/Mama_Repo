@@ -125,7 +125,7 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::post('/{id}/placeOrder','mamaController@placeOrder');
 	Route::get('/{id}/{rqid}/cancelOrder','mamaController@cancelOrder');
 	Route::get('/{id}/{rqid}/editOrder','mamaController@editOrder');
-	Route::get('/{id}/orderConfirm','mamaController@orderConfirm');
+	Route::get('/orderConfirm','mamaController@orderConfirm');
 	Route::post('/{id}/confirmOrder','mamaController@confirmOrder');
 	Route::post('/posting','mamaController@postOrder');
 });
