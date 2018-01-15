@@ -58,7 +58,10 @@ Route::group(['middleware' => ['admin']],function(){
 	Route::post('/addState','mamaController@addState');
 	Route::post('/addZone','mamaController@addZone');
 	Route::get('/amreports','HomeController@getAMReports');
+	
 	Route::get('/ampricing','HomeController@ampricing');
+	Route::get('/amorders','HomeController@amorders');
+
 	Route::get('/{id}/viewreports','HomeController@getViewReports');
 	Route::post('/{uid}/{rid}/giveGrade','mamaController@giveGrade');
 });

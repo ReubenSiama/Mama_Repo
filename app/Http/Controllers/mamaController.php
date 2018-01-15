@@ -568,9 +568,7 @@ class mamaController extends Controller
         $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
         return redirect($id.'/requirements')->with('Confirmed','Order has been confirmed');
         }
-    } 
-
-
+    }
     //This function by Sid
     public function editOrder($id, $rqid, Request $request){
         $val = Requirement::where('project_id',$id)->where('id', $rqid)->first();

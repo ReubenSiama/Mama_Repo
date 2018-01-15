@@ -42,6 +42,7 @@
                         <li><a href="{{ URL::to('/') }}/masterData">Master Data</a></li>
                         <li><a href="{{ URL::to('/amreports') }}">Reports</a></li>
                         <li><a href="{{ URL::to('/ampricing') }}">Pricing</a></li>
+                        <li><a href="{{ URL::to('/amorders')  }}">Orders</a></li>
                         @endif
                         @endif
                     </ul>

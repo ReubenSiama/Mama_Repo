@@ -176,7 +176,7 @@
 					</tbody>
 				</table>
 				<input type="submit" class="btn btn-success" name="Submit" id="submitform" value="Place Order">
-				<a href="{{ URL::to('/') }}/{{$id}}/orderConfirm" name="confirmOrder" class="btn btn-md btn-primary" id="confirmOrder" value="Confirm Order">Confirm Order</a>
+				<a name="confirmOrder" class="btn btn-md btn-primary" id="confirmOrder" value="Confirm Order" onclick="printChecked()">Confirm Order</a>
 				
 			</form>
 		</div>
@@ -217,6 +217,16 @@
 		});
 		return false;
   	}
+	
+	function printChecked(){
+		var items=document.getElementsByName('requirement[]');
+		var selectedItems="";
+		for(var i=0; i<items.length; i++){
+			if(items[i].type=='checkbox' && items[i].checked==true)
+				selectedItems+=items[i].value+",";
+		}
+		$.ajax({});
+	}			
 
   	function checkdate(){
 		var today 	     = new Date();

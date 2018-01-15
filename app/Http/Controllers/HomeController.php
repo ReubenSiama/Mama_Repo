@@ -241,6 +241,15 @@ class HomeController extends Controller
         $data = DB::table('category')->where('category',$data1)->get();
         return response()->json($data);
     }
+    //Watch out for this code
+    // public function amorders(Request $request){
+    //     $query="SELECT * FROM requirements r, contractor_details c, procurement_details p, owner_details o WHERE r.project_id = c.project_id AND r.project_id = p.project_id AND r.project_id = o.project_id AND r.status = 'Order Confirmed'";
+    //     $orders = DB::table($query);
+    //     return view('ordersadmin',['orders' => $orders]);
+
+    //     // $orders = Requirement::where('status','Order Confirmed')->get();
+    //     // return view('ordersadmin',['orders' => $orders]);
+    // }
     public function ampricing(Request $request){
         return view('updateprice');
     }
