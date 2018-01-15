@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('category');
             $table->integer('group_id')->default(0);
             $table->string('password');
+            $table->string('contactNo')->default(0);
+            $table->integer('confirmation')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

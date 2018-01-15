@@ -37,6 +37,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/authlogin','HomeController@authlogin');
+Route::post('/register','mamaController@postRegistration');
 
 Route::post('/authlogout','HomeController@authlogout')->name('authlogout');
 
@@ -58,10 +59,7 @@ Route::group(['middleware' => ['admin']],function(){
 	Route::post('/addState','mamaController@addState');
 	Route::post('/addZone','mamaController@addZone');
 	Route::get('/amreports','HomeController@getAMReports');
-	
 	Route::get('/ampricing','HomeController@ampricing');
-	Route::get('/amorders','HomeController@amorders');
-
 	Route::get('/{id}/viewreports','HomeController@getViewReports');
 	Route::post('/{uid}/{rid}/giveGrade','mamaController@giveGrade');
 });
@@ -105,7 +103,6 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/{id}/{rqid}/viewOrder','HomeController@viewOrder');
 	Route::get('/{road}/logisticsRequirement','HomeController@logisticsRequirement');
 	Route::get('/subcat','HomeController@subcat');
-	Route::get('/subcatsup','HomeController@subcatsup');
 
 
 
@@ -138,6 +135,8 @@ Route::group(['middleware' => ['salesTL']],function(){
 
 Route::get('/salesEngineer','HomeController@getSalesEngineer');
 Route::get('/{id}/viewReport','HomeController@viewLeReport');
+Route::get('/registrationrequests','HomeController@regReq');
+Route::post('/confirmUser','mamaController@confirmUser');
 
 //Buyer End
 //Route::post('/buyerend','HomeController@buyerend');

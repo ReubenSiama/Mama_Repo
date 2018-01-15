@@ -50,7 +50,8 @@ class mamaController extends Controller
     	$user = New User;
     	$user->employeeId = $request->emp_id;
     	$user->department_id = $request->dept;
-    	$user->name = $request->name;
+        $user->name = $request->name;
+        $user->category = "Employee";
     	$user->email = $request->email;
     	$user->password = bcrypt('mama@home123');
     	if($user->save()){
@@ -568,7 +569,9 @@ class mamaController extends Controller
         $orders = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
         return redirect($id.'/requirements')->with('Confirmed','Order has been confirmed');
         }
-    }
+    } 
+
+
     //This function by Sid
     public function editOrder($id, $rqid, Request $request){
         $val = Requirement::where('project_id',$id)->where('id', $rqid)->first();
@@ -661,6 +664,33 @@ class mamaController extends Controller
     public function giveGrade($userid, $reportid, Request $request)
     {
         loginTime::where('user_id',$userid)->where('id',$reportid)->update(['AmGrade'=>$request->grade]);
+        return back();
+    }
+    public function postRegistration(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|unique:users'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->with('Error','User already exists')
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        $user = new User;
+        $user->employeeId = $request->email;
+        $user->department_id = 100;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->contactNo = $request->number;
+        $user->category = $request->category;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return back()->with('Success','Thank you for your registration. Mama team will contact you shortly.');
+    }
+    public function confirmUser(Request $request)
+    {
+        User::where('id',$request->id)->update(['confirmation'=>1]);
         return back();
     }
 }

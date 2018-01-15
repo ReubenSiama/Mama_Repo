@@ -17,7 +17,8 @@ class firstuser extends Seeder
         $user = User::create([
         	'employeeId' => 'MH001',
             'department_id' => '0',
-        	'name'	=>	'mhadmin',
+            'name'	=>	'mhadmin',
+            'category' => 'none',
         	'email'	=>	'mhadmin@mamahome.com',
             'group_id' => '1',
         	'password'	=>	bcrypt('mama123home')

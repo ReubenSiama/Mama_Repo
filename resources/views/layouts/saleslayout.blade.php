@@ -38,11 +38,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{ URL::to('/') }}/home">Home</a></li>
                         @if(Auth::check())
-                        @if(Auth::user()->group_id == 1)
-                        <li><a href="{{ URL::to('/') }}/masterData">Master Data</a></li>
-                        <li><a href="{{ URL::to('/amreports') }}">Reports</a></li>
-                        <li><a href="{{ URL::to('/ampricing') }}">Pricing</a></li>
-                        @endif
+                        <li><a href="{{ URL::to('/') }}/registrationrequests">Registration &nbsp;<span class="badge">&nbsp; {{ $reqcount }} &nbsp;</span></a></li>
                         @endif
                     </ul>
 

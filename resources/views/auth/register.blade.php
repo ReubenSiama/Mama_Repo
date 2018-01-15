@@ -9,9 +9,22 @@
     <br>
     <hr>
     <div id="regpage">
-    <div class="row">    
+    <div class="row">
+    @if(session('Error'))
+    <div class="alert alert-danger alert-dismissable fade in text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong> {{ session('Error')}}
+    </div>
+    @endif
+    @if(session('Success'))
+    <div class="alert alert-success alert-dismissable fade in text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> {{ session('Success')}}
+    </div>
+    @endif    
     <!-- For Orange : rgba(249, 142, 55, 0.78); For Green :rgb(22, 138, 67);  -->
-<form method="POST" onsubmit="return validateform()" action="#"> 
+<form method="POST" onsubmit="return validateform()" action="{{ URL::to('/')}}/register"> 
+{{ csrf_field() }}
 <input type="hidden" name="category" id="category" />   
 <input type="hidden" name="password" id="password" /> 
 <div class="col-md-8 col-md-offset-2" align="center" style="border-radius: 5px;">
@@ -50,7 +63,6 @@
             </div>  
         </div>
     </div>
-    </form>
 </div>
 </div>
 </form>
@@ -97,7 +109,7 @@
                 temp += y.value.substring(y.value.length, y.value.length-3);
                 document.getElementById('password').value = temp;
                 //Change this to 'true'
-                return false;
+                return true;
             }
             else if(x.value.length == 0){
                 alert('Please Fill Out Name Field');
@@ -123,7 +135,6 @@
             $('#resetbtn').click();
             return false;
         }
-        return false;
     }
     
     function checkmail(arg){

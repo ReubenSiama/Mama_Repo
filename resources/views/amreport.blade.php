@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="panel panel-default" style="overflow: scroll;">
+		<div class="panel panel-default">
 			<div class="panel-heading">{{ $user->name }}'s Report</div>
 			<div class="panel-body table-responsive">
 					<table class="table">
