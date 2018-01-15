@@ -176,8 +176,7 @@ class HomeController extends Controller
     {
         $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
         $projectlist = ProjectDetails::where('road_name',$road)
-        ->where('sub_ward_id',$assignment)
-        ->get();
+        ->where('sub_ward_id',$assignment)->get();
         return view('projectlist',['projectlist'=>$projectlist,'pageName'=>"Update"]);
     }
     public function getMyReports()
@@ -185,8 +184,7 @@ class HomeController extends Controller
         date_default_timezone_set("Asia/Kolkata");
         $today = date('Y-m-d');
         $time = date('H:i:s A');
-        $projectCount = count(ProjectDetails::where('listing_engineer_id',Auth::user()->id)
-            ->where('created_at','like',$today.'%')->get());
+        $projectCount = count(ProjectDetails::where('listing_engineer_id',Auth::user()->id)->where('created_at','like',$today.'%')->get());
         $loginTimes = loginTime::where('user_id',Auth::user()->id)->where('logindate',$today)->first();
         return view('reports',['time'=>$time,'loginTimes'=>$loginTimes,'projectCount'=>$projectCount]);
     }
@@ -207,11 +205,9 @@ class HomeController extends Controller
                 return back()->with('Error','No Records found');
             }
         }
-        $loginTimes = loginTime::where('user_id',$id)
-            ->where('logindate',date('Y-m-d'))->first();
+        $loginTimes = loginTime::where('user_id',$id)->where('logindate',date('Y-m-d'))->first();
         return view('lereportbytl',['loginTimes'=>$loginTimes,'userId'=>$id]);
     }
-
     public function logistics()
     {
         $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
@@ -241,8 +237,12 @@ class HomeController extends Controller
         return view('projectlist',['projectlist'=>$projectlist,'pageName'=>"Requirements"]);
     }
     public function subcat(Request $request){
-        $data=$request->only('strUser');
+        $data1=$request->only('strUser');
+        $data = DB::table('category')->where('category',$data1)->get();
         return response()->json($data);
+    }
+    public function ampricing(Request $request){
+        return view('updateprice');
     }
     public function viewOrder($id, $rqid, Request $request)
     {
@@ -263,7 +263,7 @@ class HomeController extends Controller
     public function getRequirements($id)
     {
         $requirements = Requirement::where('project_id',$id)->get();
-        $category = DB::table('category')->get();
+        $category = DB::table('category')->groupBy("category")->get();
         return view('requirements',['requirements'=>$requirements,'id'=>$id,'category' => $category]);
     }
     public function deleteReportImage($id)

@@ -102,6 +102,7 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/{id}/{rqid}/viewOrder','HomeController@viewOrder');
 	Route::get('/{road}/logisticsRequirement','HomeController@logisticsRequirement');
 	Route::get('/subcat','HomeController@subcat');
+	Route::get('/subcatsup','HomeController@subcatsup');
 
 
 

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-md-10 col-md-offset-1">
-<div class="panel panel-primary">
+<div class="panel panel-primary" style="overflow: scroll;">
 	<div class="panel-heading">
 		<b style="color:white">Enquiry</b>
 		<button class="pull-right btn btn-sm btn-success" id="btn1" style="color:white;" onclick="show()"><b>Add</b></button>
@@ -22,7 +22,7 @@
 							<select name="mCategory" id="category" required class="form-control input-sm" onchange="getPrice()">
 								<option value="">--Select--</option>
 									@foreach($category as $key => $value)
-									<option value="{{$value->price}}">{{$value->category}}</option>
+									<option value="{{$value->category}}">{{$value->category}}</option>
 									@endforeach
 								
 							</select>
@@ -32,12 +32,9 @@
 						<td>Sub Category</td>
 						<td>:</td>
 						<td>
-							<select name="sCategory" class="form-control input-sm">
+							<select id='supplier' required name="sCategory" class="form-control input-sm" onchange="putvalue()">
 								<option value="">--Select--</option>
-								<optgroup label="Sand">
-									<option value="Sand">Sand</option>
-									<option value="Star Cement">Star Cement</option>
-								</optgroup>
+								
 							</select>
 						</td>
 					</tr>
@@ -196,22 +193,30 @@
 </div>
 <!--This section by Siddharth -->
 <script type="text/javascript">
+  	function putvalue(){
+  		var sel = document.getElementById("supplier");
+		var text= sel.options[sel.selectedIndex].value;
+  		document.getElementById('uPrice').value = text;
+  		return false;
+  	}
   	function getPrice(){
+  		var cat;
   		var e = document.getElementById("category");
 		var strUser = e.options[e.selectedIndex].text;
 		$.ajax({
 			type: 'get',
-			url: '{{ URL::to('/') }}/subcat',
+			url: "{{ URL::to('/') }}/subcat",
 			data: {strUser: strUser},
+			async: false,
 			success: function(response){
+				document.getElementById('supplier').innerHTML = '<option value="">--Select--</option>';
+				for(var i=0; i<response.length; i++){
+					document.getElementById('supplier').innerHTML +='<option value='+response[i]['price']+'>'+response[i]['supplier']+'</option>';
+				}
 			}
-
 		});
 		return false;
-
   	}
-
-  	9916169056
 
   	function checkdate(){
 		var today 	     = new Date();
