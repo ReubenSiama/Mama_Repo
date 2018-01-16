@@ -55,9 +55,13 @@
 									<input type="checkbox" style="margin-top:50%" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}">
 									@endif
 								</td>
-								<td>Payment Received</td>
-								<td>Delivered</td>
-								<td><a name="" href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/deliver" class="btn btn-sm btn-primary">Deliver</a></td>
+								<td>{{$requirement->payment_status}}</td>
+								<td>{{$requirement->delivery_status}}</td>
+								<td>
+									@if($requirement->delivery_status == 'Delivery Pending')
+										<a name="" href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/deliver" class="btn btn-sm btn-primary">Deliver</a>
+									@endif
+								</td>
 								<td><a name="" href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/viewrec" id="view-{{$requirement->id}}" class="btn btn-sm btn-info">View</a></td>
 								<!-- <td>
 									@if($requirement->status !== 'Order Cancelled')
