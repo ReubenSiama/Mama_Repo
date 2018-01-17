@@ -271,11 +271,42 @@ class HomeController extends Controller
         Requirement::where('id', $recid)->update(['dispatch_status' => $data]);
             return response()->json($data);
     }
+    public function confirmstatus($id, Request $request)
+    {
+        $var2 = $request->only('opt');
+        $var = ProjectDetails::where('project_id',$var2['opt'])->update(['status' => "Ready"]);
+        return response()->json($var);
+    }
+    public function confirmthis($id, Request $request)
+    {
+        $var = $request->only('opt');
+        $var2 = ProjectDetails::where('project_id',$id)->update(['with_cont' => $var['opt']]);
+        return response()->json($var2);
+    }
     //Watch out for this code
     public function amorders(Request $request)
     {
         $view = Requirement::where('status','Order Confirmed')->get();
         return view('ordersadmin',['view' => $view]);     
+    }
+    public function updatestatus($id, Request $request)
+    {
+        $view = $request->only('opt');
+        $view = $view['opt'];
+        ProjectDetails::where('project_id', $id)->update(['status' => $view]);
+        return response()->json($view);
+    }
+    public function updatelocation($id, Request $request)
+    {
+        $view = $request->only('newtext');
+        $view = $view['newtext'];
+        ProjectDetails::where('project_id', $id)->update(['location' => $view]);
+        return response()->json($view);
+    } 
+    public function printLPO($id, Request $request)
+    {
+        $datarec = Requirement::where('id', $id)->get();
+        return view('printLPO', ['datarec' => $datarec]);
     }
     public function ampricing(Request $request){
         return view('updateprice');

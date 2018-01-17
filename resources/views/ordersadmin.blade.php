@@ -147,7 +147,7 @@
 							{{$rec -> delivery_status}}
 						</td>
 						<td>
-							<a href="{{URL::to('/')}}/{{$rec->id}}/printLPO" target="_blank" class="btn btn-sm btn-primary" )">Print LPO</a>
+							<a href="{{URL::to('/')}}/{{$rec->id}}/printLPO" target="_blank" class="btn btn-sm btn-primary" >Print LPO</a>
 						</td>
 					</tr>
 					@endforeach
