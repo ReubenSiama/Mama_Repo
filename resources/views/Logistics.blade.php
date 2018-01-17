@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-12">
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<strong style="color:white">Enquiry</strong>
@@ -27,14 +27,15 @@
 				<!--These lines by Siddharth  copy the ids attribute here-->
 				<table class="table table-responsive table-striped">
 					<thead>
-						<th style="text-align:center" id="rqno">Order No.</th>
-						<th style="text-align:center">Main Category</th>
-						<th style="text-align:center">Sub-Category</th>
-						<th style="text-align:center">Qnty.</th>
-						<th style="text-align:center" id="statusth">Status</th>
+						<th style="text-align:center" id="rqno"> Order No.</th>
+						<th style="text-align:center"> Main Category</th>
+						<th style="text-align:center"> Sub-Category</th>
+						<th style="text-align:center"> Qnty.</th>
+						<th style="text-align:center" id="statusth"> Status</th>
 						<th style="text-align:center" id='noid'></th>
 						<th style="text-align:center"> Payment Status</th>
 						<th style="text-align:center"> Delivery Status</th>
+						<th style="text-align:center"> Dispatch Status</th>
 						<th style="text-align:center" colspan=2>Action</th>
 						<!-- <th></th>
 						<th style="text-align:center" id='updateth'>Action</th>	
@@ -43,7 +44,6 @@
 					</thead>
 					<tbody>
 						@foreach($requirements as $requirement)
-
 							<tr id="tr{{ $requirement->id }}" valign="center" align="center">
 								<td style="text-align:center" id='rq{{$requirement->id}}'>{{ $requirement->id }}</td>
 								<td style="text-align:center">{{ $requirement->main_category }}</td>
@@ -55,14 +55,29 @@
 									<input type="checkbox" style="margin-top:50%" name="requirement[]" id="requirement[]" value="{{ $requirement->id }}">
 									@endif
 								</td>
-								<td>{{$requirement->payment_status}}</td>
-								<td>{{$requirement->delivery_status}}</td>
-								<td>
-									@if($requirement->delivery_status == 'Delivery Pending')
-										<a name="" href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/deliver" class="btn btn-sm btn-primary">Deliver</a>
+								
+									@if($requirement->payment_status !== 'null')
+									<td>
+										{{$requirement->payment_status}}
+									</td>
+									@else
+									<td>
+										Payment Pending
+									</td>
+									@endif
+								<td id='delstatus{{$requirement->id}}'>
+									{{$requirement->delivery_status}}
+								</td>
+								<td></td>
+								<td id="delivery{{$requirement->id}}">
+									@if($requirement->delivery_status !== 'Delivery Confirmed')
+										<a name="deliver-{{ $requirement->id }}" id="deliver-{{ $requirement->id }}" onclick="deliver('{{ $requirement->id }}')"  class="btn btn-sm btn-primary">Deliver</a>
 									@endif
 								</td>
-								<td><a name="" href="{{ URL::to('/') }}/{{$id}}/{{$requirement->id}}/viewrec" id="view-{{$requirement->id}}" class="btn btn-sm btn-info">View</a></td>
+								
+								<td>
+									<a name="view-{{ $requirement->id }}" id="view-{{$requirement->id}}" href="{{URL::to('/')}}/{{$id}}/{{$requirement->id}}/viewlog" class="btn btn-sm btn-warning">View</a>
+								</td>
 								<!-- <td>
 									@if($requirement->status !== 'Order Cancelled')
 									<a style="margin-top:8%;" href="{{ URL::to('/') }}/{{ $id }}/{{$requirement->id}}/editOrder" class="btn btn-sm btn-info text-center
@@ -87,8 +102,7 @@
 					</tbody>
 				</table>
 				<!-- <input type="submit" class="btn btn-success" name="Submit" id="submitform" value="Place Order">
-				<a href="{{ URL::to('/') }}/{{$id}}/orderConfirm" name="confirmOrder" class="btn btn-md btn-primary" id="confirmOrder" value="Confirm Order">Confirm Order</a> -->
-				
+				<a href="{{ URL::to('/') }}/{{$id}}/orderConfirm" name="confirmOrder" class="btn btn-md btn-primary" id="confirmOrder" value="Confirm Order">Confirm Order</a> -->	
 			</form>
 		</div>
 	</div>
@@ -104,6 +118,23 @@
 </div>
 <!--This section by Siddharth -->
 <script type="text/javascript">
+  	function deliver(arg){
+		var x = confirm('Are You Sure ? Changes Once Made CANNOT Be Undone');
+		if(x){
+			$.ajax({
+				type: 'GET',
+				url: '{{ URL::to('/') }}/'+arg+'/confirmdelivery',
+				data: {id: arg},
+				async: false,
+				success: function(response){
+					document.getElementById('delstatus'+response).innerHTML = 'Delivery Confirmed';
+					document.getElementById('delivery'+response).innerHTML = '';
+				}
+			});
+		} 
+		location.reload(); 
+		return false;
+  	}
   	function checkdate(){
 		var today 	     = new Date();
 		var day 	  	 = (today.getDate().length ==1?"0"+today.getDate():today.getDate()); //This line by Siddharth

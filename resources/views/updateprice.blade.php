@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-6 col-md-offset-3">
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<b style="color:white">Enquiry</b>
@@ -9,7 +9,7 @@
 	</div>
 	<div class="panel-body">
 		<div id="addpage">
-			<h4><b>
+			<h4 style="text-align: center"><b>
 				Add Details
 			</b></h4>
 			<br>
@@ -18,7 +18,7 @@
 				<table class="table table-responsive">
 					<tr style="border-top-style: hidden">
 						<td style="width:20%">
-							<label> Category  </label>
+							<label> Category </label>
 						</td>
 						<td style="width:80%">
 							<input type="text" name="category" id="category" class="form-control" placeholder="Category Name..." />
@@ -26,7 +26,7 @@
 					</tr>
 					<tr style="border-top-style: hidden">	
 						<td style="width:20%">
-							<label> Sub - Category  </label>
+							<label> Sub Category </label>
 						</td>
 						<td style="width:80%">
 							<input type="text" name="subcategory" id="subcategory" class="form-control" placeholder="Sub Category Name..." />
@@ -34,7 +34,7 @@
 					</tr>
 					<tr style="border-top-style: hidden">
 						<td style="width:20%">
-							<label> Price  </label>
+							<label> Price </label>
 						</td>
 						<td style="width:80%">
 							<input type="text" onkeyup="check('price')" name="price" id="price" class="form-control" placeholder="Amount" />

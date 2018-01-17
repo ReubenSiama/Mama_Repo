@@ -59,6 +59,9 @@ Route::group(['middleware' => ['admin']],function(){
 	Route::post('/addZone','mamaController@addZone');
 	Route::get('/amreports','HomeController@getAMReports');
 	
+	//This lines by Sid
+	Route::get('/{id}/updateamdispatch','HomeController@updateamdispatch');
+	Route::get('/{id}/updateampay','HomeController@updateampay');
 	Route::get('/ampricing','HomeController@ampricing');
 	Route::get('/amorders','HomeController@amorders');
 
@@ -100,6 +103,9 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/reports','HomeController@getMyReports');
 	Route::get('/completed','HomeController@updateAssignment');
 	
+	//These lines by Sid
+	Route::get('/{id}/{recid}/viewlog','HomeController@viewlog');
+	Route::get('/{id}/confirmdelivery','HomeController@confirmDelivery');
 	Route::get('/{id}/logisticdetails','HomeController@logisticdetails');
 	Route::get('/{id}/{rqid}/viewrec','HomeController@viewrec');
 	Route::get('/{id}/{rqid}/viewOrder','HomeController@viewOrder');

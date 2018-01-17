@@ -33,7 +33,7 @@
 						<td>:</td>
 						<td>
 							<select id='supplier' required name="sCategory" class="form-control input-sm" onchange="putvalue()">
-								<option value="">--Select--</option>
+								<option value="{{$value->category}}">--Select--</option>
 								
 							</select>
 						</td>

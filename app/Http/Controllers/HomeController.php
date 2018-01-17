@@ -71,7 +71,10 @@ class HomeController extends Controller
             return redirect('leDashboard');
         }else if($group == "Team Lead" && $dept == "Sales"){
             return redirect('salesTL');
+        }else if($group == "Sales Engineer" && $dept == "Sales"){
+            return redirect('salesEngineer');
         }
+
         return view('home',['departments'=>$departments,'users'=>$users,'groups'=>$groups]);
     }
     public function viewEmployee($id)
@@ -211,69 +214,93 @@ class HomeController extends Controller
     public function logistics()
     {
         $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
-        $roads = ProjectDetails::where('sub_ward_id',$assignment)->groupBy('road_name')->pluck('road_name');
+        $roads      = ProjectDetails::where('sub_ward_id',$assignment)->groupBy('road_name')->pluck('road_name');
         return view('logisticsroads',['roads'=>$roads]);
     }
     public function getRequirementRoads()
     {
         $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
-        $roads = ProjectDetails::where('sub_ward_id',$assignment)->groupBy('road_name')->pluck('road_name');
+        $roads      = ProjectDetails::where('sub_ward_id',$assignment)->groupBy('road_name')->pluck('road_name');
         return view('requirementsroad',['roads'=>$roads]);
     }
     public function logisticsRequirement($road)
     {
-        $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
-        $projectlist= ProjectDetails::where('road_name',$road)
+        $assignment  = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $projectlist = ProjectDetails::where('road_name',$road)
             ->where('sub_ward_id',$assignment)
             ->get();
         return view('logisticslist',['projectlist'=>$projectlist,'pageName'=>"Requirements"]);
     }
     public function projectRequirement($road)
     {
-        $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
-        $projectlist= ProjectDetails::where('road_name',$road)
+        $assignment  = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
+        $projectlist = ProjectDetails::where('road_name',$road)
             ->where('sub_ward_id',$assignment)
             ->get();
         return view('projectlist',['projectlist'=>$projectlist,'pageName'=>"Requirements"]);
     }
-    public function subcat(Request $request){
-        $data1=$request->only('strUser');
-        $data = DB::table('category')->where('category',$data1)->get();
+    public function subcat(Request $request)
+    {
+        $data1 = $request->only('strUser');
+        $data  = DB::table('category')->where('category',$data1)->get();
         return response()->json($data);
     }
+    public function confirmDelivery($id, Request $request)
+    {
+        $data1 = $request->only('id');
+        $reqid = $data1['id'];
+        Requirement::where('id',$reqid)->update(['delivery_status' => 'Delivery Confirmed']);
+        return response()->json($reqid);
+    }
+    public function viewlog($id, $recid)
+    {
+        $view = Requirement::where('id',$id)->first();
+        return view('viewlog',['view' => $view, 'id' => $id, 'recid' => $recid]);
+    }
+    public function updateampay($recid, Request $request)
+    {
+        $data = $request->only('payment');
+        $data = $data['payment'];
+        Requirement::where('id', $recid)->update(['payment_status' => $data]);
+            return response()->json($data);
+    }
+    public function updateamdispatch($recid, Request $request)
+    {
+        $data = $request->only('dispatch');
+        $data = $data['dispatch'];
+        Requirement::where('id', $recid)->update(['dispatch_status' => $data]);
+            return response()->json($data);
+    }
     //Watch out for this code
-    // public function amorders(Request $request){
-    //     $query="SELECT * FROM requirements r, contractor_details c, procurement_details p, owner_details o WHERE r.project_id = c.project_id AND r.project_id = p.project_id AND r.project_id = o.project_id AND r.status = 'Order Confirmed'";
-    //     $orders = DB::table($query);
-    //     return view('ordersadmin',['orders' => $orders]);
-
-    //     // $orders = Requirement::where('status','Order Confirmed')->get();
-    //     // return view('ordersadmin',['orders' => $orders]);
-    // }
+    public function amorders(Request $request)
+    {
+        $view = Requirement::where('status','Order Confirmed')->get();
+        return view('ordersadmin',['view' => $view]);     
+    }
     public function ampricing(Request $request){
         return view('updateprice');
     }
     public function viewOrder($id, $rqid, Request $request)
     {
         $project = Requirement::where('project_id',$id)->where('id',$rqid)->first();   
-        return view('ViewOrder',['project' => $project, 'id'=>$id]);
+        return view('ViewOrder',['project' => $project, 'id' => $id]);
     }
     public function viewrec($id, $rqid, Request $request)
     {
         $project = ProjectDetails::where('project_id',$id)->first();
         $req = Requirement::where('project_id',$id)->where('id',$rqid)->first();
-        return view('ViewRecord',['project'=>$project, 'req'=>$req,'id'=>$id]);
+        return view('ViewRecord',['project'=>$project, 'req' => $req, 'id' => $id]);
     }
     public function logisticdetails($id)
     {
         $requirements = Requirement::where('project_id',$id)->where('status','Order Confirmed')->get();
-        return view('Logistics',['requirements'=>$requirements,'id'=>$id]);
+        return view('Logistics',['requirements'=>$requirements, 'id'=>$id]);
     }
     public function getRequirements($id)
     {
         $requirements = Requirement::where('project_id',$id)->get();
         $category = DB::table('category')->groupBy("category")->get();
-        return view('requirements',['requirements'=>$requirements,'id'=>$id,'category' => $category]);
+        return view('requirements',['requirements'=>$requirements, 'id'=>$id, 'category' => $category]);
     }
     public function deleteReportImage($id)
     {
@@ -368,7 +395,9 @@ class HomeController extends Controller
     {
         $assignment = WardAssignment::where('user_id',Auth::user()->id)->pluck('subward_id')->first();
         $projects = ProjectDetails::where('sub_ward_id',$assignment)->paginate(10);
-        return view('salesengineer',['projects'=>$projects]);
+        $subwards = SubWard::where('id',$assignment)->first();
+        $projects1 = ProjectDetails::where('sub_ward_id',$assignment)->get();
+        return view('salesengineer',['projects'=>$projects, 'subwards' => $subwards, 'projects1' => $projects1]);
     }
     public function getSalesTL(){
         $id = Department::where('dept_name',"Sales")->pluck('id')->first();
