@@ -17,7 +17,7 @@
 						<tr>
 							<td>{{ $user->employeeId }}</td>
 							<td>{{ $user->name }}</td>
-							<td><a href="{{ URL::to('/') }}/{{ $user->id }}/viewreports" class="btn btn-primary btn-xs">View</a></td>
+							<td><a href="{{ URL::to('/') }}/{{ $user->id }}/date" class="btn btn-primary btn-xs">View</a></td>
 						</tr>
 					@endforeach
 				</tbody>

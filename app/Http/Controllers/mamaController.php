@@ -663,7 +663,10 @@ class mamaController extends Controller
     }
     public function giveGrade($userid, $reportid, Request $request)
     {
-        loginTime::where('user_id',$userid)->where('id',$reportid)->update(['AmGrade'=>$request->grade]);
+        loginTime::where('user_id',$userid)->where('id',$reportid)->update([
+            'AmGrade'=>$request->grade,
+            'AmRemarks'=>$request->remarks
+        ]);
         return back();
     }
     public function postRegistration(Request $request)

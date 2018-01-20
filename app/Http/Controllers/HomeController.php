@@ -377,13 +377,14 @@ class HomeController extends Controller
     public function getAMReports()
     {
         $group = Group::where('group_name','Listing Engineer')->pluck('id')->first();
-        $users = User::where('group_id',$group)->paginate(10);
+        $group2 = Group::where('group_name','Sales Engineer')->pluck('id')->first();
+        $users = User::where('group_id',$group)->orwhere('group_id',$group2)->paginate(10);
         return view('reportsbyam',['users'=>$users]);
     }
-    public function getViewReports($id)
+    public function getViewReports($id,$date)
     {
         $user = User::where('id',$id)->first();
-        $logintimes = loginTime::where('user_id',$id)->orderBy('created_at','DESC')->get();
+        $logintimes = loginTime::where('user_id',$id)->where('logindate',$date)->first();
         return view('amreport',['logintimes'=>$logintimes,'user'=>$user]);
     }
     public function regReq()
@@ -391,5 +392,37 @@ class HomeController extends Controller
         $requests = User::where('department_id', 100)->where('confirmation',0)->orderBy('created_at','DESC')->get();
         $reqcount = count($requests);
         return view('regreq',['requests'=>$requests,'reqcount'=>$reqcount]);
+    } 
+    public function amreportdates($uid){
+        $dates = loginTime::where('user_id',$uid)->pluck('logindate');
+        return view('choosedates',['dates'=>$dates,'uid'=>$uid]);
+    }
+
+    // sid
+    public function confirmstatus($id, Request $request)
+    {
+        $var2 = $request->only('opt');
+        $var = ProjectDetails::where('project_id',$var2['opt'])->update(['status' => "Ready"]);
+        return response()->json($var);
+    }
+    public function confirmthis($id, Request $request)
+    {
+        $var = $request->only('opt');
+        $var2 = ProjectDetails::where('project_id',$id)->update(['with_cont' => $var['opt']]);
+        return response()->json($var2);
+    }
+    public function updatestatus($id, Request $request)
+    {
+        $view = $request->only('opt');
+        $view = $view['opt'];
+        ProjectDetails::where('project_id', $id)->update(['status' => $view]);
+        return response()->json($view);
+    }
+    public function updatelocation($id, Request $request)
+    {
+        $view = $request->only('newtext');
+        $view = $view['newtext'];
+        ProjectDetails::where('project_id', $id)->update(['location' => $view]);
+        return response()->json($view);
     } 
 }
