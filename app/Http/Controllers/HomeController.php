@@ -309,7 +309,8 @@ class HomeController extends Controller
         return view('printLPO', ['datarec' => $datarec]);
     }
     public function ampricing(Request $request){
-        return view('updateprice');
+        $data = Requirement::get();
+        return view('updateprice',['data' => $data]);
     }
     public function viewOrder($id, $rqid, Request $request)
     {

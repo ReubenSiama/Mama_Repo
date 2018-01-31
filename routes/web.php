@@ -65,7 +65,6 @@ Route::group(['middleware' => ['admin']],function(){
 	Route::get('/ampricing','HomeController@ampricing');
 	Route::get('/amorders','HomeController@amorders');
 	Route::get('/{id}/printLPO','HomeController@printLPO');
-
 	Route::get('/{id}/viewreports','HomeController@getViewReports');
 	Route::post('/{uid}/{rid}/giveGrade','mamaController@giveGrade');
 });
@@ -104,8 +103,7 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/reports','HomeController@getMyReports');
 	Route::get('/completed','HomeController@updateAssignment');
 	
-	//These lines by Sid
-	
+	//These lines by Sid	
 	Route::get('/{id}/{recid}/viewlog','HomeController@viewlog');
 	Route::get('/{id}/confirmdelivery','HomeController@confirmDelivery');
 	Route::get('/{id}/logisticdetails','HomeController@logisticdetails');
@@ -114,8 +112,6 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 	Route::get('/{road}/logisticsRequirement','HomeController@logisticsRequirement');
 	Route::get('/subcat','HomeController@subcat');
 	Route::get('/subcatsup','HomeController@subcatsup');
-	
-
 
 	Route::get('/{id}/requirements','HomeController@getRequirements');
 	Route::get('/requirementsroads','HomeController@getRequirementRoads');
@@ -139,7 +135,7 @@ Route::group(['middleware' => ['listingEngineer']],function(){
 });
 
 // Sales TL
-Route::group(['middleware' => ['salesTL']],function(){
+Route::group(['middleware' => ['salesTL']], function(){
 	Route::get('/salesTL','HomeController@getSalesTL');
 	Route::post('/{id}/assignWards','mamaController@assignWards');
 	Route::get('/{id}/confirmstatus','HomeController@confirmstatus');

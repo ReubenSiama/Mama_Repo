@@ -2,8 +2,7 @@
 @section('content')
 		<div class="col-md-12">
 			<div class="panel panel-default" style="overflow: scroll;">
-				<div class="panel-heading">Project List</div>
-				
+				<div class="panel-heading">Project List</div>	
 				<div class="panel-body">
 					<table class="table table-hover table-striped">
 						<thead>
@@ -221,7 +220,15 @@
 
 		function updatemat(arg)
 		{
+			var x = confirm('Do You Want To Save Changes ?');
+			if(x)
+			{
 
+			}
+			else
+			{
+
+			}
 		}
 	</script>
 
